@@ -12,23 +12,30 @@ require(tidyverse)
 require(tidyr)
 
 random_simulations_1 <- tibble(rnorm(100000)) %>%
-  gather %>% rename(distribution = key, observed = value)
+  gather %>% 
+  rename(distribution = key, observed = value)
 
 random_simulations_2 <- tibble(rnorm(1000)) %>%
-  gather %>% rename(distribution = key, observed = value) %>% bind_rows(random_simulations_1)
+  gather %>% 
+  rename(distribution = key, observed = value) %>% 
+  bind_rows(random_simulations_1)
 
 random_simulations <- tibble(rnorm(10)#, rnorm(100)  
                              #runif(100)#,  
                              #rhyper(100, 100, 50, 10), 
                              #rbinom(100, 10, .5)
                              ) %>%
-  gather %>% rename(distribution = key, observed = value) %>% bind_rows(random_simulations_2)
+  gather %>% 
+  rename(distribution = key, observed = value) %>% 
+  bind_rows(random_simulations_2)
 
 # note we've repeated three times, time for a function
 # also note there are other distributions to try this on
-# and really, it may ne nice to simulate a few pulls of the same size
+# and really, it may ne nice to simulate a few pulls of 
+#  the same size
 
-ggplot(random_simulations, aes(observed, fill = as.factor(distribution))) +
+ggplot(random_simulations, aes(observed, 
+    fill = as.factor(distribution))) +
   geom_density(alpha = 0.2) + labs(title = "Simulate N(0,1)")
 
 ```
