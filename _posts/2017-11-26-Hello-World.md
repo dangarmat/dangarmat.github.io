@@ -7,7 +7,7 @@ tags: R
 
 This is a first post to see if this works. This simulated Normal(0,1) different times and shows how smaller samples can vary quite a bit more from the true distribution than large samples. This shows where I'd like to go with this too - adding a function that can call this. It's not a fascinating picture, although there is a deep mystery in there, or several. Can we know the truth? Isn't everything we know based on a sample? Is everything we beleive subject to future information?
 
-```R
+```r
 require(tidyverse)
 require(tidyr)
 
