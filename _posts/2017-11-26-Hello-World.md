@@ -32,3 +32,4 @@ ggplot(random_simulations, aes(observed, fill = as.factor(distribution))) +
   geom_density(alpha = 0.2) + labs(title = "Simulate N(0,1)")
 
 ```
+![random simulations output](/images/normal01simulation.png "random simulations output")
