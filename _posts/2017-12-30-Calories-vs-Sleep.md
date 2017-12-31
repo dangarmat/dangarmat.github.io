@@ -9,11 +9,13 @@ tags: [R, fitbit]
 
 I wanted to know if days I'm running on less sleep, I eat more to make up for it. Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In the process found a possible lever I could use, though.
 
+### Getting data
+
 Fitbit data currently can be [downloaded from one's user account](https://www.fitbit.com/export/user/data). This is limited to daily level data, and downloads of a month at a time. I reccomend the .xls format for easier processing in R.
 
 ![fitbit's download site](/images/fitbit01.png "fitbit's download site")
 
-These download as the date of export so I renamed them to each month
+These download named as the date of export so I renamed them to each month
 
 ![fitbit's downloaded data](/images/fitbit02.png "fitbit's downloaded data")
 
@@ -37,7 +39,9 @@ Once these suckers are loaded, I can explore December, my most recent month. Not
 
 Wow! I've really gone on a diet in late December! My self-discpline is awesome! 
 
-Oh, wait... I see some zeros. And I know I wasn't fasting all of those days. In fact, I happen to know I just didn't record calories some days and usually those non-record days are above average calorie days, if anything. So I can't just impute with December's median or mean - I'd bet 2500 is a fair guess. That might be a charitable gift to myself around Christmas given how many calories I bet I actually consumed... In fact the day below 1000 calories is also probably fair to set at 2500 too. So let's fix those and replot.
+Oh, wait... I see some zeros. And I know I wasn't fasting all of those days. In fact, I happen to know I just didn't record calories some days and usually those non-record days are above average calorie days, if anything. So I can't just impute with December's median or mean - I'd bet 2500 is a fair guess. That might be a charitable gift to myself around Christmas given how many calories I bet I actually consumed... 
+
+In fact the day below 1000 calories is also probably fair to set at 2500 too. So let's fix those and replot.
 
 ![Dec C v. D 2](/images/fitbit04.png "Dec C v. D 2")
 
@@ -91,9 +95,6 @@ In fact it so happens this evening I'm at 2284 right now.
 ### So what is happening on these days I eat above the median?
 Original theory goes sleep is a big factor, that a low sleep day is a high calorie day. Let's see.
 
-![Jun-Dec C v. D](/images/fitbit13b.png "Jun-Dec C v. D")
-
-
 I know there are some zeros for amount of sleep as well. How many? 
 
 ![Jun-Dec C v. D](/images/fitbit14.PNG "Jun-Dec C v. D")
@@ -101,7 +102,7 @@ I know there are some zeros for amount of sleep as well. How many?
 Fifteen days. Honestly some of these days I did not sleep but most of them were days the watch band was broken, as it broke twice. You can tell those by the fact I "didn't sleep" multiple days in a row. Those are, 7/22 - 7/29 and 12/15-12/18.
 I think the other days could be ones I was travelling maybe and so slept sitting up and it didn't get them. And 12/30 hasn't happened yet.
 
-This tells me the december data is also circumspect, unfortunately. Let's just join everything and remove every cicumspect day.
+This tells me the december data is also circumspect, unfortunately. Let's just join everything and remove every cicumspect day as defined as less than 1200 calories and 0 hours of sleep.
 
 ```r
 foods %>% full_join(sleep_processed, by = "Date") %>%
@@ -138,40 +139,26 @@ This does assume these data are reliable, which could be problematic.
 But I'd hope to see at least something going on.
 So more sleep won't save me.
 
-There's room for further questions.
-For example, another possibility is to look at the day before,
-that is, does more food mean less sleep the next day?
-Could also consider last two days sleep vs. calories.
-Going into the details of what I ate after less sleep could also
-be interesting - maybe TF/IDF - like idea.
-May not have enough data though.
-Also sleep vs. exercise would be interesting.
-
 But my take away is the big surprise of the median calories last 6 months.
 2300 is a dang lot, and that's ignoring the 0's, which are probably 
 usually higher, so my true median is even higher.
 That's why I've gained the last six months.
 I think I need to get the median and average down.
-That is where this is good.
+That is where I see a good lever, possibly.
 The obvious approach would be to try to set some kind of limit
 like either I stop before 2300, or I have to do more exercise if 
 I pass it, or something like that.
-I wonder if it's happening more frequently or less?
+
+I wonder if above 2300 days are happening more or less frequently recently?
 
 ![Jun-Dec C v. D](/images/fitbit21.PNG "Jun-Dec C v. D")
 
-It does look like I'm (recording) going above the median more recently
+It does look like I'm (recording) going above the median more often recently
 so maybe a slight upward trend if anything.
 Makes sense with Holidays and Winter.
 
 
-Another good question would be to consider data from last summer when
-I was losing weight.
-How does it look then?
-I also wasn't working full time, so may be different then
-with sleep connection.
-
-Back to the conclusion through, I mean how many days did I record more than 2500?
+How many days did I record more than 2500?
 
 ![Jun-Dec C v. D](/images/fitbit22.PNG "Jun-Dec C v. D")
 
@@ -180,7 +167,7 @@ Nearly 1/3 of the data points I have are days I ate more than 2500.
 Wow.
 This is a number I can get.
 I can work on trying to reduce those days to two or fewer times a month.
-I just don't need that much, ever, especially when wanting to lose weight.
+I just don't need that much, ever, especially when wanting to lose weight. Basically, I have a KPI I care about. A [metric that drives as Gwendolyn Galsworth would say](https://www.meetup.com/Data-PDX/events/243570732/). That KPI is percent of days over 2500 calories. I want to get that number to 0 percent or at most 2 out of 30 days is 7 percent. Pretty cool.
 
 
 And finally, since we're looking at sleep, how does average sleep per day look?
@@ -191,12 +178,15 @@ And finally, since we're looking at sleep, how does average sleep per day look?
 Monday's the tough one.
 Saturday's the good one.
 All of these were 9, I wish.
-Or at least 8.
+Or at least 8. A future KPI I think.
 
 ### Next Steps
 
 So what makes a lower calorie day different than a higher calorie day?
-That is the regression I want to know the answer to. Feature engineering to follow...
+That is the regression I want to know the answer to. Feature engineering to follow for a future analysis.
+
+
+### R Code
 
 All code used above:
 
