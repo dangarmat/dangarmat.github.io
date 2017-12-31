@@ -95,7 +95,7 @@ We see a ton at the imputed value. It's really kind of uniform otherwise. Actual
 
 ![Jun-Dec C v. D](/images/fitbit12.png "Jun-Dec C v. D")
 
-I guess this is why I've been gaining weight the last six months, as my doctor has noted. This isn't really normally distributed but it actually is close to symmetric. Both the median and mean are close to 2300. 
+I guess this is why I've been gaining weight the last six months, as my doctor has noted. This isn't really normally distributed but it is actually close to symmetric. Both the median and mean are close to 2300. 
 
 ![Jun-Dec C v. D](/images/fitbit13.PNG "Jun-Dec C v. D")
 
@@ -200,7 +200,7 @@ Feature engineering to follow for a future analysis.
 
 
 
-## All R code used above
+## R code used above
 
 ```r
 require(tidyverse)
