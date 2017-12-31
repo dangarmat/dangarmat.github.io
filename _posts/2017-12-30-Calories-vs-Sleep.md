@@ -11,7 +11,7 @@ I wanted to know if days I'm running on less sleep, I eat more to make up for it
 
 ### Getting data
 
-Fitbit data currently can be [downloaded from one's user account](https://www.fitbit.com/export/user/data). This is limited to daily level data, and downloads of a month at a time. I reccomend the .xls format for easier processing in R.
+Fitbit data currently can be [downloaded from one's user account](https://www.fitbit.com/export/user/data). This is limited to daily level data, and downloads of a month at a time. I recommend the .xls format for easier processing in R.
 
 ![fitbit's download site](/images/fitbit01.png "fitbit's download site")
 
@@ -37,7 +37,7 @@ Once these suckers are loaded, I can explore December, my most recent month. Not
 
 ![Dec C v. D 1](/images/fitbit03.png "Dec C v. D 1")
 
-Wow! I've really gone on a diet in late December! My self-discpline is awesome! 
+Wow! I've really gone on a diet in late December! My self-discipline is awesome! 
 
 Oh, wait... I see some zeros. And I know I wasn't fasting all of those days. In fact, I happen to know I just didn't record calories some days and usually those non-record days are above average calorie days, if anything. So I can't just impute with December's median or mean - I'd bet 2500 is a fair guess. That might be a charitable gift to myself around Christmas given how many calories I bet I actually consumed... 
 
@@ -49,7 +49,7 @@ A less impressive decrease in calories. Let's take a look at a boxplot.
 
 ![Dec C v. D 3](/images/fitbit05.png "Dec C v. D 3")
 
-The median's actually kind of high (gasp!). This range looks beleiveable based on my memory of the month - I mean it's December. Let's check out a histogram
+The median's actually kind of high (gasp!). This range looks believable based on my memory of the month - I mean it's December. Let's check out a histogram
 
 ![Dec C v. D 4](/images/fitbit06.png "Dec C v. D 4")
 
@@ -100,9 +100,9 @@ I know there are some zeros for amount of sleep as well. How many?
 ![Jun-Dec C v. D](/images/fitbit14.PNG "Jun-Dec C v. D")
 
 Fifteen days. Honestly some of these days I did not sleep but most of them were days the watch band was broken, as it broke twice. You can tell those by the fact I "didn't sleep" multiple days in a row. Those are, 7/22 - 7/29 and 12/15-12/18.
-I think the other days could be ones I was travelling maybe and so slept sitting up and it didn't get them. And 12/30 hasn't happened yet.
+I think the other days could be ones I was traveling maybe and so slept sitting up and it didn't get them. And 12/30 hasn't happened yet.
 
-This tells me the december data is also circumspect, unfortunately. Let's just join everything and remove every cicumspect day as defined as less than 1200 calories and 0 hours of sleep.
+This tells me December data is also circumspect, unfortunately. Let's just join everything and remove every circumspect day as defined as less than 1200 calories and 0 hours of sleep.
 
 ```r
 foods %>% full_join(sleep_processed, by = "Date") %>%
