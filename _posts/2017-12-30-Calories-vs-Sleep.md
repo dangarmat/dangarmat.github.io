@@ -6,6 +6,7 @@ tags: [R, fitbit]
 ---
 
 ![Jun-Dec C v. D](/images/fitbit16.png "Jun-Dec C v. D")
+
 Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though.
 
 Process follows.
