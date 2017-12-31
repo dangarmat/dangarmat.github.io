@@ -7,11 +7,13 @@ tags: [R, fitbit]
 
 ![Jun-Dec C v. D](/images/fitbit16.png "Jun-Dec C v. D")
 
-I wanted to know if days I'm running on less sleep, I eat more to make up for it. Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though.
+Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though.
+
+Process follows.
 
 ### Getting data
 
-Fitbit data currently can be [downloaded from one's user account](https://www.fitbit.com/export/user/data). This is limited to daily level data and downloads of a month at a time. I recommend the .xls format for easier processing in R.
+Fitbit data currently can be [downloaded from one's user account](https://www.fitbit.com/export/user/data). This is limited to daily-level data and downloads of a month at a time. I recommend the .xls format for easier processing in R.
 
 ![fitbit's download site](/images/fitbit01.png "fitbit's download site")
 
@@ -33,13 +35,13 @@ require(purrr)
 
 ### December Data
 
-Once these suckers are loaded, I can explore December, my most recent month. Note Calories has a comma, so needs to be converted to a number. Similarly, Date needs to be converted to a date.
+Once these suckers are loaded, I can explore December, my most recent month. Note Calories has a comma, so needs to be converted to a number. Similarly, Date needs to be converted to a date. Fixing that and plotting...
 
 ![Dec C v. D 1](/images/fitbit03.png "Dec C v. D 1")
 
 Wow! I've really gone on a diet in late December! My self-discipline is awesome! 
 
-Oh, wait... I see some zeros. And I know I wasn't fasting all of those days. In fact, I happen to know I didn't record calories some days and usually those non-record days are above average calorie days, if anything. So I can't just impute with December's median or mean. I'd bet 2500 is a fair guess. That might be a charitable gift to myself around Christmas given how many calories I bet I actually consumed... 
+Oh, wait... I see some zeros. And I know I wasn't fasting all of those days. In fact, I happen to know I didn't record calories some days and usually those non-recorded days are above average calorie days, if anything. So I can't just impute with December's median or mean. I'd bet 2500 is a fair guess. That might be a charitable gift to myself around Christmas given how many calories I bet I actually consumed... 
 
 In fact the day below 1000 calories is also probably fair to set at 2500 too. So let's fix those and replot.
 
@@ -49,7 +51,7 @@ A less impressive decrease in calories. Let's take a look at a boxplot.
 
 ![Dec C v. D 3](/images/fitbit05.png "Dec C v. D 3")
 
-The median's actually kind of high (gasp!). This range looks believable based on my memory of the month - I mean it's December. Let's check out a histogram
+The median's actually kind of high (gasp!). This range looks believable based on my memory of the month - I mean it's December. Let's check out a histogram.
 
 ![Dec C v. D 4](/images/fitbit06.png "Dec C v. D 4")
 
@@ -67,7 +69,7 @@ How many zeros are there? Seem to be a lot of zeros.
 
 So we have a little problem here. Apparently in August and September I took a break from counting calories. November doesn't look that complete either. I think July, August and December we can do something with, but time series analysis is looking less and less plausible. 
 
-I'll take just those three months and impute everything 1200 calories or fewer to 2500.
+I'll take just those three more complete months and impute everything 1200 calories or fewer to 2500.
 
 
 ![Jun-Dec C v. D 3](/images/fitbit09.png "Jun-Dec C v. D 3")
@@ -114,7 +116,7 @@ foods %>% full_join(sleep_processed, by = "Date") %>%
 
 ![Jun-Dec C v. D](/images/fitbit15.png "Jun-Dec C v. D")
 
-Oh dear, a positive slope. Check out by day of week.
+Oh dear, a positive slope. Maybe something shows up if considering day of week.
 
 
 ![Jun-Dec C v. D](/images/fitbit17.png "Jun-Dec C v. D")
@@ -135,7 +137,7 @@ Look at that adjusted R-squared of 0.01! Seriously, there's no evidence for anyt
 ![Jun-Dec C v. D](/images/fitbit20.PNG "Jun-Dec C v. D")
 
 ### What have I learned?
-I'd hoped more sleep meant fewer calories.
+I'd hoped more sleep meant fewer next day calories.
 There's no good evidence for that in the last six months for me.
 This does assume these data are reliable, which could be problematic.
 But I'd hope to see at least something going on.
@@ -190,9 +192,7 @@ That is the regression I want to know the answer to. Feature engineering to foll
 
 
 
-### R Code
-
-All code used above:
+### All R Code used above
 
 ```r
 require(tidyverse)
