@@ -9,7 +9,6 @@ tags: [R, fitbit]
 
 Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though.
 
-Process follows.
 
 ### Getting data
 
@@ -136,7 +135,7 @@ Look at that adjusted R-squared of 0.01! Seriously, there's no evidence for anyt
 
 ![Jun-Dec C v. D](/images/fitbit20.PNG "Jun-Dec C v. D")
 
-### What have I learned?
+### What have I learned? And what can I do?
 I'd hoped more sleep meant fewer next day calories.
 There's no good evidence for that in the last six months for me.
 This does assume these data are reliable, which could be problematic.
@@ -172,7 +171,7 @@ Nearly 1/3 of the data points I have are days I ate more than 2500.
 Wow.
 This is a number I can get.
 I can work on trying to reduce those days to two or fewer times a month.
-I just don't need that much, ever, especially when wanting to lose weight. Basically, I have a KPI I care about. A [metric that drives as Gwendolyn Galsworth would say](https://www.meetup.com/Data-PDX/events/243570732/). That KPI is percent of days over 2500 calories. I want to get that number to 0% or at most 2 out of 30 days is 7%. Pretty cool.
+I just don't need that much, ever, especially when wanting to lose weight. Basically, I have a KPI I care about. A [metric that drives as Gwendolyn Galsworth would say](https://visualworkplace.com/gwendolyn/). That KPI is percent of days over 2500 calories. I want to get that number to 0% or at most 2 out of 30 days is 7%. Pretty cool.
 
 
 And finally, since we're looking at sleep, how does average sleep per day look?
@@ -185,7 +184,7 @@ Saturday's the good one.
 All of these were 9, I wish.
 Or at least 8. A future KPI I think.
 
-### Next Steps
+### Analysis Next Steps
 
 So what makes a lower calorie day different than a higher calorie day?
 That is the regression I want to know the answer to. 
