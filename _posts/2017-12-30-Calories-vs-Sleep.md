@@ -41,7 +41,7 @@ require(purrr)
 
 ### December data
 
-Once these suckers are loaded, I can explore December, my most recent month. Note Calories has a comma, so needs to be converted to a number. Similarly, Date needs to be converted to a date. Fixing that and plotting...
+Once these packages are loaded, I can explore December, my most recent month. Note Calories has a comma, so needs to be converted to a number. Similarly, Date needs to be converted to a date. Fixing that and plotting...
 
 ![Dec C v. D 1](/images/fitbit03.png "Dec C v. D 1")
 
