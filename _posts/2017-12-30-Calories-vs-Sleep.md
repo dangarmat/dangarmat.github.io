@@ -1,11 +1,11 @@
 ---
 layout: post
 title: No evidence hours of sleep associated with calories eaten next day (p = 0.241)
-category: R
-tags: R
+category: [R, fitbit]
+tags: [R, fitbit]
 ---
 
-I wanted to know if days I'm running on less sleep, I eat more to make up for it. Fortunately I have FitBit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day. A lot of asumptions were made to get there, but nothing was emerging so I don't think I'll check if the assumptions caused the result.
+I wanted to know if days I'm running on less sleep, I eat more to make up for it. Fortunately I have FitBit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day. In the process found a possible lever I could use.
 
 Fitbit data currently can be downloaded from [one's user account](https://www.fitbit.com/export/user/data). This is limited to daily level data, and downloads of a month at a time. I reccomend the .xls format for easier processing in R.
 ![fitbit's download site](/images/fitbit01.png "fitbit's download site")
