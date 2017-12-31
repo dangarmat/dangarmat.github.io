@@ -13,7 +13,7 @@ Last few months I've gained some weight so I'm curious if Analytics can give ins
 
 ### Bottom line up front
 
-Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though. If I can make my recent *median* calories my future *maximum* goal, I can monitor an interesting personal KPI: percent of days calories are above this previous median. Hopefully less than 50%!
+Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241 after filtering missing data, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though. If I can make my recent *median* calories my future *maximum* goal, I can monitor an interesting personal KPI: percent of days calories are above this previous median. Hopefully less than 50%!
 
 ## Analysis
 
@@ -68,7 +68,7 @@ To reduce keystrokes, can use `map` from `purrr` library to get them all into on
 
 ![Jun-Dec C v. D 1](/images/fitbit07.png "Jun-Dec C v. D 1")
 
-How many zeros are there? Seem to be a lot of zeros. 
+Seem to be a lot of zeros. How many zeros are there? 
 
 
 ![Jun-Dec C v. D 2](/images/fitbit08.PNG "Jun-Dec C v. D 2")
