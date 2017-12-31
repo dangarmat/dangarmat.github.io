@@ -9,11 +9,11 @@ tags: [R, fitbit]
 
 ## Introduction
 
-Last few months I've gained some weight so I'm curious if Analytics can give insight and show opportunities to get my BMI to normal weight. As a first step, an inquiry into a hypothesis about calories vs. sleep...
+Last few months I've gained some weight so I'm curious if Analytics can give insight and show opportunities to get my BMI to normal weight. As a first step, an inquiry into a hypothesis about calories vs. sleep.
 
 ### Bottom line up front
 
-Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though. If I can make my recent *median* calories my future *maximum* goal, I can monitor an interesting personal KPI: number of days calories are above this previous median.
+Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though. If I can make my recent *median* calories my future *maximum* goal, I can monitor an interesting personal KPI: percent of days calories are above this previous median. Hopefully less than .5
 
 ## Analysis
 
