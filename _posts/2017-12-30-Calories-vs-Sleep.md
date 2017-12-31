@@ -57,7 +57,7 @@ The median's actually kind of high (gasp!). This range looks believable based on
 
 This actually doesn't look too normally distributed.
 
-### Let's pull in all six months now
+### Pulling in all six months
 To reduce keystrokes, can use `map` from `purrr` library to get them all into one data object.
 
 ![Jun-Dec C v. D 1](/images/fitbit07.png "Jun-Dec C v. D 1")
@@ -69,7 +69,7 @@ How many zeros are there? Seem to be a lot of zeros.
 
 So we have a little problem here. Apparently in August and September I took a break from counting calories. November doesn't look that complete either. I think July, August and December we can do something with, but time series analysis is looking less and less plausible. 
 
-I'll take just those three more complete months and impute everything 1200 calories or fewer to 2500.
+I'll take those three more complete months and impute everything 1200 calories or fewer to 2500.
 
 
 ![Jun-Dec C v. D 3](/images/fitbit09.png "Jun-Dec C v. D 3")
@@ -96,15 +96,15 @@ I guess this is why I've been gaining weight the last six months, as my doctor h
 In fact it so happens this evening I'm at 2284 right now.
 
 
-### So what is happening on these days I eat above the median?
+### So what is happening on these days above the median?
 Original theory goes sleep is a big factor, that a low sleep day is a high calorie day. Let's see.
 
 I know there are some zeros for amount of sleep as well. How many? Using anti-join...
 
 ![Jun-Dec C v. D](/images/fitbit14.PNG "Jun-Dec C v. D")
 
-Fifteen days. Honestly some of these days I did not sleep but most of them were days the watch band was broken, as it broke twice. You can tell those by the fact I "didn't sleep" multiple days in a row. Those are, 7/22 - 7/29 and 12/15-12/18.
-I think the other days could be ones I was traveling maybe and so slept sitting up and fitbit didn't record them. And 12/30 hasn't happened yet. 
+Fifteen days. Actually most days here the watch band was broken, as it broke twice. You can tell those by the fact I "didn't sleep" multiple days in a row. Those are, 7/22 - 7/29 and 12/15-12/18.
+The other days could be ones I was traveling and so slept sitting up and fitbit didn't record sleep. And 12/30 hasn't happened yet. 
 
 This tells me December data is also circumspect, unfortunately. Let's just join everything and remove every circumspect day as defined as less than 1200 calories and 0 hours of sleep.
 
