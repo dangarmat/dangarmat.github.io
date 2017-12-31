@@ -7,8 +7,15 @@ tags: [R, fitbit]
 
 ![Jun-Dec C v. D](/images/fitbit16.png "Jun-Dec C v. D")
 
-Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though.
+## Introduction
 
+Last few months I've gained some weight so I'm curious if Analytics can give insight and show opportunities to get my BMI to normal weight. As a first step, an inquiry into a hypothesis about calories vs. sleep...
+
+### Bottom line up front
+
+Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though. If I can make my recent *median* calories my future *maximum* goal, I can monitor an interesting personal KPI: number of days calories are above this previous median.
+
+## Analysis
 
 ### Getting data
 
@@ -32,7 +39,7 @@ require(stringr)
 require(purrr)
 ```
 
-### December Data
+### December data
 
 Once these suckers are loaded, I can explore December, my most recent month. Note Calories has a comma, so needs to be converted to a number. Similarly, Date needs to be converted to a date. Fixing that and plotting...
 
@@ -184,7 +191,7 @@ Saturday's the good one.
 All of these were 9, I wish.
 Or at least 8. A future KPI I think.
 
-### Analysis Next Steps
+### Analysis next steps
 
 So what makes a lower calorie day different than a higher calorie day?
 That is the regression I want to know the answer to. 
@@ -193,7 +200,7 @@ Feature engineering to follow for a future analysis.
 
 
 
-### All R Code used above
+## All R code used above
 
 ```r
 require(tidyverse)
