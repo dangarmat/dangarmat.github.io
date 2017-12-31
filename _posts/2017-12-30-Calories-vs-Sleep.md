@@ -188,7 +188,9 @@ Or at least 8. A future KPI I think.
 ### Next Steps
 
 So what makes a lower calorie day different than a higher calorie day?
-That is the regression I want to know the answer to. Feature engineering to follow for a future analysis.
+That is the regression I want to know the answer to. 
+
+Feature engineering to follow for a future analysis.
 
 
 
