@@ -13,7 +13,7 @@ Last few months I've gained some weight so I'm curious if Analytics can give ins
 
 ### Bottom line up front
 
-Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241 after filtering missing data, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though. If I can make my recent *median* calories my future *maximum* goal, I can monitor an interesting personal KPI: percent of days calories are above this previous median. Hopefully less than 50%!
+Days I'm running on less sleep do I eat more to make up for it? Fortunately I have Fitbit data. Bottom line up front: I found no association between hours of sleep the night before and calories recorded the next day (p = 0.241 after filtering missing data, and see how a horizontal line would fit within the error ribbon above). In this process I found a possible lever I could use, though. If I can make 2500 calories my future maximum goal, I can monitor an interesting personal KPI: percent of days calories are above 2500. I hope less than 2 a month.
 
 ## Analysis
 
@@ -112,7 +112,7 @@ I know there are some zeros for amount of sleep as well. How many? Using anti-jo
 Fifteen days. Actually most days here the watch band was broken, as it broke twice. You can tell those by the fact I "didn't sleep" multiple days in a row. Those are, 7/22 - 7/29 and 12/15-12/18.
 The other days could be ones I was traveling and so slept sitting up and fitbit didn't record sleep. And 12/30 hasn't happened yet. 
 
-This tells me December data is also circumspect, unfortunately. Let's just join everything and remove every circumspect day as defined as less than 1200 calories and 0 hours of sleep.
+This tells me December data is also suspect, unfortunately. Let's just join everything and remove every suspect day as defined as less than 1200 calories and 0 hours of sleep.
 
 ```r
 foods %>% full_join(sleep_processed, by = "Date") %>%
