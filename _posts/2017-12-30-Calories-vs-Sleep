@@ -112,3 +112,52 @@ ggplot(foods, aes(x = Date, y = `Calories In`)) +
   theme_fivethirtyeight() +
   labs(title = "Calories vs. Date")
 ```
+![Jun-Dec C v. D 1](/images/fitbit07.png "Jun-Dec C v. D 1")
+How many zeros are there? Seem to be a lot of zeros. 
+
+```r
+foods %>% 
+  mutate(data_month = month(Date, label = TRUE)) %>%
+  group_by(data_month) %>%
+  summarize(zero_days = sum(`Calories In` == 0))
+```
+![Jun-Dec C v. D 2](/images/fitbit08.png "Jun-Dec C v. D 2")
+So we have a little problem here. Apparently in August and September I took a break from counting calories. November doesn't look that complete either. I think July, August and December we can do something with, but time series analysis is looking less plausible. I'll take just those three months and impute everything 1200 calories or fewer to 2500.
+
+```r
+foods %>% 
+  mutate(data_month = month(Date, label = TRUE)) %>% 
+  filter(data_month %in% c("Jul", "Oct", "Dec")) ->
+  foods_full_months
+
+assumed_calories_on_blank_days <- 2500
+foods_full_months$`Calories In`[foods_full_months$`Calories In` <= 1000] <- 
+  assumed_calories_on_blank_days
+
+# replot
+ggplot(foods_full_months, aes(x = Date, y = `Calories In`)) +
+  geom_point() +
+  geom_smooth() +
+  theme_fivethirtyeight() +
+  labs(title = "Calories vs. Date With Imputed Zeros")
+```
+![Jun-Dec C v. D 3](/images/fitbit09.png "Jun-Dec C v. D 3")
+Sigh, less impressive a decrease in calories. Let's see the boxplot to get a sense of distribution.
+
+```r
+ggplot(foods_full_months, aes(x = 1, y = `Calories In`)) +
+  geom_boxplot() +
+  theme_fivethirtyeight() +
+  labs(title = "Calories With Imputed Zeros") +
+  coord_flip()
+```
+![Jun-Dec C v. D 4](/images/fitbit10.png "Jun-Dec C v. D 4")
+Quite a bit of bunching near 2500, the imputed value on my missing days. Histogram...
+
+
+
+
+
+
+
+
