@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Does less sleep result in more calories eaten?
+title: Does less sleep today lead to more calories tomorrow?
 category: [R, fitbit]
 tags: [R, fitbit]
 ---
@@ -172,7 +172,7 @@ Nearly 1/3 of the data points I have are days I ate more than 2500.
 Wow.
 This is a number I can get.
 I can work on trying to reduce those days to two or fewer times a month.
-I just don't need that much, ever, especially when wanting to lose weight. Basically, I have a KPI I care about. A [metric that drives as Gwendolyn Galsworth would say](https://www.meetup.com/Data-PDX/events/243570732/). That KPI is percent of days over 2500 calories. I want to get that number to 0 percent or at most 2 out of 30 days is 7 percent. Pretty cool.
+I just don't need that much, ever, especially when wanting to lose weight. Basically, I have a KPI I care about. A [metric that drives as Gwendolyn Galsworth would say](https://www.meetup.com/Data-PDX/events/243570732/). That KPI is percent of days over 2500 calories. I want to get that number to 0% or at most 2 out of 30 days is 7%. Pretty cool.
 
 
 And finally, since we're looking at sleep, how does average sleep per day look?
