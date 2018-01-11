@@ -9,7 +9,7 @@ tags: [R, fitbit]
 
 ## Introduction
 
-Last few months I've gained some weight so I'm curious if Analytics can give insight and show opportunities to get my BMI to normal weight. As a first step, an inquiry into a hypothesis about calories vs. sleep.
+Last few months I've gained some weight so I'm curious if analytics can give insight and show opportunities to get my BMI to normal weight. As a first step, an inquiry into a hypothesis about calories vs. sleep.
 
 ### Bottom line up front
 
@@ -212,7 +212,7 @@ require(purrr)
 
 
 December_foods <- read_excel(
-  path = "C:/Users/Dan/Documents/R/FitBit/fitbit_export_201712.xls",
+  path = "fitbit_export_201712.xls",
   sheet = "Foods")
 
 # doesn't see Calories as a number
@@ -256,7 +256,7 @@ ggplot(December_foods, aes(x = `Calories In`)) +
 
 ### Let's pull in all six months now
 7:12 %>% as.character() %>% str_pad(2, pad = "0") -> data_months
-files_to_load <- paste0("C:/Users/Dan/Documents/R/FitBit/fitbit_export_2017" 
+files_to_load <- paste0("fitbit_export_2017" 
                         , data_months, ".xls")
 glimpse(files_to_load)
 
