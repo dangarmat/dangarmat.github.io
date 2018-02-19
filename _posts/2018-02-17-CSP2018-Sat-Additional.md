@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASA Conference on Statistical Practice 2018, Saturday 1 of 4, 
+title: ASA Conference on Statistical Practice 2018, Saturday 4 of 4, Additional Sessions I Wish I'd Attended
 category: [R, ASA, CSP2018]
 tags: [R, ASA, CSP2018]
 ---
