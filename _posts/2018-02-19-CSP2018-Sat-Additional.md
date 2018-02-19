@@ -23,4 +23,43 @@ Posts by time period:
 * [2:00 PM Deploying Quantitative Models as 'Visuals' in Popular Data Visualization Platforms](2018-02-18-CSP2018-Sat-2pm.md)
 * **Additional Sessions I Wish I'd Attended**
 
+Several of these are posters. 
+
+### 	Developing a Comprehensive Personal Plan for Teleworking (Working Remotely) *Julia Lull, Janssen Research & Development, LLC*
+
+
+### Combining Historical Data and Propensity Score Methods in Observational Studies to Improve Internal Validity *Miguel Marino, Oregon Health & Science University*
+
+### 	Limitations of Propensity Score Methods: Demonstration Using a Real-World Example *Gregory B. Tallman, Oregon State University/Oregon Health & Science University*
+
+### Appropriate Dimension Reduction for Sparse, High-Dimensional Data Using Intensity Plots and Other Visualizations *Eugenie Jackson, West Virginia University*
+
+### 	Evaluating Model Fit for Predictive Validity *Katherine M. Wright, Northwestern University*
+
+### 	Approachable, Interpretable Tools for Mining and Summarizing Large Text Corpora in R *Luke W. Miratrix, Harvard University*
+
+### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *Matthew Keith Eblen, Centers for Disease Control and Prevention*
+
+### 	Exploratory Data Structure Comparisons by Use of Principal Component Analysis *Anne Helby Petersen, Biostatistics, University of Copenhagen*
+
+Couldn't get in the door for this one it was so packed!
+
+### Tools for Exploratory Data Analysis *Wendy L. Martinez, U.S. Bureau of Labor Statistics*
+
+### How to Give a Really Awful Presentation *Paul Teetor, William Blair & Co*
+
+I arrived at the end of this session to attend the next one in the room, and the room was laughing and very engaged. 
+
+### CANCELED: A Streamlined Process for Conducting a Propensity Score-Based Analysis *John A. Craycroft, University of Louisville*
+
+Weather cancelled the presenter's flight. Wonder if this presentation is available. 
+
+### 	The Life-Cycle of a Project: Visualizing Data from Start to Finish *View Presentation View Presentation Nola du Toit, NORC at the University of Chicago*
+
+### What Does It Take for an Organization to Make Difficult Information-Based Decisions? Using the Oregon Department of Forestry’s RipStream Project as a Case Study *Jeremy Groom, Groom Analytics*
+
+Heard this session did a good job of taking advantage of the fact people were gathered there. 
+
+### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
+
 
