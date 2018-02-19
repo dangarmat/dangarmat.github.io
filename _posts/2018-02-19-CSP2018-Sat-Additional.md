@@ -36,6 +36,8 @@ Several of these are posters.
 
 ### 	Evaluating Model Fit for Predictive Validity *Katherine M. Wright, Northwestern University*
 
+### 	Developing and Delegating: Two Key Strategies to Master as a Technical Leader *Diahanna L. Post, Nielsen, Columbia University*
+
 ### 	Approachable, Interpretable Tools for Mining and Summarizing Large Text Corpora in R *Luke W. Miratrix, Harvard University*
 
 ### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *Matthew Keith Eblen, Centers for Disease Control and Prevention*
@@ -61,5 +63,22 @@ Weather cancelled the presenter's flight. Wonder if this presentation is availab
 Heard this session did a good job of taking advantage of the fact people were gathered there. 
 
 ### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
+
+## Saturday
+
+### 	3 Sixteen Personalities at Work *Katherine Eleanor Tranbarger Freier, Intel Corporation*
+
+### 	5 Comparisons of Propensity Score Analysis for Analyzing Rare Binary Outcome *Jihye Park, Stony Brook University*
+
+### 	14 Animated Data Visualization with Plotly: Useful Tool for Health Care Quality Improvement *Eric A. Tesdahl, SpecialtyCare, Inc.*
+
+### 	15 Using Accessible Patient Data to Individualize Sample Timing for Pharmacokinetic Studies *Matthew Stephen Shotwell, Vanderbilt University Medical Center*
+
+### 	Business Intelligence (BI) Reporting Solution: From Source to Nuts *Andrew Piskorowski, Survey Research Center, University of Michigan*
+
+### How to Communicate Statistics, and How Statisticians Should Communicate *Achim Guettner, Novartis Pharma*
+
+### Firehose Data Science: Real-Time Analytics of Twitter Feeds *David Corliss, Ford Motor Company*
+
 
 
