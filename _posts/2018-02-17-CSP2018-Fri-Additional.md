@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASA Conference on Statistical Practice 2018, Saturday 4 of 4, Additional Sessions I Wish I'd Attended
+title: ASA Conference on Statistical Practice 2018, Friday 5 of 5, Posters and Additional Sessions I Wish I'd Attended
 category: [R, ASA, CSP2018]
 tags: [R, ASA, CSP2018]
 ---
@@ -82,5 +82,5 @@ Heard this session did a good job of taking advantage of the fact people were ga
 
 
 
-
+up next: [9:15 AM Poster Session 3 / Survival Analysis v. 'Survival' Analysis](2018-02-17-CSP2018-Sat-915am.md)
 
