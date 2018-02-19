@@ -12,17 +12,17 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 Posts by time period:
 
 **Friday 2/16/2018**
-* [8:00 AM Keynote Address & 9:15 AM Working with Messy Data](2018-02-16-CSP2018-Fri-8am.md)
-* [11:00 AM Streamlining Your Work Using (Shiny) Apps](2018-02-17-CSP2018-Fri-11am.md)
-* [2:00 PM Data Mining Algorithms / Presenting and Storytelling](2018-02-17-CSP2018-Fri-2pm.md)
-* [3:45 PM Working with Health Care Data](2018-02-17-CSP2018-Fri-345pm.md)
+* [8:00 AM Keynote Address & 9:15 AM Working with Messy Data](https://dgarmat.github.io/CSP2018-Fri-8am/)
+* [11:00 AM Streamlining Your Work Using (Shiny) Apps](https://dgarmat.github.io/CSP2018-Fri-11am/)
+* [2:00 PM Data Mining Algorithms / Presenting and Storytelling](https://dgarmat.github.io/CSP2018-Fri-2pm/)
+* [3:45 PM Working with Health Care Data](https://dgarmat.github.io/CSP2018-Fri-345pm/)
 * **Posters and Additional Sessions I Wish I'd Attended**
 
 **Saturday 2/17/2018**
-* [9:15 AM Poster Session 3 / Survival Analysis v. 'Survival' Analysis](2018-02-17-CSP2018-Sat-915am.md)
-* [11:00 AM Causal Inference](2018-02-18-CSP2018-Sat-11am.md)
-* [2:00 PM Deploying Quantitative Models as 'Visuals' in Popular Data Visualization Platforms](2018-02-18-CSP2018-Sat-2pm.md)
-* [Additional Sessions I Wish I'd Attended](2018-02-19-CSP2018-Sat-Additional.md)
+* [9:15 AM Poster Session 3 / Survival Analysis v. 'Survival' Analysis](https://dgarmat.github.io/CSP2018-Sat-915am/)
+* [11:00 AM Causal Inference](https://dgarmat.github.io/CSP2018-Sat-11am/)
+* [2:00 PM Deploying Quantitative Models as 'Visuals' in Popular Data Visualization Platforms](https://dgarmat.github.io/CSP2018-Sat-2pm/)
+* [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Sat-Additional/)
 
 ## 5:00 PM Poster Sessions
 
@@ -82,5 +82,5 @@ Heard this session did a good job of taking advantage of the fact people were ga
 
 
 
-up next: [9:15 AM Poster Session 3 / Survival Analysis v. 'Survival' Analysis](2018-02-17-CSP2018-Sat-915am.md)
+up next: [9:15 AM Poster Session 3 / Survival Analysis v. 'Survival' Analysis](https://dgarmat.github.io/CSP2018-Sat-915am/)
 
