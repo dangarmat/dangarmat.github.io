@@ -7,9 +7,8 @@ tags: [R, ASA, CSP2018]
 
 ![CSP Conf Logo](/images/csp2018.png "Conference Logo")
 
-Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meetings/csp/2018/index.cfm) sessions. 
+Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meetings/csp/2018/index.cfm). 
 
-Posts by time period:
 
 **Friday 2/16/2018**
 * [8:00 AM Keynote Address & 9:15 AM Working with Messy Data](https://dgarmat.github.io/CSP2018-Fri-8am/)
