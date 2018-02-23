@@ -100,9 +100,15 @@ Weather cancelled the presenter's flight. Wonder if this presentation is availab
 
 ### 	The Life-Cycle of a Project: Visualizing Data from Start to Finish *View Presentation View Presentation Nola du Toit, NORC at the University of Chicago*
 
-### What Does It Take for an Organization to Make Difficult Information-Based Decisions? Using the Oregon Department of Forestry’s RipStream Project as a Case Study *Jeremy Groom, Groom Analytics*
+### What Does It Take for an Organization to Make Difficult Information-Based Decisions? Using the Oregon Department of Forestry’s RipStream Project as a Case Study *[Jeremy Groom](http://www.groomanalytics.com/who-we-are.html), Groom Analytics*
 
-Heard this session did a good job of taking advantage of the fact people were gathered there. 
+Problem: if data suggests a course of action vested interests don't want to take, how can it still be taken?
+
+Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling the situations sounds nuanced and he shares a lot of lessons learned. I like this simple layout of costs and benefits of action and no action - takes some of the emotion out of it and lays all cards on the table.
+
+![cost benefit](/images/decision01.png "making a tough decision based on data")
+
+
 
 ### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
 
