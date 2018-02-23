@@ -29,7 +29,22 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 
 Problem: if data suggests a course of action vested interests don't want to take, how can it still be taken?
 
-Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling these situations sounds nuanced and he shares a lot of lessons learned from this work. 
+Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling these situations sounds nuanced and he shares a lot of lessons learned from this work. I especially like his advice for working with stakeholders: 
+* Individuals matter
+* Hold your friends close, stakeholders closer
+* Frequent communication + Transparency + fairness = trust
+* Getting feedback before analyses may increase buy-in
+* Setting groundwork for next project
+
+Some other nuggets/useful reminders to me anyway:
+* Small successes help with morale
+* Shield tech staff from politics 
+* Courage to have difficult conversations
+* Provide room to fail, suspend disbelief
+* Own the findings
+* Retain dedicated staff
+* Decision-makers want decision space (Bite-sized decisions)
+
 
 I like this simple layout of costs and benefits of action and no action - takes some of the emotion out of it and lays all cards on the table.
 
