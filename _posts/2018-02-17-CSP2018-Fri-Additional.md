@@ -34,7 +34,23 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 
 ### 17 Using SAS Programming to Create Complex Paneled Graphs from Electronic Health Records *Carrie Tillotson, OCHIN, Inc.*
 
+Problem: a new electronic tool is being implemented - can the changes in key variables before and after be measured and displayed in a visually meaningful way?
+
+They implemented an insurance tool in their electronic health records and tracked changes in an important response over time (maybe count of Medicare billings?) at different facilities. They were able to show these plots to staff at the facilities to give insight how practices had or had not changed since tool implementation.
+
+![Sas plot 01](images/sasplot01.png "SAS Plot 01")
+
 ### 18 An Algorithm to Identify Family Linkages Using Electronic Health Record Data *Megan Hoopes, OCHIN, Inc.*
+
+Problem: Health factors highly correllate among family members but explicit family links are often missing from medical records. Is there a reproducable way to impute links between family members in EHRs?
+
+Their strategy to find family links included identifying key fields such as address, home phone, insunce carrier, and fuzzy matching on mother emergency contact phone number, and cases to exclude such as when it looks like there are two adult females in the household so the biological mother is less clear. and then compare this to a "gold standard" data set. In the end, in a pediatric dataset they linked 382,000 mother-child relationships, of which only 44% were explicitly stated in the EHR.
+
+Some caveats: has high precision but low sensitivity - that is the matches it makes tend to be true, but the number of matches caught is low. Also, this method really is limited to household units not genetic relationships.
+
+This plot shows accuracy of linkage is higher with younger children, and children who go to the doctor more often.
+
+![household linkages](images/householdlink01.png "accuracy of linkages")
 
 ## Sessions and Posters I wish I'd Attended
 
