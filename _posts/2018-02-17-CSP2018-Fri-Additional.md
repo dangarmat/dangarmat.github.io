@@ -22,6 +22,62 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 * [2:00 PM Deploying Quantitative Models as 'Visuals' in Popular Data Visualization Platforms](https://dgarmat.github.io/CSP2018-Sat-2pm/)
 * [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Sat-Additional/)
 
+
+## Sessions I wish I'd Attended, Slides Reviewed in Retrospect
+
+### What Does It Take for an Organization to Make Difficult Information-Based Decisions? Using the Oregon Department of Forestry’s RipStream Project as a Case Study *[Jeremy Groom](http://www.groomanalytics.com/who-we-are.html), Groom Analytics*
+
+Problem: if data suggests a course of action vested interests don't want to take, how can it still be taken?
+
+Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling these situations sounds nuanced and he shares a lot of lessons learned from this work. 
+
+I like this simple layout of costs and benefits of action and no action - takes some of the emotion out of it and lays all cards on the table.
+
+![cost benefit](/images/decision01.png "making a tough decision based on data")
+
+### 	Developing and Delegating: Two Key Strategies to Master as a Technical Leader *Diahanna L. Post, Nielsen, Columbia University*
+
+### 	Approachable, Interpretable Tools for Mining and Summarizing Large Text Corpora in R *Luke W. Miratrix, Harvard University*
+
+### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *Matthew Keith Eblen, Centers for Disease Control and Prevention*
+
+### 	Exploratory Data Structure Comparisons by Use of Principal Component Analysis *Anne Helby Petersen, Biostatistics, University of Copenhagen*
+
+Couldn't get in the door for this one it was so packed!
+
+### Tools for Exploratory Data Analysis *Wendy L. Martinez, U.S. Bureau of Labor Statistics*
+
+### How to Give a Really Awful Presentation *Paul Teetor, William Blair & Co*
+
+I arrived at the end of this session to attend the next one in the room, and the room was laughing and very engaged. 
+
+### CANCELED: A Streamlined Process for Conducting a Propensity Score-Based Analysis *John A. Craycroft, University of Louisville*
+
+Weather cancelled the presenter's flight. Wonder if this presentation is available. 
+
+### 	The Life-Cycle of a Project: Visualizing Data from Start to Finish *View Presentation View Presentation Nola du Toit, NORC at the University of Chicago*
+
+
+
+
+
+### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
+
+
+### 	Developing a Comprehensive Personal Plan for Teleworking (Working Remotely) *Julia Lull, Janssen Research & Development, LLC*
+
+
+### Combining Historical Data and Propensity Score Methods in Observational Studies to Improve Internal Validity *Miguel Marino, Oregon Health & Science University*
+
+### 	Limitations of Propensity Score Methods: Demonstration Using a Real-World Example *Gregory B. Tallman, Oregon State University/Oregon Health & Science University*
+
+### Appropriate Dimension Reduction for Sparse, High-Dimensional Data Using Intensity Plots and Other Visualizations *Eugenie Jackson, West Virginia University*
+
+### 	Evaluating Model Fit for Predictive Validity *Katherine M. Wright, Northwestern University*
+
+
+
+
 ## 5:00 PM Poster Sessions
 
 ### 	2 Curating and Visualizing Big Data from Wearable Activity Trackers *Meike Niederhausen, OHSU-PSU School of Public Health*
@@ -64,55 +120,7 @@ This plot shows accuracy of linkage is higher with younger children, and childre
 
 ![household linkages](/images/householdlink01.png "accuracy of linkages")
 
-## Sessions and Posters I wish I'd Attended
 
-
-### 	Developing a Comprehensive Personal Plan for Teleworking (Working Remotely) *Julia Lull, Janssen Research & Development, LLC*
-
-
-### Combining Historical Data and Propensity Score Methods in Observational Studies to Improve Internal Validity *Miguel Marino, Oregon Health & Science University*
-
-### 	Limitations of Propensity Score Methods: Demonstration Using a Real-World Example *Gregory B. Tallman, Oregon State University/Oregon Health & Science University*
-
-### Appropriate Dimension Reduction for Sparse, High-Dimensional Data Using Intensity Plots and Other Visualizations *Eugenie Jackson, West Virginia University*
-
-### 	Evaluating Model Fit for Predictive Validity *Katherine M. Wright, Northwestern University*
-
-### 	Developing and Delegating: Two Key Strategies to Master as a Technical Leader *Diahanna L. Post, Nielsen, Columbia University*
-
-### 	Approachable, Interpretable Tools for Mining and Summarizing Large Text Corpora in R *Luke W. Miratrix, Harvard University*
-
-### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *Matthew Keith Eblen, Centers for Disease Control and Prevention*
-
-### 	Exploratory Data Structure Comparisons by Use of Principal Component Analysis *Anne Helby Petersen, Biostatistics, University of Copenhagen*
-
-Couldn't get in the door for this one it was so packed!
-
-### Tools for Exploratory Data Analysis *Wendy L. Martinez, U.S. Bureau of Labor Statistics*
-
-### How to Give a Really Awful Presentation *Paul Teetor, William Blair & Co*
-
-I arrived at the end of this session to attend the next one in the room, and the room was laughing and very engaged. 
-
-### CANCELED: A Streamlined Process for Conducting a Propensity Score-Based Analysis *John A. Craycroft, University of Louisville*
-
-Weather cancelled the presenter's flight. Wonder if this presentation is available. 
-
-### 	The Life-Cycle of a Project: Visualizing Data from Start to Finish *View Presentation View Presentation Nola du Toit, NORC at the University of Chicago*
-
-### What Does It Take for an Organization to Make Difficult Information-Based Decisions? Using the Oregon Department of Forestry’s RipStream Project as a Case Study *[Jeremy Groom](http://www.groomanalytics.com/who-we-are.html), Groom Analytics*
-
-Problem: if data suggests a course of action vested interests don't want to take, how can it still be taken?
-
-Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling these situations sounds nuanced and he shares a lot of lessons learned from this work. 
-
-I like this simple layout of costs and benefits of action and no action - takes some of the emotion out of it and lays all cards on the table.
-
-![cost benefit](/images/decision01.png "making a tough decision based on data")
-
-
-
-### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
 
 
 
