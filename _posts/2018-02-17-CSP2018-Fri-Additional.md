@@ -50,7 +50,7 @@ Problem: a new electronic tool is being implemented - can the changes in key var
 
 They implemented an insurance tool in their electronic health records and tracked changes in an important response over time (maybe count of Medicare billings?) at different facilities. They were able to show these plots to staff at the facilities to give insight how practices had or had not changed since tool implementation.
 
-![Sas plot 01](images/sas01.png "SAS Plot 01")
+![SAS plot 01](/images/sas01.png "SAS Plot 01")
 
 ### 18 An Algorithm to Identify Family Linkages Using Electronic Health Record Data *Megan Hoopes, OCHIN, Inc.*
 
@@ -62,7 +62,7 @@ Some caveats: has high precision but low sensitivity - that is the matches it ma
 
 This plot shows accuracy of linkage is higher with younger children, and children who go to the doctor more often.
 
-![household linkages](images/householdlink01.png "accuracy of linkages")
+![household linkages](/images/householdlink01.png "accuracy of linkages")
 
 ## Sessions and Posters I wish I'd Attended
 
