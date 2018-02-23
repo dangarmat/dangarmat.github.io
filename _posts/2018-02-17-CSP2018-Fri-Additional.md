@@ -104,7 +104,9 @@ Weather cancelled the presenter's flight. Wonder if this presentation is availab
 
 Problem: if data suggests a course of action vested interests don't want to take, how can it still be taken?
 
-Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling the situations sounds nuanced and he shares a lot of lessons learned. I like this simple layout of costs and benefits of action and no action - takes some of the emotion out of it and lays all cards on the table.
+Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling these situations sounds nuanced and he shares a lot of lessons learned from this work. 
+
+I like this simple layout of costs and benefits of action and no action - takes some of the emotion out of it and lays all cards on the table.
 
 ![cost benefit](/images/decision01.png "making a tough decision based on data")
 
