@@ -60,7 +60,7 @@ Their strategy to find family links included identifying key fields such as addr
 
 Some caveats: has high precision but low sensitivity - that is the matches it makes tend to be true, but the number of matches caught is low. Also, this method really is limited to household units not genetic relationships.
 
-This plot shows accuracy of linkage is higher with younger children, and children who go to the doctor more often.
+This plot shows accuracy of linkage is higher with younger children, and children who go to the doctor more often (younger children go to the doctor more so same or different people?)
 
 ![household linkages](/images/householdlink01.png "accuracy of linkages")
 
