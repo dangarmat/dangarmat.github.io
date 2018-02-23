@@ -26,6 +26,18 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 
 ### 	2 Curating and Visualizing Big Data from Wearable Activity Trackers *Meike Niederhausen, OHSU-PSU School of Public Health*
 
+Problem: data from a wrist health device tracker study involving 500 people is messy. How can visualization help separate useful data  from not useful data?
+
+They had to throw out the first week ([Hawthorne Effect](https://en.wikipedia.org/wiki/Hawthorne_effect)) and implausible values such as 5000 steps in one minute. They also had to limit to people who had enough activity and didn't just take the watch off for days and days.
+
+I liked these plots showing the correlation of different activity levels with health outcomes. Maybe useful for exercise motivation? Not sure exactly who the study can be inferred to, especially after the data cleaning, but suggestive of a reasonable hypothesis. I'm not sure about the multiple hypothesis testing if they did any correction, and if the p-values could be taken on face value given the data cleaning choices, but it offers an awesome glimpse into this, [as I've seen first hand, difficult data](https://dgarmat.github.io/Calories-vs-Sleep/). One thing I notice is in each column the slope has the same sign - this makes sense as each variable on the y-axis has lower is associated with better health outcomes. 
+
+![corrplots01](/images/corrplots01.png "can see the red low p-value ones")
+
+It's interesting to see, on the other hand, how little linear correlation there was with clinical values like blood pressure. I'm surprised to see Diastolic blood pressure goes up with age of these participants, but not Systolic blood pressure. There's really nothing much going on besides age here, I think. One wouldn't expect numbers like HbA1c, a long-term measure of diabetes, to be affected much by this study over a few weeks, so would expect correlations to have more to do with pre-existing habits, and it's surprising there isn't more going on in this population. Wonder if they do represent the typical adult. It's weird too because one would expect the numbers in the other charts like BMI to correlate with HbA1c, but I think this implies in these data, it doesn't.
+
+![corrplots02.png](/images/corrplots02.png "again, fewer low p-value ones")
+
 ### 	5 The Boeing Applied Statistics ToolKit: Best Practices and Tools for Collaboration and Reproducibility in High-Throughput Consulting *Robert Michael Lawton, Boeing Research & Technology*
 
 ### 	9 Estimating the Relative Excess Risk Due to Interaction in Clustered Data Settings *Katharine Fischer Berry Correia, Harvard T.H. Chan School of Public Health*
@@ -42,9 +54,9 @@ They implemented an insurance tool in their electronic health records and tracke
 
 ### 18 An Algorithm to Identify Family Linkages Using Electronic Health Record Data *Megan Hoopes, OCHIN, Inc.*
 
-Problem: Health factors highly correllate among family members but explicit family links are often missing from medical records. Is there a reproducable way to impute links between family members in EHRs?
+Problem: Health factors highly correlate among family members but explicit family links are often missing from medical records. Is there a reproducible way to impute links between family members in EHRs?
 
-Their strategy to find family links included identifying key fields such as address, home phone, insunce carrier, and fuzzy matching on mother emergency contact phone number, and cases to exclude such as when it looks like there are two adult females in the household so the biological mother is less clear. and then compare this to a "gold standard" data set. In the end, in a pediatric dataset they linked 382,000 mother-child relationships, of which only 44% were explicitly stated in the EHR.
+Their strategy to find family links included identifying key fields such as address, home phone, insurance carrier, and fuzzy matching on mother emergency contact phone number, and cases to exclude such as when it looks like there are two adult females in the household so the biological mother is less clear. and then compare this to a "gold standard" data set. In the end, in a pediatric dataset they linked 382,000 mother-child relationships, of which only 44% were explicitly stated in the EHR.
 
 Some caveats: has high precision but low sensitivity - that is the matches it makes tend to be true, but the number of matches caught is low. Also, this method really is limited to household units not genetic relationships.
 
