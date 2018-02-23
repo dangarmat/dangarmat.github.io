@@ -111,6 +111,16 @@ It's interesting to see, on the other hand, how little linear correlation there 
 
 ### 	5 The Boeing Applied Statistics ToolKit: Best Practices and Tools for Collaboration and Reproducibility in High-Throughput Consulting *Robert Michael Lawton, Boeing Research & Technology*
 
+Problem: In fast-paced statistical consulting, balancing quality, reproducability, and urgency is challeneging.
+
+Boeing Research and Technology’s Applied Math Group of 50 mathematicians developed an applied statistics toolkit to help solve this problem. It has: 
+* Set of analysis libraries (reusable R code, vignettes, and help)
+* Collaboration best practices (R Studio, Git)
+* Knoledge management system 
+* Program for vetting new statistical capabilities
+
+Unfortunately their presentation live had a lot more interactive detail than as posted as a static .pptx file, but appreciate the careful, thoughtful planning they shared to handle an all-too-familiar challenge of "technical debt" in industry. 
+
 ### 	9 Estimating the Relative Excess Risk Due to Interaction in Clustered Data Settings *Katharine Fischer Berry Correia, Harvard T.H. Chan School of Public Health*
 
 ### 16 Exploratory Analyses from Different Forms of Interactive Visualizations *Lata Kodali, Virginia Tech*
