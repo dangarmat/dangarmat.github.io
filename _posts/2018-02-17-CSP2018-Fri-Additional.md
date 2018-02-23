@@ -31,12 +31,11 @@ Problem: if data suggests a course of action vested interests don't want to take
 
 Heard this session was one of the most interactive of the conference. He discussed a case where data implied a hard decision needed to be made, with a lot of stakeholders on both sides. His process of handling these situations sounds nuanced and he shares a lot of lessons learned from this work. I especially like his advice for working with stakeholders: 
 * Individuals matter
-* Hold your friends close, stakeholders closer
-* Frequent communication + Transparency + fairness = trust
+* Frequent communication + transparency + fairness = trust
 * Getting feedback before analyses may increase buy-in
 * Setting groundwork for next project
 
-Some other nuggets/useful reminders to me anyway:
+Some other useful reminders to me anyway:
 * Small successes help with morale
 * Shield tech staff from politics 
 * Courage to have difficult conversations
