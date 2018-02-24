@@ -54,9 +54,10 @@ Boeing Research and Technology’s Applied Math Group of 50 mathematicians devel
 * Knowledge management system 
 * Program for vetting new statistical capabilities
 
+Unfortunately their presentation live had a lot more interactive detail than as posted as a static .pptx file, but appreciate the careful, thoughtful planning they shared to handle an all-too-familiar challenge of "technical debt" in industry. 
+
 ![Boeing toolkit](/images/boeingtoolkit.png "Boeing In-House Statistical Consulting Toolkit")
 
-Unfortunately their presentation live had a lot more interactive detail than as posted as a static .pptx file, but appreciate the careful, thoughtful planning they shared to handle an all-too-familiar challenge of "technical debt" in industry. 
 
 ### 	Estimating the Relative Excess Risk Due to Interaction in Clustered Data Settings *Katharine Correia, Harvard T.H. Chan School of Public Health*
 
@@ -66,13 +67,13 @@ In simulated clusters, often frequenstist approaches to handle interactions did 
 
 ![interactions](/images/simcluster01.png "Interaction Terms")
 
-She was able to apply [rstan package](https://cran.r-project.org/web/packages/rstan/index.html) to find a small but significant interaction in absolute risk (i.e. of success?) between age and BMI in terms of live birth from in vitro fertilization. In another case, she detected a more dramatic 25% increase in risk of preterm delivery from interaction between nevirapine exposure at conception and poor immunological health. 
+She was able to apply [rstan package](https://cran.r-project.org/web/packages/rstan/index.html) in a Bayesian approach and find a small but significant interaction in absolute risk between age and BMI in terms of live birth from in vitro fertilization. (Risk of success?) In another case, she detected a more dramatic 25% increase in risk of preterm delivery from interaction between nevirapine exposure at conception and poor immunological health. 
 
 This kind of analysis could be important for precision medicine, where we want to start grouping patients into smaller buckets and asses how they will react to different treatments.
 
 ### Exploratory Analyses from Different Forms of Interactive Visualizations *[Lata Kodali](http://www.lisa.stat.vt.edu/?q=node/10238), Virginia Tech*
 
-These posters are interactive when seen in person. Nothing posted yet.
+These posters are often interactive when seen in person. Nothing posted yet.
 
 ### Using SAS Programming to Create Complex Paneled Graphs from Electronic Health Records *Carrie Tillotson, OCHIN, Inc.*
 
