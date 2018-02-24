@@ -119,7 +119,7 @@ She expresses her question as if a person from Bulgaria (ranked 144) was put in 
 
 To do data structure comparisons using PCA, she uses a self-authored R package [PCADSC](https://github.com/AnnePetersen1/PCADSC) with three visuals to asses similarity. A cumulative eigenvalue (CE) plot compares "actual dimension" of data, an angle plot identifies components for which datasets differ, and a chroma plot interprets differences in weights. If Denmark and Bulgaria have similar concepts of psychological well-being, one can expect these plots to show similar eigenvalue sizes with lines within shaded areas and large p-values, similar component structures with arrows mostly diagonal and small angles between them, and similar PCA loading patterns visually. 
 
-In this case there are big differences in all three plots. Some of the detail of what makes someone happy in the two countries is in the chroma plot of PCA loadings. Can see in the first principal component's loading among those surveyed, Bulgarians care a lot more about community wellbeing and Danes care relatively more about vitality and emotional wellbeing. In the second principle component, it almost diverges even more as Bulgarians strongly care about supportive relationships while Danes care about that but equally with community and vitality again. These really tell different stories about what happiness means to one set of people or another. 
+In this case there are big differences in all three plots. Some of the detail of what makes someone happy in the two countries is in the chroma plot of PCA loadings. Can see in the second principal component's loading among those surveyed, Bulgarians care a lot more about community wellbeing and Danes care relatively more about vitality and emotional wellbeing. In the third principle component, it almost diverges even more as Bulgarians strongly care about supportive relationships while Danes care about that but equally with community and vitality again. Though the first princliple component isn't shown, and that may be similar, as two european countries, these tell different stories about additional nuances of what happiness means to one set of people or another. 
 
 ![Bulgarian happiness vs. Danish happiness](/images/bgvddkhappiness01.png "Bulgarian happiness vs. Danish happiness")
 
@@ -156,13 +156,22 @@ I arrived at the end of this session to attend the next one in the room, and the
 
 Weather canceled the presenters's flight. Wonder if this presentation is available. 
 
-### 	The Life-Cycle of a Project: Visualizing Data from Start to Finish *View Presentation View Presentation Nola du Toit, NORC at the University of Chicago*
+### 	The Life-Cycle of a Project: Visualizing Data from Start to Finish *[Nola du Toit](https://www.linkedin.com/in/nola-du-toit-92849aa0/), NORC at the University of Chicago*
 
+Problem: too much data, need to summarize it for quickly digesting meaning.
 
+This presentation seems like basic common sense about data visualization. I don't see anything that new for me in the slides. I did like this guideline of stepping back and considering your audience and reducing clutter. On the one hand, there is a need to make data interesting, but on the other, there is a need for it to not be overwhleming. I think every bit of information costs mental energy and focus, and I like the guideline of the UI design book with the title that tells it all, [Don't Make Me Think](https://www.goodreads.com/book/show/18197267-don-t-make-me-think-revisited).
 
+![reduceclutter01](/images/reduceclutter01.png "reduceclutter01")
+
+She reccomends a couple other resources that may be worth checking out for visualization philosophy. [http://www.thefunctionalart.com/](http://www.thefunctionalart.com/) and [http://www.nbr-graphs.com/](http://www.nbr-graphs.com/).
+
+I think some of the point of the visualizations in these slides might be that one can visualizae more parts of a project's process than one may think, and they could be easy visualizations. Doing this for many parts of a project can quickly give a lot of insight into how a project is going.
 
 
 ### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
+
+
 
 
 ### 	Developing a Comprehensive Personal Plan for Teleworking (Working Remotely) *Julia Lull, Janssen Research & Development, LLC*
