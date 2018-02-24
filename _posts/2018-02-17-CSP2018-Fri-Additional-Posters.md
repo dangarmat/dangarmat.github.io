@@ -5,7 +5,7 @@ category: [R, ASA, CSP2018]
 tags: [R, ASA, CSP2018]
 ---
 
-![CSP Conf Logo](/images/csp2018.png "Conference Logo")
+![steps](/images/stepcounts01.png "Step Counts in Wearable Activity Tracker Study")
 
 Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meetings/csp/2018/index.cfm). 
 
@@ -26,11 +26,15 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 
 ## 5:00 PM Poster Sessions
 
-### 	2 Curating and Visualizing Big Data from Wearable Activity Trackers *Meike Niederhausen, OHSU-PSU School of Public Health*
+### 	Curating and Visualizing Big Data from Wearable Activity Trackers *Meike Niederhausen, OHSU-PSU School of Public Health*
 
 Problem: data from a wrist health device tracker study involving 500 people is messy. How can visualization help separate useful data  from not useful data?
 
-They had to throw out the first week ([Hawthorne Effect](https://en.wikipedia.org/wiki/Hawthorne_effect)) and implausible values such as 5000 steps in one minute. They also had to limit to people who had enough activity and didn't just take the watch off for days and days.
+They had to throw out the first week ([Hawthorne Effect](https://en.wikipedia.org/wiki/Hawthorne_effect)) and implausible values such as 5000 steps in one minute. They also had to limit to people who had enough activity and didn't just take the watch off for days and days. Can see examples of kinds of data errors and variation by day by activity level of participant in above scatterplot.
+
+Interestingly they appear here to have found a three-way interaction term of predictive worth. We generally learn avoid three way interaction terms as they're hard to make sense of both conceptually and theoretically. This demonstrates one way to approach trying to visualize such an interaction term to get at the former. The slopes by BMI group across gender really are quite similar, though, so I wonder if this implies a two way interaction is sufficient? In this case it would be BMI group by age regressed on average steps per day. Gender doesn't look significant in terms of slope.
+
+![age vs. gender vs. BMI group](/images/threewayint01.png "Age vs. Gender vs. BMI Group")
 
 I liked these plots showing the correlation of different activity levels with health outcomes. Maybe useful for exercise motivation? Not sure exactly who the study can be inferred to, especially after the data cleaning, but suggestive of reasonable hypotheses. I'm not sure about the multiple hypothesis testing if they did any correction, and if the p-values could be taken on face value given the data cleaning choices, but it offers an awesome glimpse into this, [as I've seen first hand, difficult, highly personal data](https://dgarmat.github.io/Calories-vs-Sleep/). One thing I notice is in each column the slope has the same sign - this makes sense as for each variable on the y-axis, lower is associated with better health outcomes. 
 
@@ -40,23 +44,31 @@ It's interesting to see, on the other hand, how little linear correlation there 
 
 ![corrplots02.png](/images/corrplots02.png "again, fewer low p-value ones")
 
-### 	5 The Boeing Applied Statistics ToolKit: Best Practices and Tools for Collaboration and Reproducibility in High-Throughput Consulting *Robert Michael Lawton, Boeing Research & Technology*
+### 	The Boeing Applied Statistics ToolKit: Best Practices and Tools for Collaboration and Reproducibility in High-Throughput Consulting *Robert Michael Lawton, Boeing Research & Technology*
 
-Problem: In fast-paced statistical consulting, balancing quality, reproducability, and urgency is challeneging.
+Problem: In fast-paced statistical consulting, balancing quality, reproducibility, and urgency is challenging.
 
 Boeing Research and Technology’s Applied Math Group of 50 mathematicians developed an applied statistics toolkit to help solve this problem. It has: 
 * Set of analysis libraries (reusable R code, vignettes, and help)
 * Collaboration best practices (R Studio, Git)
-* Knoledge management system 
+* Knowledge management system 
 * Program for vetting new statistical capabilities
 
 Unfortunately their presentation live had a lot more interactive detail than as posted as a static .pptx file, but appreciate the careful, thoughtful planning they shared to handle an all-too-familiar challenge of "technical debt" in industry. 
 
-### 	9 Estimating the Relative Excess Risk Due to Interaction in Clustered Data Settings *Katharine Fischer Berry Correia, Harvard T.H. Chan School of Public Health*
+### 	Estimating the Relative Excess Risk Due to Interaction in Clustered Data Settings *Katharine Correia, Harvard T.H. Chan School of Public Health*
 
-### 16 Exploratory Analyses from Different Forms of Interactive Visualizations *Lata Kodali, Virginia Tech*
+Problem: interaction terms for relative risk coefficients can be difficult to estimate with frequentist methods. Can a Bayesian approach help?
 
-### 17 Using SAS Programming to Create Complex Paneled Graphs from Electronic Health Records *Carrie Tillotson, OCHIN, Inc.*
+She was able to apply [rstan package](https://cran.r-project.org/web/packages/rstan/index.html) to find a small but significant interaction in absolute risk (i.e. of success?) between age and BMI in terms of live birth from in vitro fertilization. In another case, she detected a more dramatic 25% increase in risk of preterm delivery from interaction between nevirapine exposure at conception and poor immunological health. 
+
+This kind of analysis could be important for precision medicine, where we want to start grouping patients into smaller buckets and asses how they will react to different treatments.
+
+### Exploratory Analyses from Different Forms of Interactive Visualizations *[Lata Kodali](http://www.lisa.stat.vt.edu/?q=node/10238), Virginia Tech*
+
+These posters are interactive when seen in person. Nothing posted yet.
+
+### Using SAS Programming to Create Complex Paneled Graphs from Electronic Health Records *Carrie Tillotson, OCHIN, Inc.*
 
 Problem: a new electronic tool is being implemented - can the changes in key variables before and after be measured and displayed in a visually meaningful way?
 
@@ -64,7 +76,7 @@ They implemented an insurance tool in their electronic health records and tracke
 
 ![SAS plot 01](/images/sas01.png "SAS Plot 01")
 
-### 18 An Algorithm to Identify Family Linkages Using Electronic Health Record Data *Megan Hoopes, OCHIN, Inc.*
+###  An Algorithm to Identify Family Linkages Using Electronic Health Record Data *Megan Hoopes, OCHIN, Inc.*
 
 Problem: Health factors highly correlate among family members but explicit family links are often missing from medical records. Is there a reproducible way to impute links between family members in EHRs?
 
