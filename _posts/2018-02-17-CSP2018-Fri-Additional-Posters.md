@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASA Conference on Statistical Practice 2018, Friday 5 of 5, Posters and Additional Sessions I Wish I'd Attended
+title: ASA Conference on Statistical Practice 2018, Friday 6 of 6, Posters and Additional Sessions I Wish I'd Attended
 category: [R, ASA, CSP2018]
 tags: [R, ASA, CSP2018]
 ---
@@ -14,7 +14,7 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 * [11:00 AM Streamlining Your Work Using (Shiny) Apps](https://dgarmat.github.io/CSP2018-Fri-11am/)
 * [2:00 PM Data Mining Algorithms / Presenting and Storytelling](https://dgarmat.github.io/CSP2018-Fri-2pm/)
 * [3:45 PM Working with Health Care Data](https://dgarmat.github.io/CSP2018-Fri-345pm/)
-* [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Fri-Additional/)**
+* [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Fri-Additional/)
 * **Posters I Wish I'd Seen**
 
 **Saturday 2/17/2018**
