@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASA Conference on Statistical Practice 2018, Friday 6 of 6, Posters and Additional Sessions I Wish I'd Attended
+title: ASA Conference on Statistical Practice 2018, Friday 5 of 6, Posters I Wish I'd Seen
 category: [R, ASA, CSP2018]
 tags: [R, ASA, CSP2018]
 ---
@@ -14,8 +14,8 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 * [11:00 AM Streamlining Your Work Using (Shiny) Apps](https://dgarmat.github.io/CSP2018-Fri-11am/)
 * [2:00 PM Data Mining Algorithms / Presenting and Storytelling](https://dgarmat.github.io/CSP2018-Fri-2pm/)
 * [3:45 PM Working with Health Care Data](https://dgarmat.github.io/CSP2018-Fri-345pm/)
-* [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Fri-Additional/)
 * **Posters I Wish I'd Seen**
+* [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Fri-Additional/)
 
 **Saturday 2/17/2018**
 * [9:15 AM Poster Session 3 / Survival Analysis v. 'Survival' Analysis](https://dgarmat.github.io/CSP2018-Sat-915am/)
@@ -80,5 +80,5 @@ This plot shows accuracy of linkage is higher with younger children, and childre
 
 
 
-up next: [9:15 AM Poster Session 3 / Survival Analysis v. 'Survival' Analysis](https://dgarmat.github.io/CSP2018-Sat-915am/)
+up next: [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Fri-Additional/)
 
