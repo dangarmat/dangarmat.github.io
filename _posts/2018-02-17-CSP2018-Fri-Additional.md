@@ -52,7 +52,7 @@ I like this simple layout of costs and benefits of action and no action - takes 
 
 ### 	Developing and Delegating: Two Key Strategies to Master as a Technical Leader *Diahanna L. Post, Nielsen, Columbia University*
 
-Problem: leaders of technical teams have additional challenges to best use their technical talent and these skills don't happen automatically.
+Problem: leaders of technical teams have additional challenges to best use their technical talent and these skills don't happen automatically. New leaders of technical teams have a daunting set of soft skills needed to manage a team.
 
 She recommends focusing on two skills: Developing your team and delegating work to your team. The slides are quite structured and probably worth rereading every few months as a leader of a technical team to take inventory how one is doing. This is not a mathematical talk, but a common sense talk that needs to be said anyway - one of those - refreshing and you know if you need it kind of talk. I also feel like these are management skills I can imagine [some](http://www.patricialampert.com/) [of](https://www.linkedin.com/in/heidi-mahoney-928a8293/) my better managers being a bit of a nerd about gaining, where I might have been a nerd about technical tools.
 
