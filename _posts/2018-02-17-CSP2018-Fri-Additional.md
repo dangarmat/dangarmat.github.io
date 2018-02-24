@@ -54,6 +54,8 @@ I like this simple layout of costs and benefits of action and no action - takes 
 
 Problem: leaders of technical teams have additional challenges to best use their technical talent and these skills don't happen automatically. Technical people who are new leaders of technical teams have a daunting set of soft skills needed to manage a team. Which ones could they focus on?
 
+![newtechleader01](/images/newtechleader01.png "newtechleader01")
+
 She recommends focusing on two skills: Developing your team and delegating work to your team. The slides are quite structured and probably worth rereading every few months as a leader of a technical team to take inventory how one is doing. This is not a mathematical talk, but a common sense talk that needs to be said anyway - one of those - refreshing and you know if you need it kind of talk. I also feel like these are management skills I can imagine [some](http://www.patricialampert.com/) [of](https://www.linkedin.com/in/heidi-mahoney-928a8293/) my better managers being a bit of a nerd about gaining, where I might have been a nerd about technical tools.
 
 Under Developing Your Team, she splits this into Mindset and Skills. For mindset, her big distinction is between talent multipliers vs. talent diminishers. Talent multipliers bring out the intelligence in others by:
