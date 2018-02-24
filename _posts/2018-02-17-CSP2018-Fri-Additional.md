@@ -1,8 +1,8 @@
 ---
 layout: post
 title: ASA Conference on Statistical Practice 2018, Friday 6 of 6, Additional Sessions I Wish I'd Attended
-category: [R, ASA, CSP2018]
-tags: [R, ASA, CSP2018]
+category: [R, ASA, CSP2018, NLP]
+tags: [R, ASA, CSP2018, NLP]
 ---
 
 ![lda topic 2](/images/ldatopic02.png "distribution of words in topic 2's vocabulary")
@@ -171,7 +171,28 @@ I think some of the point of the visualizations in these slides might be that on
 
 ### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
 
+Problem: comments sometimes have valuable information not available in structured data, but as unstructured data they are often ignored in summary analyses. Are there any standard pieplines for getting summarizable information out of unstructured text data?
 
+He has a specific case of exploring text in computer warranty and performance failures data to better model issues with a product's reliability. In his case, this unstructured information is critical and greatly improves modelling performance. He starts with failure data like this and aims to end up with meaningful stories about where the most commonly reported issues are.
+
+![warantytext01](/images/warantytext01.png "warantytext01")
+
+The basic steps of his pipeline are:
+1. Summarizing – Find out the words that occur the most often in your text data
+2. Preparing – Fine tune the list of biggest terms and phrases in your text data
+3. Visualizing – Graphically see largest terms in your text data
+4. Analyzing – Dimensionally reduce down to most important terms and topics
+5. Modeling – Incorporate learnings into Better Reliability and Predictive Models
+
+He uses SAS JMP Pro Statistical Discovery Software to do this. 
+
+In step 1, summarizing, he parses text into tokens using built-in libraries and stems to remove suffixes. In step 2, preparing, he removes stop words, sorts terms by count and also any high-count n-grams phrases, and removes cases of bigrams that are parts of highly common trigrams. In step 3, visualizing, he uses a word cloud with color gradient by fequency or another factor like severity, and is able to drill down to different levels of summarization to figure out what the big issues are.
+
+Step 4, analyzing, he just does the indicator column for desired terms and n-grams/phrases, to get to a document term matrix, and clusters using latent symantic anayslsis with singular value decomposition. This outputs a scatterplot matrix that shows differences among documents and terms, allowing drilldown. Basically it outputs the big topics in the corpora. In his case this showed a common issue with terms a somain expert would associate with Bios failures. 
+
+Step 5, modelling, he adds a binary variable of whether a warranty claim has to do with Bios, identified a Frechet distribution to the probability of time to failure. He build binary indicator variables for all of the top ten terms (though not categories from step 4 it seems)  and is able to build a predictive model of severity of issue using [ordinal logisitc regression](https://en.wikipedia.org/wiki/Ordered_logit).
+
+In the end, this allows for better modelling of why the computers that failed, did. One could imagine for their warranty data set, looking at claims after changes are implemented would give a sense of what is the new biggest issue to resolve to prioritize.
 
 
 ### 	Developing a Comprehensive Personal Plan for Teleworking (Working Remotely) *Julia Lull, Janssen Research & Development, LLC*
