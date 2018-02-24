@@ -5,7 +5,7 @@ category: [R, ASA, CSP2018]
 tags: [R, ASA, CSP2018]
 ---
 
-![lda topic 5](/images/ldatopic05.png "distribution of words in topic 5's vocabulary")
+![lda topic 2](/images/ldatopic02.png "distribution of words in topic 2's vocabulary")
 
 Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meetings/csp/2018/index.cfm). 
 
@@ -96,9 +96,8 @@ Each of the 100 topics has a distribution of more and less common words in its v
 
 ![lda topic 1](/images/ldatopic01.png "distribution of words in topic 1's vocabulary")
 
-Ranking the topics by number of grants associated with it, number two he titled Immunization, which funding came from Center of Immunization and Respiratory Diseases.
+Ranking the topics by number of grants associated with it, number two, above at top he titled Immunization, which funding came from Center of Immunization and Respiratory Diseases.
 
-![lda topic 2](/images/ldatopic02.png "distribution of words in topic 2's vocabulary")
 
 Topic three, interestingly had to do with domestic HIV/AIDS. LDA does a good job here of handling that the token "HIV" can show up in two topics. Can see also no funding for this topic came from Center for Global Health.
 
@@ -109,7 +108,9 @@ CIO.
 
 ![lda topic 4](/images/ldatopic04.png "distribution of words in topic 4's vocabulary")
 
-Most commonly funded topic 5, above at the top here, he labelled Adolescent Health.
+Most commonly funded topic 5, was more broad. He labelled this Adolescent Health.
+
+![lda topic 5](/images/ldatopic05.png "distribution of words in topic 5's vocabulary")
 
 As an example of less frequently funded topics, number 87 out of 100 doesn't have a clear vocabulary theme.
 
