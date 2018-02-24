@@ -52,7 +52,7 @@ I like this simple layout of costs and benefits of action and no action - takes 
 
 ### 	Developing and Delegating: Two Key Strategies to Master as a Technical Leader *Diahanna L. Post, Nielsen, Columbia University*
 
-Problem: leaders of technical teams have additional challenges to best use their technical talent and these skills don't happen automatically. New leaders of technical teams have a daunting set of soft skills needed to manage a team.
+Problem: leaders of technical teams have additional challenges to best use their technical talent and these skills don't happen automatically. Technical people who are new leaders of technical teams have a daunting set of soft skills needed to manage a team. Which ones could they focus on?
 
 She recommends focusing on two skills: Developing your team and delegating work to your team. The slides are quite structured and probably worth rereading every few months as a leader of a technical team to take inventory how one is doing. This is not a mathematical talk, but a common sense talk that needs to be said anyway - one of those - refreshing and you know if you need it kind of talk. I also feel like these are management skills I can imagine [some](http://www.patricialampert.com/) [of](https://www.linkedin.com/in/heidi-mahoney-928a8293/) my better managers being a bit of a nerd about gaining, where I might have been a nerd about technical tools.
 
@@ -82,7 +82,38 @@ Her second key strategy is delegating work. Maybe necessary to say for technical
 
 ### 	Approachable, Interpretable Tools for Mining and Summarizing Large Text Corpora in R *Luke W. Miratrix, Harvard University*
 
+Not yet posted online.
+
 ### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *Matthew Keith Eblen, Centers for Disease Control and Prevention*
+
+Problem: from 2012 to 2016 the CDC adminstered $5 billion a year in grants. There were 800 funding opportunity announcements a year from 13 different centers. Is it possible to use titles and abstracts to classify grants from a public health perspective and get some view into what the CDC funded?
+
+Unsupervised Topic Models methods aim to uncover textual themes running through a large collection of documents without prior annotation. Latent Dirichlet Allocation generative topic model specifically assumes a random distribution of words for a given topic's vocabulary. This gives an advantage of allowing a document to have multiple topics *and* words in multiple topic vocabularies. When topics are similar, such as with CDC grants, this can help capture for example that a document is about 50% cancer and 50% HIV, and that the word "prevention" may be in both topic vocabularies. Latent Dirichlet Allocation is abbreviated LDA, which I unfortunately kept confusing in this presentation with [Linear Discriminant Analysis](https://en.wikipedia.org/wiki/Linear_discriminant_analysis), a supervised classification method. 
+
+Data preparation included collecting titles and abstratcs of funded grants that had abstracts, including locations and ubiquitous words like health in stop words then removing stop words, and removing sparse words showing up in less than 25 abstracts. This LDA requires prior choice of topic numbers (k essentially) so he chose 100 topics and ran LDA with [text2vec](http://text2vec.org/topic_modeling.html) R package. As output, each grant is clustered to some combination of topics adding up to 100%. Then for each grant, he kept only topics from the 100 with more than 20% to assign to the grant to remove long tail information not useful for his problem of interest.
+
+Each of the 100 topics has a distribution of more and less common words in its vocabulary. In the above automatically detected topic, top words are highlighted in the word cloud. He pulls in metainformation on which of the 13 CDC centers funded these grants and is able to assign a meaningful title of Global HIV/AIDS to this cluster.
+
+![lda topic 1](/images/ldatopic01.png "distribution of words in topic 1's vocabulary")
+
+Ranking the topics by number of grants associated with it, number two he titled Immunization, which funding came from Center of Immunization and Respiratory Diseases.
+
+![lda topic 2](/images/ldatopic02.png "distribution of words in topic 2's vocabulary")
+
+Topic three, interestingly had to do with domestic HIV/AIDS. LDA does a good job here of handling that the token "HIV" can show up in two topics. Can see also no funding for this topic came from Center for Global Health.
+
+![lda topic 3](/images/ldatopic03.png "distribution of words in topic 3's vocabulary")
+
+Topic four had to do with sexual violence and funding was concentrated in National Center for Injury Prevention and Control
+CIO. 
+
+![lda topic 4](/images/ldatopic04.png "distribution of words in topic 4's vocabulary")
+
+Most commonly funded topic 5, above at the top here, he labelled Adolescent Health.
+
+As an example of less frequently funded topics, number 87 out of 100 doesn't have a clear vocabulary theme.
+
+![lda topic 87](/images/ldatopic87.png "distribution of words in topic 87's vocabulary")
 
 ### 	Exploratory Data Structure Comparisons by Use of Principal Component Analysis *Anne Helby Petersen, Biostatistics, University of Copenhagen*
 
