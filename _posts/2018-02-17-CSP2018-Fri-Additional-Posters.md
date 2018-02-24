@@ -30,9 +30,9 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 
 Problem: data from a wrist health device tracker study involving 500 people is messy. How can visualization help separate useful data  from not useful data?
 
-They had to throw out the first week ([Hawthorne Effect](https://en.wikipedia.org/wiki/Hawthorne_effect)) and implausible values such as 5000 steps in one minute. They also had to limit to people who had enough activity and didn't just take the watch off for days and days. Can see examples of kinds of data errors and variation by day by activity level of participant in above scatterplot.
+They had to throw out the first week ([Hawthorne Effect](https://en.wikipedia.org/wiki/Hawthorne_effect)) and implausible values such as 10000 steps in one minute (manual entry?). They also had to limit to people who had enough activity and didn't just take the watch off for days and days. Can see examples of kinds of data errors and variation by day by activity level of participant in above scatterplot.
 
-Interestingly they appear here to have found a three-way interaction term of predictive worth. We generally learn avoid three way interaction terms as they're hard to make sense of both conceptually and theoretically. This demonstrates one way to approach trying to visualize such an interaction term to get at the former. The slopes by BMI group across gender really are quite similar, though, so I wonder if this implies a two way interaction is sufficient? In this case it would be BMI group by age regressed on average steps per day. Gender doesn't look significant in terms of slope.
+Interestingly they appear here to have found a three-way interaction term of predictive worth. We learn to generally avoid three way interaction terms as they're hard to make sense of both conceptually and theoretically. This demonstrates one way to approach trying to visualize such an interaction term to get at the former. The slopes by BMI group across gender really are quite similar, though, so I wonder if this implies a two way interaction is sufficient? In this case it would be BMI group by age regressed on average steps per day. Gender doesn't look significant in terms of slope.
 
 ![age vs. gender vs. BMI group](/images/threewayint01.png "Age vs. Gender vs. BMI Group")
 
@@ -54,11 +54,17 @@ Boeing Research and Technology’s Applied Math Group of 50 mathematicians devel
 * Knowledge management system 
 * Program for vetting new statistical capabilities
 
+![Boeing toolkit](/images/boeingtoolkit.png "Boeing In-House Statistical Consulting Toolkit")
+
 Unfortunately their presentation live had a lot more interactive detail than as posted as a static .pptx file, but appreciate the careful, thoughtful planning they shared to handle an all-too-familiar challenge of "technical debt" in industry. 
 
 ### 	Estimating the Relative Excess Risk Due to Interaction in Clustered Data Settings *Katharine Correia, Harvard T.H. Chan School of Public Health*
 
 Problem: interaction terms for relative risk coefficients can be difficult to estimate with frequentist methods. Can a Bayesian approach help?
+
+In simulated clusters, often frequenstist approaches to handle interactions did not converge, especially log binomial random intercepts models (FLB bars here) and were especially poor with higher standard devisions of random intercepts (SD here)
+
+![interactions](/images/simcluster01.png "Interaction Terms")
 
 She was able to apply [rstan package](https://cran.r-project.org/web/packages/rstan/index.html) to find a small but significant interaction in absolute risk (i.e. of success?) between age and BMI in terms of live birth from in vitro fertilization. In another case, she detected a more dramatic 25% increase in risk of preterm delivery from interaction between nevirapine exposure at conception and poor immunological health. 
 
