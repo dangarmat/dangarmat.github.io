@@ -113,17 +113,17 @@ As an example of less frequently funded topics, number 87 out of 100 doesn't hav
 
 Couldn't get in the door for this one it was so packed!
 
-Problem: Recently countries have been ranked by happiness, with Denmark being #1 until recently Norway took over #1. But is it really fair to compare countries with potentially different senses of what happiness means? Can we identify where countries differ in their definition of happiness mathematically?
+Problem: Recently countries have been ranked by happiness, with Denmark being #1 until Norway took over #1 in 2017. But is it really fair to compare countries with potentially different senses of what happiness means? Can we identify where countries differ in their definition of happiness mathematically?
 
 She expresses her question as if a person from Bulgaria (ranked 144) was put in the same situation as a person from Denmark (ranked 2) would they be equally happy? Does the concept of happiness in Bulgaria translate to that of Denmark? She uses 6 variables in a standardized happiness questionnaire, the European Social Survey, takes the covariance matrix among these 6 variables for each country, and applies Principle Components Analysis to asses if data is structured similarly for each country. 
 
 To do data structure comparisons using PCA, she uses a self-authored R package [PCADSC](https://github.com/AnnePetersen1/PCADSC) with three visuals to asses similarity. A cumulative eigenvalue (CE) plot compares "actual dimension" of data, an angle plot identifies components for which datasets differ, and a chroma plot interprets differences in weights. If Denmark and Bulgaria have similar concepts of psychological well-being, one can expect these plots to show similar eigenvalue sizes with lines within shaded areas and large p-values, similar component structures with arrows mostly diagonal and small angles between them, and similar PCA loading patterns visually. 
 
-In this case there are big differences in all three plots. Some of the detail of what makes someone happy in the two countries is in the chroma plot of PCA loadings. Can see in the first principal component's loading, Bulgarians surveyed care a lot more about community wellbeing and Danes care relatively more about vitality and emotional wellbeing. In the second principle component, it almost diverges even more as Bulgarians again strongly care about supportive relationships while Danes care about that but equally with community and vitality again. These really tell different stories about what happiness means to one person or another. 
+In this case there are big differences in all three plots. Some of the detail of what makes someone happy in the two countries is in the chroma plot of PCA loadings. Can see in the first principal component's loading among those surveyed, Bulgarians care a lot more about community wellbeing and Danes care relatively more about vitality and emotional wellbeing. In the second principle component, it almost diverges even more as Bulgarians strongly care about supportive relationships while Danes care about that but equally with community and vitality again. These really tell different stories about what happiness means to one set of people or another. 
 
 ![Bulgarian happiness vs. Danish happiness](/images/bgvddkhappiness01.png "Bulgarian happiness vs. Danish happiness")
 
-When she compares Norway and Denmark with all three plots, differences are much lower. So even though there are serious mathematical issues with ranking happiness of countries, Norway and Denmark are comparable. Thus, for her and her Danish fellow countrymen, there is no way around Norway's victory over Denmark.
+When she compares Norway and Denmark with all three plots, differences are much lower. So even though there are some mathematical issues with ranking happiness of countries, Norway and Denmark are comparable. Thus, for her and her Danish fellow countrymen, there is no way around Norway's victory over Denmark.
 
 ### Tools for Exploratory Data Analysis *Wendy L. Martinez, U.S. Bureau of Labor Statistics*
 
