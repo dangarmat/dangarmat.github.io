@@ -84,7 +84,7 @@ Her second key strategy is delegating work. Maybe necessary to say for technical
 
 Not yet posted online.
 
-### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *Matthew Keith Eblen, Centers for Disease Control and Prevention*
+### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *[Matthew Keith Eblen](https://www.linkedin.com/in/matthew-eblen-9b2a7910/), Centers for Disease Control and Prevention*
 
 Problem: from 2012 to 2016 the CDC adminstered $5 billion a year in grants. There were 800 funding opportunity announcements a year from 13 different centers. Is it possible to use titles and abstracts to classify grants from a public health perspective and get some view into what the CDC funded?
 
@@ -99,7 +99,7 @@ Each of the 100 topics has a distribution of more and less common words in its v
 Ranking the topics by number of grants associated with it, number two, above at top he titled Immunization, which funding came from Center of Immunization and Respiratory Diseases.
 
 
-Topic three, interestingly had to do with domestic HIV/AIDS. LDA does a good job here of handling that the token "HIV" can show up in two topics. Can see also no funding for this topic came from Center for Global Health.
+Topic three, interestingly had to do with domestic HIV/AIDS. LDA does a good job here of handling that the token "HIV" can show up in two topics. Can see also, at 2.9% vs. 55.7%, much less funding for this topic came from Center for Global Health.
 
 ![lda topic 3](/images/ldatopic03.png "distribution of words in topic 3's vocabulary")
 
