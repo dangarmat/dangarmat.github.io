@@ -52,22 +52,22 @@ I like this simple layout of costs and benefits of action and no action - takes 
 
 ### 	Developing and Delegating: Two Key Strategies to Master as a Technical Leader *Diahanna L. Post, Nielsen, Columbia University*
 
-Problem: leaders of technical teams have additional challeneges to best use their technical talent and these skills don't happen automatically.
+Problem: leaders of technical teams have additional challenges to best use their technical talent and these skills don't happen automatically.
 
-She reccomends focusing on two skils: Developing your team and delegating work to your team. The slides are quite structured and probably worth rereading every few months as a leader of a technical team to take inventory how one is doing. This is not a mathematical talk, but a common sense talk that needs to be said anyway - one of those - refreshing and you know if you need it kind of talk. I also feel like these are mangement skills I can imagine [some](http://www.patricialampert.com/) [of](https://www.linkedin.com/in/heidi-mahoney-928a8293/) my better managers being a bit of a nerd about gaining, where I might have been a nerd about technical tools.
+She recommends focusing on two skills: Developing your team and delegating work to your team. The slides are quite structured and probably worth rereading every few months as a leader of a technical team to take inventory how one is doing. This is not a mathematical talk, but a common sense talk that needs to be said anyway - one of those - refreshing and you know if you need it kind of talk. I also feel like these are management skills I can imagine [some](http://www.patricialampert.com/) [of](https://www.linkedin.com/in/heidi-mahoney-928a8293/) my better managers being a bit of a nerd about gaining, where I might have been a nerd about technical tools.
 
-Under Developing Your Team, she splits this into Mindset and Skills. For minset, her big distinction is between talent multipliers vs. talent diminishers. Talent multipliers bring out the intelligence in others by:
+Under Developing Your Team, she splits this into Mindset and Skills. For mindset, her big distinction is between talent multipliers vs. talent diminishers. Talent multipliers bring out the intelligence in others by:
 * attracting and optimizing talent
 * requiring peoples' best thinking
 * setting challenges
 * debating decisions
-* intilling accountability
+* instilling accountability
 
-Meanwhile diminishers are absorbed in their own intelligence, stifle others and deplete the collective intelligence of the organization. These are quite general, but anyone who's worked for a while knows this when they hear it. The attidues are summed up as “They will never figure this out without me.” - Diminisher. “People are smart and will figure this out.” - Multiplier
+Meanwhile diminishers are absorbed in their own intelligence, stifle others and deplete the collective intelligence of the organization. These are quite general, but anyone who's worked for a while knows this when they hear it. The attitudes are summed up as “They will never figure this out without me.” - Diminisher. “People are smart and will figure this out.” - Multiplier
 
 For Skills under developing your team, she seems to consider this essentially Effective Coaching. This has three related categories of skills:
-* Giving and recieving feedback, with a couple slides of detailed advice
-* Skillful questioning, which involves skills for coahcing individuals and skills for coaching the team
+* Giving and receiving feedback, with a couple slides of detailed advice
+* Skillful questioning, which involves skills for coaching individuals and skills for coaching the team
 * Engaged listening, which could be summed up with a quote: “Listen with the intent to understand, not the intent to reply.” - Steven Covey
 
 Her second key strategy is delegating work. Maybe necessary to say for technical people in leadership is to delegate to free up your time. "Do only what you can do." - Andy Stanley. Top points:
@@ -96,7 +96,7 @@ For dimensionality reduction, everyone hears about Principle Complonents Analysi
 
 In this example they used MDS on some crab data, and colored according to gender. There does appear to be some clustering similar to these two genders.
 
-![crab data](/images/crab01.png "crab data through MDS")
+![crab data](/images/crabs01.png "crab data through MDS")
 
 She also highly reccomends the simple scatterplot with loess.
 
