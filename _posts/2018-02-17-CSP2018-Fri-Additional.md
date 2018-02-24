@@ -5,7 +5,7 @@ category: [R, ASA, CSP2018]
 tags: [R, ASA, CSP2018]
 ---
 
-![CSP Conf Logo](/images/csp2018.png "Conference Logo")
+![lda topic 5](/images/ldatopic05.png "distribution of words in topic 5's vocabulary")
 
 Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meetings/csp/2018/index.cfm). 
 
