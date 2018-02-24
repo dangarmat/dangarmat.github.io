@@ -195,15 +195,6 @@ Step 5, modelling, he adds a binary variable of whether a warranty claim has to 
 In the end, this allows for better modelling of why the computers that failed, did. One could imagine for their warranty data set, looking at claims after changes are implemented would give a sense of what is the new biggest issue to resolve to prioritize.
 
 
-### 	Developing a Comprehensive Personal Plan for Teleworking (Working Remotely) *Julia Lull, Janssen Research & Development, LLC*
-
-
-### Combining Historical Data and Propensity Score Methods in Observational Studies to Improve Internal Validity *Miguel Marino, Oregon Health & Science University*
-
-### 	Limitations of Propensity Score Methods: Demonstration Using a Real-World Example *Gregory B. Tallman, Oregon State University/Oregon Health & Science University*
-
-### Appropriate Dimension Reduction for Sparse, High-Dimensional Data Using Intensity Plots and Other Visualizations *Eugenie Jackson, West Virginia University*
-
 ### 	Evaluating Model Fit for Predictive Validity *Katherine M. Wright, Northwestern University*
 
 
