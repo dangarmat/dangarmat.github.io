@@ -86,13 +86,13 @@ Not yet posted online.
 
 ### Latent Dirichlet Allocation Topic Models Applied to the Center for Disease Control and Prevention’s Grant *[Matthew Keith Eblen](https://www.linkedin.com/in/matthew-eblen-9b2a7910/), Centers for Disease Control and Prevention*
 
-Problem: from 2012 to 2016 the CDC adminstered $5 billion a year in grants. There were 800 funding opportunity announcements a year from 13 different centers. Is it possible to use titles and abstracts to classify grants from a public health perspective and get some view into what the CDC funded?
+Problem: from 2012 to 2016 the CDC administered $5 billion a year in grants. There were 800 funding opportunity announcements a year from 13 different centers. Is it possible to use titles and abstracts to classify grants from a public health perspective and get some view into what the CDC funded?
 
 Unsupervised Topic Models methods aim to uncover textual themes running through a large collection of documents without prior annotation. Latent Dirichlet Allocation generative topic model specifically assumes a random distribution of words for a given topic's vocabulary. This gives an advantage of allowing a document to have multiple topics *and* words in multiple topic vocabularies. When topics are similar, such as with CDC grants, this can help capture for example that a document is about 50% cancer and 50% HIV, and that the word "prevention" may be in both topic vocabularies. Latent Dirichlet Allocation is abbreviated LDA, which I unfortunately kept confusing in this presentation with [Linear Discriminant Analysis](https://en.wikipedia.org/wiki/Linear_discriminant_analysis), a supervised classification method. 
 
-Data preparation included collecting titles and abstratcs of funded grants that had abstracts, including locations and ubiquitous words like health in stop words then removing stop words, and removing sparse words showing up in less than 25 abstracts. This LDA requires prior choice of topic numbers (k essentially) so he chose 100 topics and ran LDA with [text2vec](http://text2vec.org/topic_modeling.html) R package. As output, each grant is clustered to some combination of topics adding up to 100%. Then for each grant, he kept only topics from the 100 with more than 20% to assign to the grant to remove long tail information not useful for his problem of interest.
+Data preparation included collecting titles and abstracts of funded grants that had abstracts, including locations and ubiquitous words like health in stop words then removing stop words, and removing sparse words showing up in less than 25 abstracts. This LDA requires prior choice of topic numbers (k essentially) so he chose 100 topics and ran LDA with [text2vec](http://text2vec.org/topic_modeling.html) R package. As output, each grant is clustered to some combination of topics adding up to 100%. Then for each grant, he kept only topics from the 100 with more than 20% to assign to the grant to remove long tail information not useful for his problem of interest.
 
-Each of the 100 topics has a distribution of more and less common words in its vocabulary. In the above automatically detected topic, top words are highlighted in the word cloud. He pulls in metainformation on which of the 13 CDC centers funded these grants and is able to assign a meaningful title of Global HIV/AIDS to this cluster.
+Each of the 100 topics has a distribution of more and less common words in its vocabulary. In the above automatically detected topic, top words are highlighted in the word cloud. He pulls in meta-information on which of the 13 CDC centers funded these grants and is able to assign a meaningful title of Global HIV/AIDS to this cluster.
 
 ![lda topic 1](/images/ldatopic01.png "distribution of words in topic 1's vocabulary")
 
@@ -103,40 +103,43 @@ Topic three, interestingly had to do with domestic HIV/AIDS. LDA does a good job
 
 ![lda topic 3](/images/ldatopic03.png "distribution of words in topic 3's vocabulary")
 
-Topic four had to do with sexual violence and funding was concentrated in National Center for Injury Prevention and Control
-CIO. 
-
-![lda topic 4](/images/ldatopic04.png "distribution of words in topic 4's vocabulary")
-
-Most commonly funded topic 5, was more broad. He labelled this Adolescent Health.
-
-![lda topic 5](/images/ldatopic05.png "distribution of words in topic 5's vocabulary")
-
 As an example of less frequently funded topics, number 87 out of 100 doesn't have a clear vocabulary theme.
 
 ![lda topic 87](/images/ldatopic87.png "distribution of words in topic 87's vocabulary")
 
-### 	Exploratory Data Structure Comparisons by Use of Principal Component Analysis *Anne Helby Petersen, Biostatistics, University of Copenhagen*
+### 	Exploratory Data Structure Comparisons by Use of Principal Component Analysis *[Anne Helby Petersen](http://biostat.ku.dk/staff_/?pure=en/persons/395810), Biostatistics, University of Copenhagen*
 
 Couldn't get in the door for this one it was so packed!
+
+Problem: Recently countries have been ranked by happiness, with Denmark being #1 until recently Norway took over #1. But is it really fair to compare countries with potentially different senses of what happiness means? Can we identify where countries differ in their definition of happiness mathematically?
+
+She expresses her question as if a person from Bulgaria (ranked 144) was put in the same situation as a person from Denmark (ranked 2) would they be equally happy? Does the concept of happiness in Bulgaria translate to that of Denmark? She uses 6 variables in a standardized happiness questionnaire, the European Social Survey, takes the covariance matrix among these 6 variables for each country, and applies Principle Components Analysis to asses if data is structured similarly for each country. 
+
+To do data structure comparisons using PCA, she uses a self-authored R package [PCADSC](https://github.com/AnnePetersen1/PCADSC) with three visuals to asses similarity. A cumulative eigenvalue (CE) plot compares "actual dimension" of data, an angle plot identifies components for which datasets differ, and a chroma plot interprets differences in weights. If Denmark and Bulgaria have similar concepts of psychological well-being, one can expect these plots to show similar eigenvalue sizes with lines within shaded areas and large p-values, similar component structures with arrows mostly diagonal and small angles between them, and similar PCA loading patterns visually. 
+
+In this case there are big differences in all three plots. Some of the detail of what makes someone happy in the two countries is in the chroma plot of PCA loadings. Can see in the first principal component's loading, Bulgarians surveyed care a lot more about community wellbeing and Danes care relatively more about vitality and emotional wellbeing. In the second principle component, it almost diverges even more as Bulgarians again strongly care about supportive relationships while Danes care about that but equally with community and vitality again. These really tell different stories about what happiness means to one person or another. 
+
+![Bulgarian happiness vs. Danish happiness](/images/bgvddkhappiness01.png "Bulgarian happiness vs. Danish happiness")
+
+When she compares Norway and Denmark with all three plots, differences are much lower. So even though there are serious mathematical issues with ranking happiness of countries, Norway and Denmark are comparable. Thus, for her and her Danish fellow countrymen, there is no way around Norway's victory over Denmark.
 
 ### Tools for Exploratory Data Analysis *Wendy L. Martinez, U.S. Bureau of Labor Statistics*
 
 Problem: what the heck is the structure of your data? Are there any especially useful tools to use to get a handle on the stories in some data?
 
-For dimensionality reduction, everyone hears about Principle Complonents Analysis (PCA) a linear method. On a podcast someone once described PCA as one of a handful of top-useful algorithms in stats/ML/datascience. Multidimensional Scaling is a set of *nonlinear* dimensionality reduction techniques. There are two kinds of MDS: Metric, which uses a function of dissimilarities such as Euclidean distance for PCA, and Non-Metric, which instead uses rank-order. 
+For dimensionality reduction, everyone hears about Principle Components Analysis (PCA) a linear method. On a podcast someone once described PCA as one of a handful of top-useful algorithms in stats/ML/datascience. Multidimensional Scaling is a set of *nonlinear* dimensionality reduction techniques. There are two kinds of MDS: Metric, which uses a function of dissimilarities such as Euclidean distance for PCA, and Non-Metric, which instead uses rank-order. 
 
 In this example they used MDS on some crab data, and colored according to gender. There does appear to be some clustering similar to these two genders.
 
 ![crab data](/images/crabs01.png "crab data through MDS")
 
-She also highly reccomends the simple scatterplot with loess.
+She also highly recommends the simple scatterplot with loess.
 
 Another common exploratory data analysis method is clustering, such as the famous k-means. A silhouette plot helps show how well clusterings are in terms of internal validation anyway. In this example, there are no negative values which is good, and one cluster looks good but the other two are too close I think:
 
-![silhouette plot](/images/silplot01.png "Sihouette plot of three clusters")
+![silhouette plot](/images/silplot01.png "Silhouette plot of three clusters")
 
-She reccomends animated "data tours" to see data along an additional dimension of time. These rotate scatterplots around different dimensions, and can give a quick sense of structure from several angles. For high dimensional data, since there are many ways to reduce dimensions, these animations can help get a sense of the different reasonable views of data sctructure. She used MATLAB and looks like there is an R package, [tourr](https://cran.r-project.org/package=tourr) to look into on this - may want to use [tourrGui](https://cran.r-project.org/package=tourrGui).
+She recommends animated "data tours" to see data along an additional dimension of time. These rotate scatterplots around different dimensions, and can give a quick sense of structure from several angles. For high dimensional data, since there are many ways to reduce dimensions, these animations can help get a sense of the different reasonable views of data structure. She used MATLAB and looks like there is an R package, [tourr](https://cran.r-project.org/package=tourr) to look into on this - may want to use [tourrGui](https://cran.r-project.org/package=tourrGui).
 
 She's a fan of parallel coordinate plots for finding structure across many dimensions. I suppose it helps to have one categorical factor and the rest be numerical. Have seen these a few times recently, and maybe with alpha = 0.1 could handle larger data sets. These plots can be used in another method of interactive visualization called Brushing and Linking which could be useful for when there are several views or plots of data. For parallel coordinate plots she mentions reordering variables matters since adjacent variables are easier to see differences and color helps with categorical variables. Here a parallel plot handles 5 dimensions of data and shows obvious clustering:
 
@@ -149,7 +152,7 @@ I arrived at the end of this session to attend the next one in the room, and the
 
 ### CANCELED: A Streamlined Process for Conducting a Propensity Score-Based Analysis *John A. Craycroft, University of Louisville*
 
-Weather cancelled the presenter's flight. Wonder if this presentation is available. 
+Weather canceled the presenters's flight. Wonder if this presentation is available. 
 
 ### 	The Life-Cycle of a Project: Visualizing Data from Start to Finish *View Presentation View Presentation Nola du Toit, NORC at the University of Chicago*
 
