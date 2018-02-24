@@ -24,7 +24,7 @@ Highlights from [Conference on Statistical Practice](https://ww2.amstat.org/meet
 * [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Sat-Additional/)
 
 
-## Sessions I wish I'd Attended, Slides Reviewed in Retrospect
+## Sessions I Wish I'd Attended, Slides Reviewed in Retrospect
 
 ### What Does It Take for an Organization to Make Difficult Information-Based Decisions? Using the Oregon Department of Forestry’s RipStream Project as a Case Study *[Jeremy Groom](http://www.groomanalytics.com/who-we-are.html), Groom Analytics*
 
@@ -160,13 +160,13 @@ Weather canceled the presenters's flight. Wonder if this presentation is availab
 
 Problem: too much data, need to summarize it for quickly digesting meaning.
 
-This presentation seems like basic common sense about data visualization. I don't see anything that new for me in the slides. I did like this guideline of stepping back and considering your audience and reducing clutter. On the one hand, there is a need to make data interesting, but on the other, there is a need for it to not be overwhleming. I think every bit of information costs mental energy and focus, and I like the guideline of the UI design book with the title that tells it all, [Don't Make Me Think](https://www.goodreads.com/book/show/18197267-don-t-make-me-think-revisited).
+This presentation seems like basic common sense about data visualization. I don't see anything that new for me in the slides. I did like this guideline of stepping back and considering your audience and reducing clutter. On the one hand, there is a need to make visualiztions interesting, but on the other, there is a need for them to not be overwhleming. I think every bit of information costs mental energy and focus, and I like the guideline of the UI design book with the title with a perfect summary reporting design mantra, [Don't Make Me Think](https://www.goodreads.com/book/show/18197267-don-t-make-me-think-revisited).
 
 ![reduceclutter01](/images/reduceclutter01.png "reduceclutter01")
 
-She reccomends a couple other resources that may be worth checking out for visualization philosophy. [http://www.thefunctionalart.com/](http://www.thefunctionalart.com/) and [http://www.nbr-graphs.com/](http://www.nbr-graphs.com/).
+She reccomends a couple other resources that may be worth checking out for visualization: [http://www.thefunctionalart.com/](http://www.thefunctionalart.com/) and [http://www.nbr-graphs.com/](http://www.nbr-graphs.com/).
 
-I think some of the point of the visualizations in these slides might be that one can visualizae more parts of a project's process than one may think, and they could be easy visualizations. Doing this for many parts of a project can quickly give a lot of insight into how a project is going.
+I think some of the point in these slides might be that one can visualize more parts of a project's process than one may think, and they could even be simple visualizations. Doing this for many parts of a project can quickly give a lot of insight into how a project is going.
 
 
 ### 	Warranty/Performance Text Exploration for Modern Reliability *Scott Lee Wise, SAS Institute, Inc.*
