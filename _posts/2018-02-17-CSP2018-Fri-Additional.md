@@ -152,6 +152,8 @@ She's a fan of parallel coordinate plots for finding structure across many dimen
 
 I arrived at the end of this session to attend the next one in the room, and the room was laughing and very engaged. 
 
+
+
 ### CANCELED: A Streamlined Process for Conducting a Propensity Score-Based Analysis *John A. Craycroft, University of Louisville*
 
 Weather canceled the presenters's flight. Wonder if this presentation is available. 
@@ -186,7 +188,11 @@ The basic steps of his pipeline are:
 
 He uses SAS JMP Pro Statistical Discovery Software to do this. 
 
-In step 1, summarizing, he parses text into tokens using built-in libraries and stems to remove suffixes. In step 2, preparing, he removes stop words, sorts terms by count and also any high-count n-grams phrases, and removes cases of bigrams that are parts of highly common trigrams. In step 3, visualizing, he uses a word cloud with color gradient by fequency or another factor like severity, and is able to drill down to different levels of summarization to figure out what the big issues are.
+In step 1, summarizing, he parses text into tokens using built-in libraries and stems to remove suffixes. 
+
+In step 2, preparing, he removes stop words, sorts terms by count and also any high-count n-grams phrases, and removes cases of bigrams that are parts of highly common trigrams. 
+
+In step 3, visualizing, he uses a word cloud with color gradient by fequency or another factor like severity, and is able to drill down to different levels of summarization to figure out what the big issues are.
 
 Step 4, analyzing, he just does the indicator column for desired terms and n-grams/phrases, to get to a document term matrix, and clusters using latent symantic anayslsis with singular value decomposition. This outputs a scatterplot matrix that shows differences among documents and terms, allowing drilldown. Basically it outputs the big topics in the corpora. In his case this showed a common issue with terms a somain expert would associate with Bios failures. 
 
