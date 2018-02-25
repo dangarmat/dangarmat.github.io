@@ -158,12 +158,12 @@ He has a great [set of slides](http://quantdevel.com/public/CSP2018/HowToGiveARe
 
 ![readyourslides01](/images/readyourslides01.png "readyourslides01")
 
-The talk says there are three key ways to make an awful presentation: 
+The talk says there are three general places one can make a presentation awful or better: 
 1. Writing the presentation
 2. Giving the presentation
 3. The bigger picture
 
-All good reminders for my next important presentation of an analysis.
+All good reminders for my next important presentation of an analysis so that is is better and not awful!
 
 ### CANCELED: A Streamlined Process for Conducting a Propensity Score-Based Analysis *John A. Craycroft, University of Louisville*
 
