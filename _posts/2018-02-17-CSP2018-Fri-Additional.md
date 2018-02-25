@@ -152,7 +152,7 @@ She's a fan of parallel coordinate plots for finding structure across many dimen
 
 I arrived at the end of this session to attend the next one in the room, and the room was laughing and very engaged. 
 
-Problem: statistical presentions are too easily awful. What are the ways they can be awful?
+Problem: statistical presentions are too easily awful. What are the ways they can be awful and ways these can be remedied?
 
 He has a great [set of slides](http://quantdevel.com/public/CSP2018/HowToGiveAReallyAwfulPresentation.pdf) to remind the audience in a funny way of basically what to do and what not to do when giving a statistical presentation. Like this one:
 
@@ -162,6 +162,8 @@ The talk says there are three key ways to make an awful presentation:
 1. Writing the presentation
 2. Giving the presentation
 3. The bigger picture
+
+All good reminders for my next important presentation of an analysis.
 
 ### CANCELED: A Streamlined Process for Conducting a Propensity Score-Based Analysis *John A. Craycroft, University of Louisville*
 
