@@ -98,16 +98,62 @@ This plot shows accuracy of linkage is higher with younger children, and childre
 
 ### 	Developing a Comprehensive Personal Plan for Teleworking (Working Remotely) *Julia Lull, Janssen Research & Development, LLC*
 
+Problem: so you're thinking of working remotely full or part time, but don't know what you need to consider and how to pitch it to your company.
 
-### Combining Historical Data and Propensity Score Methods in Observational Studies to Improve Internal Validity *Miguel Marino, Oregon Health & Science University*
+The poster spells out some nice common sense advice. It covers as a manger of a potential teleworker what to consider, and as a potential teleworker the pros and cons. I thought the pros are obvious, but cons are interesting. These included:
+* Career limitations/less visibility
+* Loss of company cafeteria/gym
+* Limited participation in formal and informal gatherings (holiday parties, ice cream socials)
+* Difficult to get to know new employees as well
+
+She recommends developing a personal plan. That needs to include:
+* specific detailed reasons for wanting to telecommute
+* working hours and location details - full time or some days? Location? How often to come into the office and where to sit? And describe home office setup.
+* any changes needed to your goals and objectives?
+* what challenges will your remote work have for others (internal and external customers, manager and direct reports) and solutions/mitigations to these
+* describe potential positive impacts and anticipated advantages 
+
+For buy-in she reminds people to get buy-in from family, discuss with manager first then coworkers, obtain feedback from coworkers on concerns prior and after a pilot run to make adjustments to the plan. Finally, while at home, some things to consider:
+* Minimize distractions – have separate, dedicated workspace
+* Furniture – who purchases? 
+* Internet/phone service – reimbursed?
+* IT issues – how will be resolved?
+* How will you communicate vs. how you communicated in office (email, voicemail, phone, IM, teleconferences, etc)
+* Have a start/stop time – regular hours
+
+I think the last point is important. Working remotely some days I find I want to get a full day's work done. But sometimes things come up, like going to a long lunch or cleaning the house, and this is a positive for me, but means I sometimes feel my work day never ended. Some trade-offs there. But without the strong line of the commute, it is important to have some plan or another, even if it's just 8 hours work throughout a whole day, that can consciously balance these needs.
+
+### Combining Historical Data and Propensity Score Methods in Observational Studies to Improve Internal Validity *[Miguel Marino](http://www.ohsu.edu/xd/education/schools/school-of-medicine/departments/clinical-departments/family-medicine/research-scholarship/miguel-marino.cfm), Oregon Health & Science University*
+
+Not yet posted online.
 
 ### 	Limitations of Propensity Score Methods: Demonstration Using a Real-World Example *Gregory B. Tallman, Oregon State University/Oregon Health & Science University*
 
-### Appropriate Dimension Reduction for Sparse, High-Dimensional Data Using Intensity Plots and Other Visualizations *Eugenie Jackson, West Virginia University*
+Problem: propensity scores offer an increasingly popular set of methods  to control for confounding in observational studies, but what are their limitations and how can we see if they are not sufficient for a scientific conclusion?
 
+Long story short: after fitting propensity scores the common support was too low. This is seen in plot B below, as compared to the "ideal" use of propensity scorers where selection bias isn't huge. A priori knowledge of clinical factors associated with treatment selection and diagnostics like this and standardized differences of variables before and after weighting can help indicate when there is too much confounding remaining after propensity score matching in an observation study.
 
+![low common support](/images/commonsupport01.png "low common support in real data on right")
 
+### Appropriate Dimension Reduction for Sparse, High-Dimensional Data Using Intensity Plots and Other Visualizations *[Eugenie Jackson](https://directory.hsc.wvu.edu/Profile/52382), West Virginia University*
 
+Problem: PCA can often help with visualizing clusters in data, but when a dataset is sparse and high dimensional, the first two principal components may only explain say 14% of the variation. 
+
+She uses a color-coded scree plot to quickly gage need for number of principal components to visualize. She then uses three kinds of plots based on combined principal components. An Andrews' plot uses Fourier series to highlight clusters and outliers and can be animated for many possible 2-D projections with R package tourr. She animates the changes as 1 to 15 principal components are added.
+
+A second visual, intensity plots, show distance patterns across dimensions (principal components). I think these summarize, for an observation, for each principal component, how unusual is that observation? Observations with similar such distance patterns may mean an interesting story is there.
+
+![intensityplots01](/images/intensityplots01.png "intensityplots01")
+
+A third visual, inclusion in an intensity decile plots, focuses attention on a single decile of I think similarity. So this 10th decile is the "least intense" that is, most dissimilar I think, the outliers that are hardest to cluster. I think the story is these rows are outliers because each drops on and off a cluster with different dimensions of principal components considered.
+
+![intensityplots02](/images/intensityplots02.png "intensityplots02")
+
+To get a sense how many dimensions are needed for analysis, she uses a plot of Jaccard similarity vs. number of PCs. And based on (the most similar decile of observations?) decile 1, determines 12 dimensions provides enough information for dimension reduction in this case for her research question.
+
+![intensityplots03](/images/intensityplots03.png "intensityplots03")
+
+I don't really have a clear sense from the poster how to read graphs like this, what they mean and what they don't, but they do look helpful to get to answering the question of how many principal components are needed for sufficient summary in most use cases. Her [code is available](https://zenodo.org/record/167450) to work with. 
 
 up next: [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Fri-Additional/)
 
