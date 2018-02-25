@@ -137,7 +137,7 @@ Long story short: after fitting propensity scores the common support was too low
 
 ### Appropriate Dimension Reduction for Sparse, High-Dimensional Data Using Intensity Plots and Other Visualizations *[Eugenie Jackson](https://directory.hsc.wvu.edu/Profile/52382), West Virginia University*
 
-Problem: PCA can often help with visualizing clusters in data, but when a dataset is sparse and high dimensional, the first two principal components may only explain say 14% of the variation. 
+Problem: PCA can often help with visualizing clusters in data, but when a dataset is sparse and high dimensional, the first two principal components may only explain say 14% of the variation. How many PCs do you need?
 
 She uses a color-coded scree plot to quickly gage need for number of principal components to visualize. She then uses three kinds of plots based on combined principal components. An Andrews' plot uses Fourier series to highlight clusters and outliers and can be animated for many possible 2-D projections with R package tourr. She animates the changes as 1 to 15 principal components are added.
 
@@ -145,15 +145,15 @@ A second visual, intensity plots, show distance patterns across dimensions (prin
 
 ![intensityplots01](/images/intensityplots01.png "intensityplots01")
 
-A third visual, inclusion in an intensity decile plots, focuses attention on a single decile of I think similarity. So this 10th decile is the "least intense" that is, most dissimilar I think, the outliers that are hardest to cluster. I think the story is these rows are outliers because each drops on and off a cluster with different dimensions of principal components considered.
+A third visual, inclusion in an intensity decile plots, focuses attention on a single decile of intensity, which I think measures disimilarity from a medoid observation. So this 10th decile is the "most intense" that is, most dissimilar I think, the outliers that are hardest to cluster. I think the story is these rows are outliers because each drops on and off a cluster with different dimensions of principal components considered.
 
 ![intensityplots02](/images/intensityplots02.png "intensityplots02")
 
-To get a sense how many dimensions are needed for analysis, she uses a plot of Jaccard similarity vs. number of PCs. And based on (the most similar decile of observations?) decile 1, determines 12 dimensions provides enough information for dimension reduction in this case for her research question.
+To get a sense how many dimensions are needed for analysis, she uses a plot of Jaccard similarity vs. number of PCs. And based on (the most central decile of observations?) decile 1, determines 12 dimensions provides enough information for dimension reduction in this case for her research question.
 
 ![intensityplots03](/images/intensityplots03.png "intensityplots03")
 
-I don't really have a clear sense from the poster how to read graphs like this, what they mean and what they don't, but they do look helpful to get to answering the question of how many principal components are needed for sufficient summary in most use cases. Her [code is available](https://zenodo.org/record/167450) to work with. 
+I don't really have a clear sense from the poster how to read these plots, what they mean and what they don't, but they do look helpful to get to answering the question of how many principal components are needed for sufficient summary in most use cases. Her [code is available](https://zenodo.org/record/167450) to work with. 
 
 up next: [Additional Sessions I Wish I'd Attended](https://dgarmat.github.io/CSP2018-Fri-Additional/)
 
