@@ -3,6 +3,7 @@ layout: post
 title: Does less sleep today lead to more calories tomorrow?
 category: [R, fitbit]
 tags: [R, fitbit]
+excerpt_separator: <!--more-->
 ---
 
 ![Jun-Dec C v. D](/images/fitbit16.png "Jun-Dec C v. D")
@@ -10,6 +11,8 @@ tags: [R, fitbit]
 ## Introduction
 
 Last few months I've gained some weight so I'm curious if analytics can give insight and show opportunities to get my BMI to normal weight. As a first step, an inquiry into a hypothesis about calories vs. sleep.
+
+<!--more-->
 
 ### Bottom line up front
 
