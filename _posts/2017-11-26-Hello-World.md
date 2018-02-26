@@ -3,11 +3,14 @@ layout: post
 title: Hello World! Here's a Normal Distribution!
 category: R
 tags: R
+excerpt_separator: <!--more-->
 ---
 
 This code simulates Normal(0,1), and this visualization shows smaller samples can vary much more than large samples from the true distribution. Maybe it's not a fascinating picture although there is a deep mystery or two in there. Can we know the truth? Isn't everything we know based on a sample? Is everything we believe, like these three `rnorm()`, an incomplete story?
 
 ![random simulations output](/images/normal01simulation.png "random simulations output")
+
+<!--more-->
 
 ```r
 require(tidyverse)
