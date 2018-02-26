@@ -15,8 +15,8 @@ Population Health Analytics is my job title. I love working in R. Have completed
 
 ![image01](images/image01.png)
 
-### RSS Feed
+### RSS Feeds
 
-[https://dgarmat.github.io/feed.xml](https://dgarmat.github.io/feed.xml)
+[All Posts](https://dgarmat.github.io/feed.xml)
 
 [R only RSS feed](https://dgarmat.github.io/rssfeed_r.xml)
