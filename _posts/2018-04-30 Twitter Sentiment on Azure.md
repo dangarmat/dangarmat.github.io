@@ -17,7 +17,7 @@ This turns out to be rather involved. Here are the steps I've taken so far.
 Using Twitter's API requires a Twitter account. Also need to create a Twitter App to get Keys to use the API. Can say Read/Write and give an explanation like 'To learn about data' as I doubt anyone looks at it unless you start tweeting 10 times a second or something. There are some instructions how to do all this at the [University of Colorado Earth Lab Twitter Analytics Guide](https://earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/).
 
 
-## 2. Download Twitter data with $rtweet$
+## 2. Download Twitter data with rtweet
 
 Using [rtweet](http://rtweet.info/) found I did need to add one library, httpuv to get it to install,
 
@@ -176,7 +176,11 @@ This part takes time. I used [this walthrough](https://gallery.azure.ai/Experime
 * [An Introduction to Data Science on Azure | Nick Wienholt](https://www.youtube.com/watch?v=sUN5eIfbVM0)
 * [Getting started with Azure demo](https://azure.microsoft.com/en-us/get-started/webinar/on-demand/) kind of C# heavy, only watched half so far
 
+![nlp_twitter_mlstudio_1](/images/nlp_twitter_mlstudio_1.PNG)
+
 It's a lot of work and persistence to go through all the help files it takes to set this all up. They keys are always asked for, and not always easy to find. I'm glossing over probably the hardest part. It can be done, but it takes time. Lots of errors needed to be debugged - for example, sometimes need to use Classic Service rather than New Service. Sometimes the data comes back differently than expected (see the new line issue above). I had to upgrade my Azure ML server to process the example in the walk-through. Of course it's free. I had to turn off my VM machine I'd spun up from the second video, as detailed in the money saving tricks at [Top 10 Tricks to Save Money with Azure Virtual Machines](https://buildazure.com/2017/04/08/top-10-tricks-to-save-money-with-azure-virtual-machines/)
+
+![nlp_twitter_mlstudio_2](/images/nlp_twitter_mlstudio_1.PNG)
 
 Eventually I did get a request-response (1 tweet at a time) API up and running. You can test it at:
 [https://twitternlp.azurewebsites.net/Default.aspx](https://twitternlp.azurewebsites.net/Default.aspx)
