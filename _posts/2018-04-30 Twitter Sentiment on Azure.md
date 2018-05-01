@@ -62,7 +62,7 @@ twitter_token <- create_token(
   consumer_secret = secret)
 ```
 
-### Exploring Twitter Data
+### 2.1 Exploring Twitter Data
 
 I live in Portland, Oregon and work in Healthcare so curious what people are saying about health in Portland. So this call of the API searches the last 9 days for any tweet that has both terms in it, ignoring retweets. It also plots a time series which shows seasonality by time of day - most people are tweeting in the afternoon it seems.
 
@@ -144,7 +144,7 @@ portland_health_tweets %>%
 Looks like most are in Portland, Oregon, but a few are not really clear, and some are Portland, Maine. I bet the unclear ones are the auto-posting job aggregators. Could be a lot of analysis of who's tweeting what, but let's move on to uploading data to Azure ML to process.
 
 
-### Preparing the text to upload
+### 2.2 Preparing the text to upload
 
 If you check your data, you'll no doubt see some UTF-8 and "/n" new lines, so have to process those,
 
@@ -187,7 +187,7 @@ It's a lot of work and persistence to go through all the help files it takes to 
 
 ![nlp_twitter_mlstudio_2](/images/nlp_twitter_mlstudio_1.PNG)
 
-Azure ML Studio does seems heavily geared towards creating a prediction API, so that's what my result prediction model above next turned into. Eventually I did get a request-response (1 tweet at a time) API up and running. You can test it at:
+Azure ML Studio does seem heavily geared towards creating a prediction API, so that's what my result prediction model above next turned into. Eventually I did get a request-response (1 tweet at a time) API up and running. You can test it at:
 [https://twitternlp.azurewebsites.net/Default.aspx](https://twitternlp.azurewebsites.net/Default.aspx)
 
 Also got a [nice batch API](https://twitternlpbatch.azurewebsites.net/), showing the tweets output file about to be processed below.
