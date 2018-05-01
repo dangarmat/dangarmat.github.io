@@ -19,7 +19,7 @@ Using Twitter's API requires a Twitter account. Also need to create a Twitter Ap
 
 ## 2. Download Twitter data with rtweet
 
-Using [rtweet](http://rtweet.info/) found I did need to add one library, httpuv to get it to install,
+Using [rtweet](http://rtweet.info/) found I did need to add one library, httpuv, beyond given instructions to get it to install,
 
 ```r
 ### 1. Download data from Twitter -----
@@ -62,7 +62,7 @@ twitter_token <- create_token(
 
 ### Exploring Twitter Data
 
-I live in Portland, Oregon and work in Healthcare so curious what people are saying about healthcare in Portland. So this call of the API searches the last 9 days for any tweet that has both terms in it, ignoring retweets. It also plots a time series which shows seasonality by time of day - most people are tweeting in the afternoon it seems.
+I live in Portland, Oregon and work in Healthcare so curious what people are saying about health in Portland. So this call of the API searches the last 9 days for any tweet that has both terms in it, ignoring retweets. It also plots a time series which shows seasonality by time of day - most people are tweeting in the afternoon it seems.
 
 ```r
 # ignore retweets
@@ -82,7 +82,7 @@ ts_plot(portland_health_tweets, "6 hours") +
   )
 ```
 
-![pt health tweets by 3 hour](/images/pt_health_tweet_ts.PNG)
+![pt health tweets by 3 hour](/images/pt_health_tweet_ts.png)
 
 May be curious who are these tweeters? The top posters in the last 9 days are:
 
@@ -167,25 +167,28 @@ output_file <- data.frame("sentiment" = 0, "tweet_text" = portland_health_tweets
 write.csv(output_file, "portland_health_tweets.csv", row.names = FALSE)
 ```
 
-Ready to go, in 5....4....3....
+Ready to go, in 5....4....
 
 ## 3. Create an Azure ML Studio Prediction Experiment to classify Tweets
 
-This part takes time. I used [this walthrough](https://gallery.azure.ai/Experiment/f43e79f47d8a4219bf8613d271ea2c45) as a guide. It took a few hours. I also created a free Azure account following some guidance from many help files and some videos. 
+This part takes time. I used [this walthrough](https://gallery.azure.ai/Experiment/f43e79f47d8a4219bf8613d271ea2c45) as a guide. It took a few hours. I also created a free Azure account following some guidance from many help files and these two videos:
 
 * [An Introduction to Data Science on Azure | Nick Wienholt](https://www.youtube.com/watch?v=sUN5eIfbVM0)
 * [Getting started with Azure demo](https://azure.microsoft.com/en-us/get-started/webinar/on-demand/) kind of C# heavy, only watched half so far
 
+The end product is pretty looking and relatively easy to follow the logic, if not a bit over-structured for many things. 
+
 ![nlp_twitter_mlstudio_1](/images/nlp_twitter_mlstudio_1.PNG)
 
-It's a lot of work and persistence to go through all the help files it takes to set this all up. They keys are always asked for, and not always easy to find. I'm glossing over probably the hardest part. It can be done, but it takes time. Lots of errors needed to be debugged - for example, sometimes need to use Classic Service rather than New Service. Sometimes the data comes back differently than expected (see the new line issue above). I had to upgrade my Azure ML server to process the example in the walk-through. Of course it's free. I had to turn off my VM machine I'd spun up from the second video, as detailed in the money saving tricks at [Top 10 Tricks to Save Money with Azure Virtual Machines](https://buildazure.com/2017/04/08/top-10-tricks-to-save-money-with-azure-virtual-machines/)
+It's a lot of work and persistence to go through all the help files it takes to set this all up. They keys are always asked for, and not always easy to find. I'm glossing over probably the hardest part. It can be done, but it takes time. Lots of errors needed to be debugged - for example, sometimes need to use Classic Service rather than New Service. Sometimes the data comes back differently than expected (see the new line issue above). I had to upgrade my Azure ML server to process the example in the walk-through. Also turned off my VM machine I'd spun up from the second video, as detailed in the money saving tricks at [Top 10 Tricks to Save Money with Azure Virtual Machines](https://buildazure.com/2017/04/08/top-10-tricks-to-save-money-with-azure-virtual-machines/)
+
 
 ![nlp_twitter_mlstudio_2](/images/nlp_twitter_mlstudio_1.PNG)
 
-Eventually I did get a request-response (1 tweet at a time) API up and running. You can test it at:
+Azure ML Studio does seems heavily geared towards creating a prediction API, so that's what my result prediction model above next turned into. Eventually I did get a request-response (1 tweet at a time) API up and running. You can test it at:
 [https://twitternlp.azurewebsites.net/Default.aspx](https://twitternlp.azurewebsites.net/Default.aspx)
 
-Also got a nice batch API, here showing the tweets output file about to be processed.
+Also got a [nice batch API](https://twitternlpbatch.azurewebsites.net/), showing the tweets output file about to be processed below.
 
 ## 4. Process Tweets
 First time you upload, could do it here as an upload. Going forward, once it's uploaded, if you make any changes to the model and want to rerun on the same data, can do it from the Blob Storage:
@@ -193,7 +196,7 @@ First time you upload, could do it here as an upload. Going forward, once it's u
 
 Hitting submit, it may take a little time to process, but eventually the file is done and can be downloaded.
 
-Pasting it next to the original, can see stemming as removed suffixes and a sentiment prediction for each text is produced. Let's take a look.
+Pasting it next to the original, can see stemming as removed suffixes and a sentiment prediction for each text is produced. Let's take a look at these ML predictions.
 
 ## 5. Analyze Results
 
@@ -208,7 +211,7 @@ portland_health_tweets %>%
 
 Both have 403 rows, thank goodness. They do actually line up in this case.
 
-![twitter_processed_output](images/twitter_processed_output.PNG)
+![twitter_processed_output](images/twitter_processed_output.png)
 
 ```r
 portland_health_tweets_pred <- portland_health_tweets %>% 
@@ -272,6 +275,7 @@ portland_health_tweets_pred %>%
     caption = "\nSource: Data collected from Twitter's REST API via rtweet and sentiment via Azure ML Studio API"
   )
 ```
+![sentiment_by_day](/images/sentiment_by_day.png)
 
 Looks like people tend to have negative sentiment about health in Portland, and especially so on Thursday, April 26th. Though it could be noise, could look up the news, or could look up most common hashtags in negative sentiment tweets from the three days around it.
 
