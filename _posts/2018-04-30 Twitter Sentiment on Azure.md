@@ -8,6 +8,8 @@ tags: [R, Azure, Twitter, NLP]
 
 # Downloading data from Twitter and analyzing it in Azure ML Studio. 
 
+![sentiment_by_day](/images/sentiment_by_day.png)
+
 This turns out to be rather involved. Here are the steps I've taken so far.
 
 <!--more-->
@@ -211,7 +213,7 @@ portland_health_tweets %>%
 
 Both have 403 rows, thank goodness. They do actually line up in this case.
 
-![twitter_processed_output](images/twitter_processed_output.png)
+![twitter_processed_output](images/twitter_processed_output.PNG)
 
 ```r
 portland_health_tweets_pred <- portland_health_tweets %>% 
