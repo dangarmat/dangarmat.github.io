@@ -3,6 +3,7 @@ layout: post
 title: Twitter Sentiment with R on Azure ML Studio
 category: [R, Azure, Twitter, NLP]
 tags: [R, Azure, Twitter, NLP]
+excerpt_separator: <!--more-->
 ---
 
 ![sentiment_by_day](/images/sentiment_by_day.png)
