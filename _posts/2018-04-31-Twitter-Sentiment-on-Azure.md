@@ -5,12 +5,9 @@ category: [R, Azure, Twitter, NLP]
 tags: [R, Azure, Twitter, NLP]
 ---
 
-
-# Downloading data from Twitter and analyzing it in Azure ML Studio. 
-
 ![sentiment_by_day](/images/sentiment_by_day.png)
 
-This turns out to be rather involved. Here are the steps I've taken so far.
+Downloading data from Twitter in R, running it through Azure ML Studio and analyzing the output back in R. It turns out to be rather involved. Here are the steps I've taken so far.
 
 <!--more-->
 
