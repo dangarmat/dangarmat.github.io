@@ -8,11 +8,11 @@ excerpt_separator: <!--more-->
 
 ![Jobs vs. Cost of Living by City](/images/scrape_plot_01.png)
 
-Some cities may be more appealing for a data scientist to live than others. Several websites list best cities for Data Scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine which individuals their results can be inferred to are limited. So here I set up to develop a reproducible, if not quite complete, measure of Data Scientist city attractiveness. Got to DSA index v0.1 shown above with top 21 cities labeled.
+Some cities are more appealing for a data scientist to live than others. Several websites list best cities for data scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine which individuals their results can be inferred to are limited. So here I set up to develop a reproducible, if not quite complete, measure of data scientist city attractiveness. Got to DSCA index v0.1 shown above with top 21 cities labeled.
 
 Number of jobs for data scientists and cost of living may be two important variables. Using R's rvest package, we can scrape from the web the necessary information to get an idea how cities look in terms of these two. 
 
-Bottom Line Up Front: Eight large hiring metros stand out, and less expensive cities within their communing distance look best by these variables. These two variables alone and the sources I chose show some interesting initial results, but they don't seem to capture a complete picture, so more work is needed before getting a reliable reproducible index. 
+Bottom Line Up Front: Eight large hiring metros stand out, and less expensive cities within their communing distance look best by these variables. In particular, Newark, NJ, as cheap and close to lots of Data Scientist jobs has the highest value in DSCA index v0.1. These two variables alone and the sources I chose show some interesting initial results, but they don't seem to capture a complete picture, so more work is needed before getting a reliable reproducible index. 
 
 <!--more-->
 
@@ -191,7 +191,8 @@ head(cities_to_check)
 #6    Washington, DC, United States                95.34
 ```
 
-Now again, monster.com can't seem to find any jobs in Bermuda, surprisingly, but it also can't take Canada, so let's filter to US only and do some cleaning to prepare to run in the get_job_count function.
+Now again, monster.com can't seem to find any jobs in Bermuda, surprisingly, but it also can't
+ take Canada, so let's filter to US only and do some cleaning to prepare to run in the get_job_count function.
 
 ```r
 cities_to_check_cleaned
@@ -307,23 +308,23 @@ count_by_city %>%
 Finally, to try to arrive at some intuitive ranking of cities, I've reduced these two variables into a one-dimensional Data Scientist Attractiveness index. 
 
 ```r
-`DSA_index` = log(job_count + .1) / cost_of_living_index * 100
+`DSCA_index` = log(job_count + .1) / cost_of_living_index * 100
 ```
 
 It may be simplistic, but a starting point, a null hypothesis, if you will, of what matters when choosing a city to live in as a data scientist. Final results...
 
 ```r
 count_by_city %>% 
-  mutate(`DSA_index` = log(job_count + .1) / cost_of_living_index * 100) %>% 
-  arrange(desc(`DSA_index`)) %>% 
+  mutate(`DSCA_index` = log(job_count + .1) / cost_of_living_index * 100) %>% 
+  arrange(desc(`DSCA_index`)) %>% 
   top_n(20) %>% 
-  select(cost_of_living_index:DSA_index) %>% 
-  mutate(`City Name` = reorder(`City Name`, DSA_index)) %>% 
-  ggplot(aes(`City Name`, DSA_index, fill = 1)) +
+  select(cost_of_living_index:DSCA_index) %>% 
+  mutate(`City Name` = reorder(`City Name`, DSCA_index)) %>% 
+  ggplot(aes(`City Name`, DSCA_index, fill = 1)) +
   geom_bar(stat = "identity", show.legend = FALSE) + 
   coord_flip() +
   labs(x = "City",
-       y = "DSA index = exp(Job Posting Count) / Cost of Living Index",
+       y = "DSCA index = exp(Job Posting Count) / Cost of Living Index",
        title = "Hypothesis Generation of top 20 cities to live as a Data Scientist")
 ```
 
@@ -343,3 +344,4 @@ Also, even after data reliability questions are addressed, obviously these are n
  * small cities with many openings
  * reviews of job experience as a data scientist, could train on sentiment by city
  * monster.ca for Canadian postings
+ * interpretability of the index could be improved
