@@ -8,11 +8,11 @@ excerpt_separator: <!--more-->
 
 ![Jobs vs. Cost of Living by City](/images/scrape_plot_01.png)
 
-Some cities may be more appealing for a data scientist to live than others. Several websites list best cities for Data Scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine which individuals their results can be inferred to are limited. So here I set up to develop a reproducable, if not quite complete, measure of Data Scientist city attractiveness. Got to DSA index v0.1 shown above with top 21 cities labelled.
+Some cities may be more appealing for a data scientist to live than others. Several websites list best cities for Data Scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine which individuals their results can be inferred to are limited. So here I set up to develop a reproducible, if not quite complete, measure of Data Scientist city attractiveness. Got to DSA index v0.1 shown above with top 21 cities labeled.
 
 Number of jobs for data scientists and cost of living may be two important variables. Using R's rvest package, we can scrape from the web the necessary information to get an idea how cities look in terms of these two. 
 
-Bottom Line Up Front: Eight large hiring metros stand out, and less expnsive cities within their communting distance look best by these variables. These two variables alone and the sources I chose show some interesting initial results, but they don't seem to capture a complete picture, so more work is needed before getting a reliable reproducable index. 
+Bottom Line Up Front: Eight large hiring metros stand out, and less expensive cities within their communing distance look best by these variables. These two variables alone and the sources I chose show some interesting initial results, but they don't seem to capture a complete picture, so more work is needed before getting a reliable reproducible index. 
 
 <!--more-->
 
@@ -26,16 +26,16 @@ This approach has limitations:
 1. Job postings do not represent people currently employed as a Data Scientist
 2. Some cities may fill and close these postings faster than others, so would appear to have fewer postings using one slice in time than say unique postings in a month
 3. Biases in companies that post on Monster.com
-4. Overcounting from duplicates
-5. Undercounting for posts hiring for multiple positions
+4. Over-counting from duplicates
+5. Under-counting for posts hiring for multiple positions
 
-In any case, let's use this as a proxy and see what shakes out. First step is to get a function that works to retun 24 on just one city. In my browser, this search's url has an extra "&jobid=..." section which can be removed, so that for Portland, OR its minimal moster.com Data Scientist url is:
+In any case, let's use this as a proxy and see what shakes out. First step is to get a function that works to return 24 on just one city. In my browser, this search's URL has an extra "&jobid=..." section which can be removed, so that for Portland, OR its minimal moster.com Data Scientist URL is:
 
 ```r
 url <- 'https://www.monster.com/jobs/search/?q=__22data-scientist__22&where=Portland__2C-OR'
 ```
 
-We know we want this number 24. To get ot it, [http://selectorgadget.com/](http://selectorgadget.com/) offers a nice utility. You "install" it by adding a bookmark, then when navigated to a page you want to scrape, click the bookmark to find a best tag to identify your website's component you need. Clicking on 24 here, slectorgadget shows it's in `'.title'` and so are 31 other elements.  
+We know we want this number 24. To get to it, [http://selectorgadget.com/](http://selectorgadget.com/) offers a nice utility. You "install" it by adding a bookmark, then when navigated to a page you want to scrape, click the bookmark to find a best tag to identify your website's component you need. Clicking on 24 here, slectorgadget shows it's in `'.title'` and so are 31 other elements.  
 
 ![scrape_04](/images/scrape_04.PNG)
 
@@ -43,7 +43,7 @@ I only need the first one so click on one of the yellow ones to turn it red. Now
 
 ![scrape_07](/images/scrape_07.PNG)
 
-As a recap, what we've figured out is the html tags surrounding the text we need to extract from this page. Using `rvest` library, we can use this information to translate this page into xml, then extract the part of this tag that has the needed information
+As a recap, what we've figured out is the html tags surrounding the text we need to extract from this page. Using `rvest` library, we can use this information to translate this page into XML, then extract the part of this tag that has the needed information
 
 ```r
 webpage <- read_html(url)
@@ -61,7 +61,7 @@ library(tidyverse) # for pipes and plots
 titles_html[2] %>% html_text()
 #[1] "\r\n            \r\n                 \"data scientist\" Jobs in Portland, Oregon \r\n            \r\n(24 Jobs Found)        "
 ```
-Can see my number comes after a paranthesis "(". So using ever-handy regex cheatsheet at [http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf](http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) we can extract only the number 24
+Can see my number comes after a parenthesis "(". So using ever-handy regex cheat sheet at [http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf](http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) we can extract only the number 24
 
 ```r
 library(stringr)
@@ -147,7 +147,7 @@ get_job_count("Salt Lake City", "UT")
 #1      12.0
 ```
 
-It returns a tibble data frame with the expected number. Can see this is close to being iterable on every city we want to look up. We're goinh to be doing a right join essentially on city cost of living data, so let's get that now, and use that list to feed the function.
+It returns a tibble data frame with the expected number. Can see this is close to being iterable on every city we want to look up. We're going to be doing a right join essentially on city cost of living data, so let's get that now, and use that list to feed the function.
 
 ## 3. Scrape cost of living data
 
@@ -194,7 +194,8 @@ head(cities_to_check)
 Now again, monster.com can't seem to find any jobs in Bermuda, surprisingly, but it also can't take Canada, so let's filter to US only and do some cleaning to prepare to run in the get_job_count function.
 
 ```r
-cities_to_check_cleaned <- cities_to_check %>% 
+cities_to_check_cleaned
+ <- cities_to_check %>% 
   filter(str_detect(cities, "United States")) %>% 
   separate(cities, c('city', 'state', 'country'), sep = ",") %>% 
   # need sep or else it splits on spaces
@@ -231,7 +232,7 @@ map2_df(.x = cities_to_check_cleaned_short$city,
 #3    227   
 #4      0   
 ```
-It seems to work. Let's run it on all of them and recomine into one data frame
+It seems to work. Let's run it on all of them and recombine into one data frame
 
 ```r
 job_count <- map2_df(.x = cities_to_check_cleaned$city, 
@@ -278,7 +279,7 @@ count_by_city %>%
 
 ## 5. Analysis of best city for Data Scientists
 
-That's how it looks. How can we combine cost of living and number of job postings? A good place to start is a scatterplot. The scatterplot above shows all 112 US cities. Cities with more than 50 Data Scientist job postings within 20 miles are labelled, ones with fewer are not. Colors by state are not the most useful, but do show relation between these cities - for example all the Bay Area brown ones between 200 and 300. 
+That's how it looks. How can we combine cost of living and number of job postings? A good place to start is a scatterplot. The scatterplot above shows all 112 US cities. Cities with more than 50 Data Scientist job postings within 20 miles are labeled, ones with fewer are not. Colors by state are not the most useful, but do show relation between these cities - for example all the Bay Area brown ones between 200 and 300. 
 
 If filtering to cities with more than 20 postings, 
 
@@ -332,13 +333,13 @@ count_by_city %>%
 
 NYC, Seattle, DC, Bay Area, Boston, Chicago, St. Louis, and Dallas have the most Data Scientist monster.com job postings as of the time of this scrape, standing out as the eight largest hiring metros. These could be some issues with the data sources, such as duplicates. It's also weird San Jose is cheaper than Oakland. So would take this index with a grain of salt.
 
-Also, even after data reliability questions are addrseed, obviously these are not the only two numbers that matter. A quality of life index might consider more relevant variables than cost of living alone. So obvious numbers to add are
+Also, even after data reliability questions are addressed, obviously these are not the only two numbers that matter. A quality of life index might consider more relevant variables than cost of living alone. So obvious numbers to add are
  * crime stats
  * distribution of Data Scientist salaries
  * average commute time to the jobs in the 20 mile radius
  * total population of metro area 
  * college educated population
  * quantitative masters educated population for a sense of competition for the spots
- * small cities with many openenings
+ * small cities with many openings
  * reviews of job experience as a data scientist, could train on sentiment by city
- * monster.ca for canadian postings
+ * monster.ca for Canadian postings
