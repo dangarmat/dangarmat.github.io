@@ -8,11 +8,11 @@ excerpt_separator: <!--more-->
 
 ![Jobs vs. Cost of Living by City](/images/scrape_plot_01.png)
 
-Some cities may be more appealing for a data scientist to live than others. Several websites list best cities for Data Scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine individuals their results can be inferred to are limited. So here I set up to develop a reproducable, if not quite complete, measure of Data Scientist city attractiveness.
+Some cities may be more appealing for a data scientist to live than others. Several websites list best cities for Data Scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine which individuals their results can be inferred to are limited. So here I set up to develop a reproducable, if not quite complete, measure of Data Scientist city attractiveness. Got to DSA index v0.1 shown above with top 21 cities labelled.
 
 Number of jobs for data scientists and cost of living may be two important variables. Using R's rvest package, we can scrape from the web the necessary information to get an idea how cities look in terms of these two. 
 
-Bottom Line Up Front: Seven large hiring metros stand out, and less expnsive cities within their communting distance look best by these variables. These two variables alone and the sources I chose show some interesting initial results, but they don't seem to capture a complete picture, so more work is needed before getting a reliable reproducable index. 
+Bottom Line Up Front: Eight large hiring metros stand out, and less expnsive cities within their communting distance look best by these variables. These two variables alone and the sources I chose show some interesting initial results, but they don't seem to capture a complete picture, so more work is needed before getting a reliable reproducable index. 
 
 <!--more-->
 
@@ -285,6 +285,60 @@ If filtering to cities with more than 20 postings,
 
 ```r
 library(ggthemes)
-
+count_by_city %>% 
+  arrange(desc(job_count)) %>% 
+  filter(job_count >= 20) %>% 
+  ggplot(aes(x = cost_of_living_index, y = job_count, 
+             label = `City Name`, color = state)) +
+  geom_point() + 
+  geom_text(vjust = 1, size = 3) +
+  theme_gdocs() + 
+  ylab('Count of Job Postings') +
+  xlab('Cost of living index') + 
+  ggtitle('Count of Data Scientist Job Postings in 20 mile radius on Monster.com 
+          vs. Cost of living index per numbeo.com
+          for US Cities with 20+ Job Postings')
 ```
 
+![Jobs vs. Cost of Living by City 2](/images/scrape_plot_02.png)
+
+
+Finally, to try to arrive at some intuitive ranking of cities, I've reduced these two variables into a one-dimensional Data Scientist Attractiveness index. 
+
+```r
+`DSA_index` = log(job_count + .1) / cost_of_living_index * 100
+```
+
+It may be simplistic, but a starting point, a null hypothesis, if you will, of what matters when choosing a city to live in as a data scientist. Final results...
+
+```r
+count_by_city %>% 
+  mutate(`DSA_index` = log(job_count + .1) / cost_of_living_index * 100) %>% 
+  arrange(desc(`DSA_index`)) %>% 
+  top_n(20) %>% 
+  select(cost_of_living_index:DSA_index) %>% 
+  mutate(`City Name` = reorder(`City Name`, DSA_index)) %>% 
+  ggplot(aes(`City Name`, DSA_index, fill = 1)) +
+  geom_bar(stat = "identity", show.legend = FALSE) + 
+  coord_flip() +
+  labs(x = "City",
+       y = "DSA index = exp(Job Posting Count) / Cost of Living Index",
+       title = "Hypothesis Generation of top 20 cities to live as a Data Scientist")
+```
+
+![Jobs vs. Cost of Living by City 3](/images/scrape_plot_03.png)
+
+## 6. Conclusion
+
+NYC, Seattle, DC, Bay Area, Boston, Chicago, St. Louis, and Dallas have the most Data Scientist monster.com job postings as of the time of this scrape, standing out as the eight largest hiring metros. These could be some issues with the data sources, such as duplicates. It's also weird San Jose is cheaper than Oakland. So would take this index with a grain of salt.
+
+Also, even after data reliability questions are addrseed, obviously these are not the only two numbers that matter. A quality of life index might consider more relevant variables than cost of living alone. So obvious numbers to add are
+ * crime stats
+ * distribution of Data Scientist salaries
+ * average commute time to the jobs in the 20 mile radius
+ * total population of metro area 
+ * college educated population
+ * quantitative masters educated population for a sense of competition for the spots
+ * small cities with many openenings
+ * reviews of job experience as a data scientist, could train on sentiment by city
+ * monster.ca for canadian postings
