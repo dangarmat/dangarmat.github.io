@@ -8,9 +8,9 @@ excerpt_separator: <!--more-->
 
 ![Jobs vs. Cost of Living by City](/images/scrape_plot_01.png)
 
-Some cities are more appealing for a data scientist to live than others. Several websites list best cities for data scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine which individuals their results can be inferred to are limited. So here I set up to develop a reproducible, if not quite complete, measure of data scientist city attractiveness. Got to DSCA index v0.1 shown above with top 21 cities labeled.
+Some cities are more appealing for a data scientist to live than others. Several websites list best cities for data scientists, but their lists don't agree and their methods are not explained, so the quality of the analysis and ability to determine which individuals their results can be inferred to are limited. 
 
-Number of jobs for data scientists and cost of living may be two important variables. Using R's rvest package, we can scrape from the web necessary information to get an idea how cities look in terms of these two. 
+So here I set up to develop a reproducible, if not quite complete, measure of data scientist city attractiveness. Number of jobs for data scientists and cost of living may be two important variables. Using R's rvest package, we can scrape from the web necessary information to get an idea how cities look in terms of these two. Got to DSCA index v0.1 shown above with top 21 cities labeled. 
 
 Bottom Line Up Front: Eight large hiring metros stand out, and less expensive cities within their communing distance look best by these variables. In particular, Newark, NJ, as cheap and close to lots of data scientist jobs, has the highest value in DSCA index v0.1. These two variables alone and the sources I chose show some interesting initial results, but they don't seem to capture a complete picture, so more work is needed before getting a reliable reproducible index. 
 
@@ -18,7 +18,7 @@ Bottom Line Up Front: Eight large hiring metros stand out, and less expensive ci
 
 ## 1. How many Data Scientist jobs are there in a given city?
 
-One approach to see how many jobs a city has, you can do a [monster.com](www/monster.com) search. Data and scientist can be keywords in other jobs, but I really want to know how many jobs with the words "Data Scientist" in the title are posted in each city. In this case for Portland, OR, I want a function that will return number 24.
+One approach to see how many jobs a city has is search [monster.com](www/monster.com). "Data" and "scientist" can be keywords in other jobs, but I really want to know how many jobs with the words "Data Scientist" in the title are posted in each city. In this case for Portland, OR, I want a function that will return number 24.
 
 ![scrape_03](/images/scrape_03.PNG)
 
@@ -29,13 +29,13 @@ This approach has limitations:
 4. Over-counting from duplicates
 5. Under-counting for posts hiring for multiple positions
 
-In any case, let's use this as a proxy and see what shakes out. First step is to get a function that works to return 24 on just one city. In my browser, this search's URL has an extra "&jobid=..." section which can be removed, so that for Portland, OR its minimal moster.com Data Scientist URL is:
+In any case, let's use this as a proxy and see what shakes out. First step is to get a function that works to return 24 on just one city. In my browser, this search's URL has an extra "&jobid=..." section to point at the first listed job and can be removed, so that for Portland, OR its minimal moster.com Data Scientist URL is:
 
 ```r
 url <- 'https://www.monster.com/jobs/search/?q=__22data-scientist__22&where=Portland__2C-OR'
 ```
 
-We know we want this number 24. To get to it, [http://selectorgadget.com/](http://selectorgadget.com/) offers a nice utility. You "install" it by adding a bookmark available there, then when navigated to a page you want to scrape, click the bookmark to find a best tag to identify your website's component you need. Clicking on 24 here, slectorgadget shows it's in `'.title'` and so are 31 other elements.  
+We know we want this number 24. To get to it, [http://selectorgadget.com/](http://selectorgadget.com/) offers a nice utility. You "install" it by adding a bookmark available there. Then when navigated to a page you want to scrape, click the bookmark to find a best tag to identify your website's component you need. Clicking on 24 here, slectorgadget shows it's in `'.title'` and so are 31 other elements.  
 
 ![scrape_04](/images/scrape_04.png)
 
@@ -43,7 +43,7 @@ I only need the first one so click on one of the yellow ones to turn it red. Now
 
 ![scrape_07](/images/scrape_07.png)
 
-As a recap, what we've figured out is the html tags surrounding text we need to extract from this page. Using `rvest` library, we can use this information to extract only number 24,
+As a recap, what we've figured out is the html tags surrounding text we need to extract from this page. Using `rvest` library, we can use this information to harvest this page's "most nutritious" content,
 
 ```r
 webpage <- read_html(url)
@@ -61,7 +61,7 @@ library(tidyverse) # for dplyr and ggplot2
 titles_html[2] %>% html_text()
 #[1] "\r\n            \r\n                 \"data scientist\" Jobs in Portland, Oregon \r\n            \r\n(24 Jobs Found)        "
 ```
-Can see my number comes after a parenthesis "(". So using ever-handy regex cheat sheet at [http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf](http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) we can extract only the number 24
+Can see my goal number comes after a parenthesis "(". So using ever-handy regex cheat sheet at [http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf](http://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) we can extract only the number 24
 
 ```r
 library(stringr)
@@ -78,7 +78,7 @@ Cool, that worked. Let's try a second city.
 
 ## 2. Expanding your scrape to additional cities
 
-An obvious next city to try is Columbus, OH. Running a [monster.com search](https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Columbus__2C-OH&jobid=195128271) on it shows the format of the url `https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Columbus__2C-OH` simply replaces the city and state. Also, if we run the above code changing only its city and state we expect number 44 returned. 
+The obvious next city to try is Columbus, OH. Running a [monster.com search](https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Columbus__2C-OH&jobid=195128271) on it shows the format of the url string `https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Columbus__2C-OH` simply replaces the city and state. Also, if we run the above code changing only its city and state we expect number 44 returned. 
 
 ![scrape_08](/images/scrape_08.PNG)
 
@@ -96,9 +96,9 @@ Indeed that is what happens. Here it has been piped for easier understanding
 #[1] 44
 ```
 
-Next step, create a function that takes a city and state and returns a job count. Now two issues arise when trying to expand to other cities. We have multi name cities, such as Los Angeles, CA and Salt Lake City, UT. We need to know how monster.com represents those. We also have cities with no data scientist jobs available, such as Anchorage, AK. Let's take a look.
+Next step, create a function that takes a city and state and returns a job count. Now two issues arise when trying to expand to other cities. We have multi name cities, such as Los Angeles, CA and Salt Lake City, UT. We need to know how monster represents those. We also have cities with no data scientist jobs available, such as Anchorage, AK. Let's take a look.
 
-Los Angeles's url is `https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Los-Angeles__2C-CA&jobid=195858182`. Now we can remove the `&jobid=..." part and note the space is a dash. Similarly with Salt Lake City, `https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Salt-Lake-City__2C-UT&jobid=814cce32-0bd4-41b3-91cc-6789f09ffdea` it adds a dash in both spaces. These can be handled with `stringr`'s  `str_replace()`.
+Los Angeles's url is `https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Los-Angeles__2C-CA&jobid=195858182`. Now we can remove the `&jobid=...` part and note the space is a dash. Similarly with Salt Lake City, `https://www.monster.com/jobs/search/?q=__22Data-Scientist__22&where=Salt-Lake-City__2C-UT&jobid=814cce32-0bd4-41b3-91cc-6789f09ffdea` it adds a dash in both spaces. These can be handled with `stringr`'s  `str_replace()`.
 
 As for Data Science job postings in Alaska's largest city, what you see in parenthesis isn't a number, so it will return as NA. 
 
@@ -152,7 +152,9 @@ It returns a tibble data frame with the expected number. Can see this is close t
 
 Cost of living per city indexed so that New York City is 1.00 is available at [https://www.numbeo.com/cost-of-living/](https://www.numbeo.com/cost-of-living/). This website appears to "croudsource" their cost of living data, so it's going to be biased. Again we just need a rough idea, so let's start with this.
 
-Now monster.com only takes cities in the US, so let's filter numbeo to Northern America at: [https://www.numbeo.com/cost-of-living/region_rankings.jsp?title=2017&region=021](https://www.numbeo.com/cost-of-living/region_rankings.jsp?title=2017&region=021). We need two fields, the city, and the cost of living index. `rvest` does have an `html_table()` [function](https://www.r-bloggers.com/using-rvest-to-scrape-an-html-table/), but it doesn't always work. Here I pulled in columns individually. Using selectorgadget we can get the name of the city column.
+Now monster only takes cities in the US, so let's filter numbeo to Northern America at: [https://www.numbeo.com/cost-of-living/region_rankings.jsp?title=2017&region=021](https://www.numbeo.com/cost-of-living/region_rankings.jsp?title=2017&region=021). We need two fields, the city, and the cost of living index. Here I pulled in columns individually. `rvest` does have an `html_table()` [function](https://www.r-bloggers.com/using-rvest-to-scrape-an-html-table/), but it doesn't work on some types of tables. 
+
+Using selectorgadget we can get the name of the city column.
 
 ![scrape_10](/images/scrape_10.png)
 
@@ -190,7 +192,7 @@ head(cities_to_check)
 #6    Washington, DC, United States                95.34
 ```
 
-Now again, unfortunately monster.com can't find any jobs in Bermuda, but it also can't
+Now again, unfortunately monster can't find any jobs in Bermuda, but it also can't
  take Canada, so let's filter to US only and do some cleaning to prepare to run in the get_job_count function.
 
 ```r
@@ -341,7 +343,7 @@ The scatterplot at top of this post shows all 112 US cities with a cost of livin
 
 NYC, Seattle, DC, Bay Area, Boston, Chicago, St. Louis, and Dallas have the most data scientist monster.com job postings, standing out as the eight largest hiring metros as of the time of this scrape. Some questions about data quality of both data sources remain, such as duplicate postings or San Jose is cheaper to live in than Oakland. So would take this index with a grain of salt.
 
-Also, even after data reliability questions are addressed, obviously these are not the only two numbers that matter. A quality of data scientist life index might consider more relevant variables than cost of living alone. So obvious numbers to add are
+Also, even after data reliability questions are addressed, obviously these are not the only two numbers that matter. A quality of data scientist life index might consider more relevant variables than cost of living alone. So obvious areas of improvement include:
  * crime stats
  * livability indices
  * numbeo's cost of living plus rent index
@@ -354,6 +356,5 @@ Also, even after data reliability questions are addressed, obviously these are n
  * small cities with many openings
  * reviews of job experience as a data scientist, could train on sentiment by city
  * monster.ca for Canadian postings
- * interpretability of the index could be improved
-
+ * interpretability of the index
  
