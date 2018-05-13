@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Best city for data scientists today according to two variables harvested with rvest
-category: [ Web Scraping]
-tags: [ Web Scraping]
+category: [R, Web Scraping]
+tags: [R, Web Scraping]
 excerpt_separator: <!--more-->
 ---
 
@@ -57,7 +57,7 @@ titles_html
 
 # looks like it's the second element
 
-library(tidyverse) # for dplyr and ggplot2
+library(tidyverse) # for dplyr, ggplot2, and purrr
 titles_html[2] %>% html_text()
 #[1] "\r\n            \r\n                 \"data scientist\" Jobs in Portland, Oregon \r\n            \r\n(24 Jobs Found)        "
 ```
@@ -192,7 +192,7 @@ head(cities_to_check)
 #6    Washington, DC, United States                95.34
 ```
 
-Now again, unfortunately monster can't find any jobs in Bermuda, but it also can't
+Now again, unfortunately monster can't find any jobs in Bermuda, and it also can't
  take Canada, so let's filter to US only and do some cleaning to prepare to run in the get_job_count function.
 
 ```r
@@ -218,7 +218,7 @@ head(cities_to_check_cleaned)
 
 ## 4. Combine both sources
 
-There are two inputs to the get_job_count function, city and state, so a good choice is `purrr`'s `map2` function. Let's do a quick check on a subset of these cities first
+There are two inputs to the `get_job_count()` function, `city` and `state`, so a good choice is `purrr`'s `map2` function. Let's do a quick check on a subset of these cities first
 
 ```r
 cities_to_check_cleaned_short <- cities_to_check_cleaned[1:4, ]
@@ -234,7 +234,7 @@ map2_df(.x = cities_to_check_cleaned_short$city,
 #3    227   
 #4      0   
 ```
-It seems to work. Let's run it on all of them and recombine into one data frame
+It seems to work and return a data frame with numbers as expected, including a 0 for Anchorage, AK. Let's run it on all listed cities and recombine into one data frame,
 
 ```r
 job_count <- map2_df(.x = cities_to_check_cleaned$city, 
@@ -260,9 +260,11 @@ head(count_by_city)
 #4     Anchorage    AK                98.69         0     Anchorage, AK
 #5    Washington    DC                95.34       368    Washington, DC
 #6     New Haven    CT                93.75         3     New Haven, CT
+```
 
-# these are arranged by cost of living. How about by job count?
+These are arranged by cost of living index. How about by job count?
 
+```r
 count_by_city %>% 
    arrange(desc(job_count)) %>% 
    top_n(10, job_count)
@@ -305,7 +307,7 @@ count_by_city %>%
 ![Jobs vs. Cost of Living by City 2](/images/scrape_plot_02.png)
 
 
-Colors by state are not the most useful, but do show relation between these cities - for example all the Bay Area brown ones between 200 and 300.
+Colors by state are not the most useful but do show relation between these cities - for example all the Bay Area brown ones between 200 and 300.
 
 Finally, to try to arrive at some intuitive ranking of cities, I've reduced these two variables into a one-dimensional Data Scientist City Attractiveness index. 
 
@@ -336,25 +338,28 @@ Newark, NJ takes first place!
 
 ![newark skyline](/images/newark_skyline.jpg)
 
-The scatterplot at top of this post shows all 112 US cities with a cost of living index on numbeo.com. Cities above 5 on the index are labeled, cities lower are not. 
+The scatterplot at top of this post shows all 112 US cities with a cost of living index on numbeo. Cities above 5 on the index are labeled, cities lower are not. 
 
 
 ## 6. Conclusion
 
-NYC, Seattle, DC, Bay Area, Boston, Chicago, St. Louis, and Dallas have the most data scientist monster.com job postings, standing out as the eight largest hiring metros as of the time of this scrape. Some questions about data quality of both data sources remain, such as duplicate postings or San Jose is cheaper to live in than Oakland. So would take this index with a grain of salt.
+NYC, Seattle, DC, Bay Area, Boston, Chicago, St. Louis, and Dallas have the most data scientist monster.com job postings, standing out as the eight largest hiring metros as of the time of this scrape. Some questions about data quality of both data sources remain, such as duplicate postings or San Jose being cheaper to live in than Oakland. So would take this index with a grain of salt.
 
-Also, even after data reliability questions are addressed, obviously these are not the only two numbers that matter. A quality of data scientist life index might consider more relevant variables than cost of living alone. So obvious areas of improvement include:
+Also, even if data reliability questions are addressed, these are obviously not the only two numbers that matter. A quality-of-data-scientist-life index might consider more relevant variables than jobs and cost of living alone. So obvious areas of improvement include:
  * crime stats
  * livability indices
  * numbeo's cost of living plus rent index
- * distribution of Data Scientist salaries
  * average commute time to the jobs in the 20 mile radius
+ * smaller radii
  * total population of metro area 
  * college educated population
- * quantitative masters educated population for a sense of competition for the spots
+ * quantitative masters educated population
  * natural beauty and low pollution
  * small cities with many openings
- * reviews of job experience as a data scientist, could train on sentiment by city
+ * distribution of data scientist salaries
+ * sentiment of reviews of job experience as a data scientist
  * monster.ca for Canadian postings
- * interpretability of the index
+ * interpretability of index
  
+DSCA v0.1 code can be found at:
+[https://github.com/dgarmat/data_scientist_city_attractiveness_index](https://github.com/dgarmat/data_scientist_city_attractiveness_index)
