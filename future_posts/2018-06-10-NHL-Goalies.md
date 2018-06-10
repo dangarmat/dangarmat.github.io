@@ -10,14 +10,14 @@ As a former goalie myself, watching the NHL playoffs, curiousity grew about who 
 
 What better way to understand how they shake out than clustering their regular season statisitcs? This is an opportunity to work with [tibbleColumns](https://github.com/nhemerson/tibbleColumns) by Hoyt Emerson, a new package that adds some intriguing functionality to dplyr, and [dendextend](https://cran.r-project.org/package=dendextend) by Tal Gallili, which adds options to heirarchical clustering diagrams. Best data found came from Rob Vollman at [http://www.hockeyabstract.com/testimonials](http://www.hockeyabstract.com/testimonials).
 
+![Frederick Andersen](/images/640px-Capitals-Maple_Leafs.jpg)
 
 <!--more-->
-![Frederick Andersen](/images/640px-Capitals-Maple_Leafs.jpg)
 By <a rel="nofollow" class="external text" href="https://www.flickr.com/people/65193799@N00">David</a> from Washington, DC - <a rel="nofollow" class="external text" href="https://www.flickr.com/photos/bootbearwdc/34075134291/">_25A9839</a>, <a href="https://creativecommons.org/licenses/by/2.0" title="Creative Commons Attribution 2.0">CC BY 2.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=58534896">Link</a>
 
 ## 1. Loading data
 
-What's the data from hockeyabstract look like? Let's load some packages we'll be using in this analysis and take an initial glimpse.
+How does the hockeyabstract data look? Let's load some packages we'll be using in this analysis and take an initial glimpse.
 
 ```r
 library(tidyverse)
@@ -49,7 +49,9 @@ glimpse(goalies)
 #$ Wt           <dbl> 189, 196, 202, 187, 215, 211, 182, 232, 220, 173, 195, 229, 182, 180, 200, 200, 195...
 #$ Sh           <chr> "L", "L", "R", "L", "L", "L", "L", "L", "L", "L", "L", "L", "R", "L", "L", "L", "L"...
 ```
-At 95 vs. 132, this has fewer players than variables! Can see the first column is just rownumber, so remove it. Then take a look look at the distribution of games.
+At 95 by 132 this has fewer players than variables! Can see the first column is just rownumber, so remove it. Then take a look look at the distribution of games.
+
+### Distribution of Games Played (GP)
 
 ```r
 goalies <- goalies[ , -1]
@@ -58,10 +60,11 @@ ggplot(goalies, aes(x = GP)) +
   geom_histogram()
 ```
 ![goalies_03](/images/goalies_03.png)
+
 Fairly uniformly disttributed with a bit fewer as the number of games played (GP) goes up.
 
 
-Defining a starter as a goalie who plays 35+ regular season games, we can see 39 such starters, more than the number of NHL teams. There are some teams with 2 starters as defined 35+. Are they duplicates? 
+Defining a starter as a goalie who plays 35+ regular season games, we can see 39 such starters, more than 31, the number of NHL teams. There are some teams with 2 starters as defined 35+. Are they duplicates? 
 ```r
 goalies %>% 
   filter(GP >= 35) %>% 
@@ -137,7 +140,9 @@ goalies %>%
 ```
 So no duplicates. Teams can hold more than one team in the field with a comma, as opposed to only showing the last team the gaolie played for in 2018.
 
-Heights of NHL goalies are rediculous these days! Less than 6 feet need not apply, it seems.
+### Distribution of Heights
+
+Heights of NHL goalies are rediculous these days! 
 ```r
 goalies %>% 
   mutate(`Height in Feet` = Ht / 12) %>% 
@@ -147,6 +152,8 @@ goalies %>%
   geom_smooth()
 ```
 ![goalies04](/images/goalies04.png)
+
+Less than 6 feet need not apply, it seems.
 
 Who are these *very short* people on the left getting game time?
 ```r
@@ -166,3 +173,56 @@ paste0(71 %/% 12, '\'', 71 %% 12, '\'\', what a bunch of short people!')
 5 foot 11 inches, well, as a bit shorter, now I finally know the *primary* reason I'm not in the NHL!
 
 ## 2. Simpler Clustering
+Let's start with something simple. Since we've looked at Games Played and Height, let's add key statistic, Save Percentage and k-means it with k = 2.
+
+```r
+clusters_HGS <- goalies %>% 
+  select(Ht, GP, `SV%`) %>% 
+  kmeans(centers = 2)
+# Error in do_one(nmeth) : NA/NaN/Inf in foreign function call (arg 1)
+
+# we have some NAs
+goalies %>% 
+  select(Ht, GP, `SV%`) %>% 
+  is.na() %>% 
+  sum()
+#[1] 1
+
+# Just 1, who is it?
+goalies[is.na(goalies$Ht), ] %>% 
+  select(`Last Name`, `First Name`, GP, Ht, `SV%`)
+#  `Last Name` `First Name`    GP    Ht `SV%`
+#  <chr>       <chr>        <dbl> <dbl> <dbl>
+#1 Foster      Scott            1    NA     1
+```
+R's `kmeans()` returns an error because of an `NA`. Who is this `NA`? Scott Foster. Chicago accountant, Scott Foster, may be the most famous modern NHL goalie to play 1 game. Classy hockeyabstract added him, [looks like his height is 6'0''](https://en.wikipedia.org/wiki/Scott_Foster_(ice_hockey)) so we'll add it.
+
+```r
+goalies[is.na(goalies$Ht), 'Ht'] <- 6 * 12
+
+# try again
+clusters_HGS <- goalies %>% 
+  select(Ht, GP, `SV%`) %>% 
+  kmeans(centers = 2, nstart = 100)
+
+goalies$cluster_2 <- factor(clusters_HGS$cluster)
+
+goalies %>% 
+  select(Ht, GP, `SV%`, cluster_2) %>% 
+  ggpairs(aes(color = cluster_2, alpha = 0.4))
+```
+![goalies05](/images/goalies05.png)
+
+It looks like clustering split almost entirely along Games Played. This suggests distinction between backup and starter is the strongest distinction in these three fields of data. What value of GP does that split suggest is the cutoff for a starter? 
+```r
+goalies %>% 
+  group_by(cluster_2) %>% 
+  summarise(min(GP), max(GP))
+## A tibble: 2 x 3
+#  cluster_2 `min(GP)` `max(GP)`
+#  <fct>         <dbl>     <dbl>
+#1 1                 1        32
+#2 2                35        67
+```
+Between 32 GP and 35 GP a goalie becomes a starter - would be a fair rule of thumb for these data.
+
