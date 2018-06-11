@@ -144,14 +144,14 @@ goalies %>%
 #5 Mrazek      Petr            39 DET, PHI     
 #6 Niemi       Antti           24 PIT, FLA, MTL
 ```
-So no duplicates. Teams can hold more than one team in the field with a comma, as opposed to only showing the last team the goalie played for in 2018.
+So no duplicates. Teams can hold more than one team in the field with a comma, as opposed to only showing the last team the goalie played for in 2018. So look like true shared starters.
 
 ### 1.2. Distribution of Heights
 
 Heights of NHL goalies are rediculous these days! This picture by [falsegrit](https://imgur.com/gallery/ioisQV9) shows retired NHL goalie Darren Pang 5'5'' in full gear interviewing Ben Bishop 6'7'' who currently plays for the Dallas Stars.
 ![bishop_pang](/images/bishop_pang.jpg)
 
-To be fair, Pang is the second shortest NHL netminder ever, while Bishop is the tallest. But could Pang play today?
+To be fair, Pang is the second shortest NHL netminder ever, while Bishop is the tallest. But would Pang be the shrtest by a lot today?
 
 ```r
 goalies %>% 
@@ -180,13 +180,13 @@ goalies %>%
 paste0(71 %/% 12, '\'', 71 %% 12, '\'\', what a bunch of short people!')
 # [1] "5'11'', what a bunch of short people!"
 ```
-5 foot 11 inches, well, as a bit shorter, now I finally know the *primary* reason I'm not in the NHL!
+5 foot 11 inches. Well, as a bit shorter, now I finally know the *primary* reason I'm not in the NHL!
 
 ## 2. Initial Clustering
 Let's start with something simple. 
 
 ### 2.1. k = 2
-Since we've looked at Games Played and Height, let's add key statistic, Save Percentage and k-means it with k = 2.
+Since we've looked at Games Played and Height, let's add another key statistic, Save Percentage and k-means it with k = 2.
 
 ```r
 clusters_HGS <- goalies %>% 
@@ -208,7 +208,7 @@ goalies[is.na(goalies$Ht), ] %>%
 #  <chr>       <chr>        <dbl> <dbl> <dbl>
 #1 Foster      Scott            1    NA     1
 ```
-R's `kmeans()` returns an error because of an `NA`. Who is this `NA`? Scott Foster. Chicago accountant, Scott Foster, may be the most famous modern NHL goalie to play 1 game. Classy that hockeyabstract added him. [Looks like his height is 6'0''](https://en.wikipedia.org/wiki/Scott_Foster_(ice_hockey)) so we'll add it.
+R's `kmeans()` returns an error because of an `NA`. Who is this `NA`? Scott Foster. Chicago accountant, Scott Foster, may be the most famous NHL goalie after Lester Patrick to play one game. Classy that hockeyabstract added him. [Looks like his height is 6'0''](https://en.wikipedia.org/wiki/Scott_Foster_(ice_hockey)) so we'll add it.
 
 ```r
 goalies[is.na(goalies$Ht), 'Ht'] <- 6 * 12
@@ -226,7 +226,7 @@ goalies %>%
 ```
 ![goalies05](/images/goalies05.png)
 
-Looking along the diagonal, it looks like this clustering split almost entirely along Games Played. This suggests distinction between backup and starter may be the strongest distinction in these three fields of data. Out of curiosity, what value of GP does that split suggest as a good cutoff for a starter? 
+Looking along the diagonal, this clustering split almost entirely along Games Played. This suggests distinction between backup and starter may be the strongest distinction in these three fields of data. Out of curiosity, what value of GP does that split suggest as a good cutoff for a starter? 
 ```r
 goalies %>% 
   group_by(cluster_2) %>% 
@@ -261,7 +261,7 @@ goalies %>%
 ```
 ![goalies06](/images/goalies06.png)
 
-Importantly, though, these data aren't scaled. Centering and scaling, also known as normalizing, better removes effects of units. For example are changes of ten degrees Farenheight equally as dramatic as ten degrees Celsius? No! So let's scale these and retry a scree plot.
+Importantly, though, these data aren't scaled. Centering and scaling better removes effects of units. For example is a change from 20 to 30 degrees Farenheight equal to a change from 20 to 30 degrees Celsius? No! In one you can still play hockey but in the other it's too hot. So let's scale these and retry a scree plot.
 
 ```r
 # so what if we scale it?
@@ -273,7 +273,7 @@ goalies %>%
 ```
 ![goalies07](/images/goalies07.png)
 
-Now it looks like a best bet at an elbow in remaining unexplained variance at about k = 4 clusters.
+Now it looks like maybe a best bet at an elbow in explaining variance at about k = 4 clusters.
 
 So rerunning the pairs plot with 4 clusters on the scaled 3 variables:
 ```r
@@ -290,7 +290,7 @@ scaled_3_vars %>%
 ```
 ![goalies08](/images/goalies08.png)
 
-Ht vs GP shows some good separation. Save Percentage (SV%) doesn't do much except to separate out 1 "really bad" showing, a goalie who had 50% SV%. I'm not saying, as a sub- 5'11'' individual I could do better, but who is that?
+Ht vs GP shows some good separation. Save Percentage (SV%) doesn't do much except to separate out one "really bad" showing, a goalie who had 50% SV%. I'm not saying, as a sub- 5'11'' individual I could do better, but who is that?
 
 ```r
 goalies %>% 
@@ -308,7 +308,7 @@ goalies <- mutate(goalies, MIN = MIN / 60)
 ```
 
 ### 2.3. Prototypical Members
-Who are the prototypical members of the cluster? That is, who is closest to the centroid?. Algorithmically, for each center, for each player, we need to calculate total Euclidean distance to each center then return the row with the lowest distance to each center.
+Who are the prototypical members of the cluster? That is, who is closest to the centroid? Algorithmically: for each center, for each player, we need to calculate total Euclidean distance to each center then return the player with the lowest distance to each center.
 
 ```r
 vars <- colnames(scaled_3_vars)
@@ -343,10 +343,13 @@ pm
 ```
 ![goalies09](/images/goalies09.png)
 
-What do these four clusters teach us about these data? Looking at the scatterplot with the best separation, row 2, column 1, Ht vs. GP, we can see the red group in the top-right corner of the plot, represented by Tukka Rask, are mostly starters and taller than average. Backups, in the lower half of the plot can be "short" (purple) or tall (green). Then there's the 50% save percentage group, which we already know about...
+What do these four clusters teach us about these data? Looking at the scatterplot with the best separation, row 2, column 1, Ht vs. GP, we can see the red group in the top-right corner of the plot, represented by Tukka Rask, is taller than average and mostly starters. Backups, in the lower half of the plot can be "short" (purple) or tall (green). Then there's the 50% save percentage group, which we already know about. Sorry, Ferguson.
 
 ## 3. Clustering on All Data
-OK let's add in all the data we can quickly. Ignoring categorical data for now, which columns are numeric?
+OK let's add in all the data we can quickly get somewhere with. 
+
+### 3.1. How Many Clusters?
+Ignoring categorical data for now, how many columns are numeric?
 
 ```r
 goalies %>% 
@@ -371,7 +374,7 @@ $ Ht          <dbl> 73, 73, 75, 76, 74, 74, 74, 78, 78, 75, 74, 78, 73, 74, 73, 
 #$ RBS__1      <dbl> 0, 41, 12, 22, 5, 45, 46, 13, 8, 72, 22, 16, 5, 78, 13, 27, 13, 7, 26...
 #$ GPS__1      <dbl> -0.1, 50.7, 14.3, 20.5, 10.8, 68.2, 77.7, 17.9, 1.1, 143.4, 17.4, 15....
 ```
-These last 13 columns are all career stats. They all have a double underscore __ because they have duplicate names of other fields. They make veteran Henrik Lundqvist look the best if included in this year's numbers. Honestly, didn't even see this until trying to figure out why he looked the best in these numbers but not in any obvious stats posted at nhl.com. 
+These last 13 columns are all career stats. They all have a double underscore, __ because they have duplicate names of other fields. They make veteran Henrik Lundqvist look the best if included in this year's numbers. Honestly, didn't even see this until trying to figure out why he looked the best in these numbers but not in any 2017-2018 stats posted at nhl.com. 
 
 We could leave them in for some questions, but since ours is limited to 2017-2018 regular season performance, results are more interpritable if we take these 13 columns out.
 ```r
@@ -393,7 +396,7 @@ goalies_stats[ , c((108-12):108)]
 
 goalies_stats <- goalies_stats[ , -c((108-12):108)]
 ```
-This leaves 95 numeric columns. Can we answer how many clusters are there in these 95 variables?
+This leaves 95 numeric columns. Can we answer how many clusters there are in these 95 variables?
 ```r
 goalies_stats %>% 
   scale() %>% 
@@ -491,9 +494,9 @@ goalies %>%
 
 goalies_stats$Wt[is.na(goalies_stats$Wt)] <- 185
 ```
-His weight is also on Wikipedia (may be the only accountant whose weight is on wikipedia).
+His weight is also on Wikipedia. (May be the only accountant whose weight is on wikipedia.)
 
-All the remaining `NA`s correspond to one game players, so setting them as 0s then hopefully ready to retry the screeplot.
+All the remaining `NA`s correspond to one-game-players, so setting them as 0s then hopefully ready to retry the screeplot.
 ```
 goalies_stats <- goalies_stats %>% 
   mutate_all(funs(replace(., is.na(.), 0)))
@@ -520,7 +523,7 @@ sort(unlist(lapply(scaled_all_vars, function(x) sum(is.na(x)))))
 #   MIN__1     QS__2    RBS__1    GPS__1         T         G 
 #        0         0         0         0        95        95 
 ```
-G is goals. No one scored this year, so no variation, so can remove it for clustering purposes. and T?
+G is goals. No goalies scored this year, so no variation, so can remove it for clustering purposes. And T?
 ```r
 table(goalies$T)
 #
@@ -608,7 +611,7 @@ plot(comp, col=k$clust, pch=16)
 ```
 ![goalies16](/images/goalies16.png)
 
-Trying to look at all 9 PCs, can see some good separation at the top-left scatter plots, and much more mixing as we move towards the bottom and right. This plot has four clustered colors to try to make sense of it a bit. Let's say we have four groups, who are these?
+Trying to look at all 10 PCs at once, can see some good separation at the top-left scatter plots, and much more mixing as we move towards the bottom and right. This plot has four clustered colors as a comparison we have built some intution for to try to make sense of this more complex situation. Let's say we have four groups, who are the prototypes?
 
 ```r
 goalies$pca_cluster_4 <- factor(k$cluster)
@@ -635,7 +638,7 @@ prototypes
 #4 4             Anton        Forsberg    CHI         0.653   0.324  1.33   -0.611 -0.201 
 ## ... with 5 more variables: PC6 <dbl>, PC7 <dbl>, PC8 <dbl>, PC9 <dbl>, PC10 <dbl>
 ```
-Only Tuukka Rask is still in this list from earlier prototyping with fewer variables. Let's plot just 4 of the 9 PCs to be a bit more digestable.
+Tuukka Rask and Dylan Fergeson made it in this list from earlier prototyping with fewer variables, again. Let's plot just 4 of the 10 PCs to be a bit more digestable.
 
 ```r
 pm <- goalies %>% 
@@ -656,22 +659,22 @@ pm
 ![goalies17](/images/goalies17.png)
 
 So what's it picking up?
-1. (red) Alexandar Georgiev, at 10 games and .918 SV% is a strong backup, but didn't play much. 
+1. (red) Alexandar Georgiev, at 10 games and .918 SV% is a strong-performing backup, but didn't play much. 
 2. (green) Tuuka Rask this year was a starting goalie with a good save percentage at .917.
-3. (blue) Dylan Ferguson we know from before as the 9:14 min, 2 shots one goal. 
+3. (blue) Dylan Ferguson we know from before as the 9:14 min, two shots, one goal. 
 4. (purple) Anton Forsberg,  at 35 games is borderline starter, basically sharing duties.  His save percentage is a bit lower at .908.
  
-This begins to tell a story about about the 90 numeric variables in our dataset. It tells us most of the variation is around a ton of highly correllated variables. This makes sense - in general, the better you play, the more games you play, more shots you face, more saves, more 5v5 shots, more faceoffs, etc. 
+This begins to tell a story about about these 90 numeric variables in our dataset. It tells us most of their variation is around a ton of highly correllated variables. This makes sense - in general, the better you play, the more games you play, more shots you face, more saves, more 5v5 shots, more faceoffs, etc. 
 
 Basically these clusterings are telling us something about the limitation of 
  questons these data can answer without
  further feature engineering and
- additional variables. Most variation is around games played and a bit around success of performance for those games played. Everyone is tall, and granularity is only at the inch level, so it seems height isn't the biggest area of variation.
+ additional variables. Most variation is around games played and a bit around success of performance in those games played. Everyone is tall, and granularity is only at the inch level, so it seems height isn't the biggest area of variation.
  
 One particularly relevant question is who stands out in their group?
  
 ## 4. Outliers
-One thing we can do to build on this analysis is look for outliers.
+So one thing we can do to build on this work is look for outliers.
 
 ### 4.1. Highest PC1
 As higher PC1s tend to represent higher performing goalies in 2017-2018 regular season, who has the highest PC1?
@@ -680,6 +683,20 @@ As higher PC1s tend to represent higher performing goalies in 2017-2018 regular 
 goalies %>% 
   arrange(desc(PC1)) %>% 
   select(PC1, 'First Name', 'Last Name', 'Team(s)')
+## A tibble: 95 x 4
+#     PC1 `First Name` `Last Name` `Team(s)`
+#   <dbl> <chr>        <chr>       <chr>    
+# 1  13.5 Frederik     Andersen    TOR      
+# 2  12.1 Jonathan     Quick       LAK      
+# 3  12.1 Andrei       Vasilevskiy TBL      
+# 4  12.0 Connor       Hellebuyck  WPG      
+# 5  12.0 Cam          Talbot      EDM      
+# 6  12.0 Sergei       Bobrovsky   CBJ      
+# 7  11.4 Henrik       Lundqvist   NYR      
+# 8  10.9 Pekka        Rinne       NSH      
+# 9  10.6 John         Gibson      ANA      
+#10  10.5 Devan        Dubnyk      MIN      
+## ... with 85 more rows
 ```
 
 Does that make Frederik Andersen the favorite for the Vezina?
@@ -721,7 +738,7 @@ data_frame("Variable" = rownames(Andersen_PC1),
 
 Actually these are neutral or negative even. Toronto had a lot of shots against, yet still made the playoffs. But I wouldn't say Andersen's the front runner for the Vezina.  If we want to know that, it may make more sense to fit a predictive model on previous winners or nominees. But something very different was happening in his case. It's not quite clear what, but he's an outlier. 
 
-The Leafs had a record year for the franchise, on some stats so could be picking that up. On nhl.com, I can see [he did face the most shots this season and most saves](http://www.nhl.com/stats/player?report=goaliesummary&reportType=season&seasonFrom=20172018&seasonTo=20172018&gameType=2&filter=gamesPlayed,gte,1&sort=saves). Perhaps if he was on a better team, he would be the frontrunner for the Vezina?
+The Leafs had a record year for the franchise on some stats, so could be picking that up. On nhl.com, I can see [he did face the most shots this season and made the most saves](http://www.nhl.com/stats/player?report=goaliesummary&reportType=season&seasonFrom=20172018&seasonTo=20172018&gameType=2&filter=gamesPlayed,gte,1&sort=saves). Perhaps this means if he was on a better team, he would be the frontrunner for the Vezina?
 
 ### 4.2. Unusual PC1s by Group
 
@@ -773,18 +790,23 @@ goalies %>%
   geom_point() +
   scale_y_continuous(limits = c(0.85, 0.95)) +
   scale_x_continuous(limits = c(0, 68)) +
-  geom_text(data = up_and_up, aes(label = paste0(`First Name`, " ", `Last Name`)), color = 'darkgreen', vjust = -0.5, size = 3, alpha = .5) +
-  geom_text(data = down_and_down, aes(label = paste0(`First Name`, " ", `Last Name`)), color = 'darkred', vjust = -0.5, size = 3, alpha = .5)
+  geom_text(data = up_and_up, aes(label = paste0(`First Name`, " ", `Last Name`)), 
+    color = 'darkgreen', vjust = -0.5, size = 3, alpha = .5) +
+  geom_text(data = down_and_down, aes(label = paste0(`First Name`, " ", `Last Name`)), 
+    color = 'darkred', vjust = -0.5, size = 3, alpha = .5)
 ```
 ![goalies18](/images/goalies18.png)
 
-Netminders low in temrs of PC1 for their cluster are colored red - perhaps we will see less of them. On the other hand, those on the upper end of their cluster in terms of PC1 are colored green. Plotting GP on the x-axis shows just how much games played explains most of the variation in these numerical data.
+Netminders low in terms of PC1 for their cluster are colored red - perhaps we will see less of them. On the other hand, those on the upper end of their cluster in terms of PC1 are colored green. Plotting GP on the x-axis shows just how much games played explains most of the variation in these numerical data.
 
-I think I really want to do some heirarchical clustering on this. And see what's going on at the deeper level.
+I think I really want to do some heirarchical clustering analysis (HCA) on this. And see what's going on at the deeper level.
 
-### 4.3. HCA
+## 5. HCA
 Let's use some of the previous work to add names of goalies we saw before.
 This will help get an intuition of the clustering going on.
+
+### 5.1. HCA on All Goalies
+
 ```r
 key_goalies <- goalies[85 ,] %>% 
   bind_rows(prototypes) %>% 
@@ -863,7 +885,9 @@ col_vec <- ifelse(labels(dends[[4]]) %in% prototypes$`Last Name`,
 ```
 ![goalies20](/images/goalies20.png)
 
-The dendrogram for Ward's method shows a bit of why k-means with a large nstart may have picked up the 2-3 clusters it did. You have the starters and backups, then you have backups with several games, the full time backups, vs. part time backups up from the minors.
+The dendrogram for Ward's method shows a bit of why k-means with a large nstart may have picked up the 2-3 clusters it did. You have the starters and backups, then you have backups with several games vs. part time backups up from the minors.
+
+### 5.2. Starters
 
 Starters are the most interesting. Let's just look at the starters and see how they cluster out.
 
@@ -892,7 +916,7 @@ starters %>%
 ```
 ![goalies21](/images/goalies21.png)
 
-These are your three premier NHL goalie groups, I think. I feel like group 1 (red) has all the Vezina-possible goalies this year. It'd be good to take this group and see what they look like in PCs.
+These are your three premier NHL goalie groups, I think. I feel like the red group has all the Vezina-possible goalies this year. It'd be good to take this group of starters and see what they look like from another angle.
 ```r
 clusters <- cutree(starters, h = 13, order_clusters_as_data = FALSE)
 clusters <- clusters[clusters %in% c(10:12)]
@@ -913,7 +937,7 @@ starters_to_examine %>%
 ```
 ![goalies22](/images/goalies22.png)
 
-Of course there are other ways to cluster starters. Here a tanglegram compares Ward's method, we've been discussing with complete linkage.
+Of course there are other ways to cluster starters. Here a tanglegram compares Ward's method, we've been discussing, with the most entangled complete linkage and least entangled centroid linkage.
 
 ```r
 dend4 <- dends[[4]] %>%  
@@ -938,6 +962,7 @@ tanglegram(dends[[4]], dends[[6]], faster = TRUE) %>%
   plot(main = paste("ward.D2 vs. centroid linkage,  entanglement =", round(entanglement(.), 2)))
 ```
 ![goalies24](/images/goalies24.png)
+
 The least entanglement is with dend 6, centroid linkage.
 
 
