@@ -671,7 +671,7 @@ Basically these clusterings are telling us something about the limitation of
  further feature engineering and
  additional variables. Most variation is around games played and a bit around success of performance in those games played. Everyone is tall, and granularity is only at the inch level, so it seems height isn't the biggest area of variation.
  
-One particularly relevant question is who stands out in their group?
+Is there any new knowledge discoverable in this data set? One particularly relevant question is who stands out in their group?
  
 ## 4. Outliers
 So one thing we can do to build on this work is look for outliers.
@@ -967,12 +967,13 @@ tanglegram(dends[[4]], dends[[6]], faster = TRUE) %>%
 ```
 ![goalies24](/images/goalies24.png)
 
-The least entanglement is with dend 6, centroid linkage.
+The least entanglement is with dend 6, centroid linkage. This implies it has the most similar sub-cluster structure to Ward's.
 
 ## The Winner Is
 
-Clusters and outliers arguably don't matter as much as which goalie has the last win of the season. In this season, that goes to Holtbeast.
+Clusters and outliers arguably don't matter as much as one feature in particular: an indicator variable on which goalie has the last win of the season.
 ![goalies25](/images/6940543382_df67c7caf8_z.jpg)
 
 Picture by [clyde](https://www.flickr.com/photos/clydeorama/6940543382/)
 
+In this season, that goes to Holtbeast.
