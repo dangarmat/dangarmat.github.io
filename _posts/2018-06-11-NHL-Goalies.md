@@ -6,7 +6,7 @@ tags: [clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
 excerpt_separator: <!--more-->
 ---
 
-As a former goalie myself, watching the NHL playoffs, my curiosity grew towards who are these goalies who are so much better than me they beat me to being in the NHL? Who's a hero, and who's maybe not a keeper? 
+As a former goalie myself, watching the NHL playoffs, my curiosity grew towards: Who are these goalies who are so much better than me they beat me to being in the NHL? Who's a hero, and who's maybe not a keeper? 
 
 What better way to understand how they shake out than clustering their regular season statistics? This is an opportunity to work with [tibbleColumns](https://github.com/nhemerson/tibbleColumns) by Hoyt Emerson, a new package that adds some intriguing functionality to dplyr, and [dendextend](https://cran.r-project.org/package=dendextend) by Tal Gallili, which adds options to hierarchical clustering diagrams. Best data found came from Rob Vollman at [http://www.hockeyabstract.com/testimonials](http://www.hockeyabstract.com/testimonials).
 
@@ -64,7 +64,7 @@ ggplot(goalies, aes(x = GP)) +
 Fairly uniformly distributed with a bit fewer players as the number of games played (GP) goes up.
 
 
-Defining a starter as a goalie who plays 35+ regular season games in an 82 game regular season, we can see 39 such starters, more than 31, the number of NHL teams. There are some teams with 2 starters as defined 35+. Are they duplicates or shared starters? 
+Defining a starter as a goalie who plays 35+ regular season games in an 82 game regular season, we can see 39 such starters, more than the number of NHL teams, 31. There are some teams with 2 starters. Are they duplicates or shared starters? 
 ```r
 goalies %>% 
   filter(GP >= 35) %>% 
@@ -144,14 +144,14 @@ goalies %>%
 #5 Mrazek      Petr            39 DET, PHI     
 #6 Niemi       Antti           24 PIT, FLA, MTL
 ```
-So no duplicates. Teams can hold more than one team in the field with a comma, as opposed to only showing the last team the goalie played for in 2018. So look like true shared starters.
+So no duplicates. `Team(s)` can hold more than one team in the field with a comma, as opposed to only showing the last team the goalie played for in 2018. So look like true shared starters.
 
 ### 1.2. Distribution of Heights
 
-Heights of NHL goalies are ridiculous these days! This picture by [falsegrit](https://imgur.com/gallery/ioisQV9) shows retired NHL goalie Darren Pang 5'5'' in full gear interviewing Ben Bishop 6'7'' who currently plays for the Dallas Stars.
+Heights of NHL goalies are ridiculous these days! This picture by [falsegrit](https://imgur.com/gallery/ioisQV9) shows Ben Bishop 6'7'' who currently plays for the Dallas Stars being interviewed by retired NHL goalie Darren Pang 5'5''.
 ![bishop_pang](/images/bishop_pang.jpg)
 
-To be fair, Pang is the second shortest NHL netminder ever, while Bishop is the tallest. But would Pang be the shortest by a lot today?
+To be fair, Bishop is the tallest NHL netminder ever while Pang is the second shortest. But would Pang be the shortest by a lot today?
 
 ```r
 goalies %>% 
@@ -261,7 +261,7 @@ goalies %>%
 ```
 ![goalies06](/images/goalies06.png)
 
-Importantly, though, these data aren't scaled. Centering and scaling better removes effects of units. For example is a change from 20 to 30 degrees Fahrenheit equal to a change from 20 to 30 degrees Celsius? No! In one you can still play hockey but in the other it's too hot. So let's scale these and retry a scree plot.
+Importantly, though, these data aren't scaled. Centering and scaling better removes effects of units. For example is a change from 20 to 30 degrees Fahrenheit equal to a change from 20 to 30 degrees Celsius? No! In one case you can still play hockey but in the other it's too hot. So let's scale these and retry a scree plot.
 
 ```r
 # so what if we scale it?
@@ -273,9 +273,9 @@ goalies %>%
 ```
 ![goalies07](/images/goalies07.png)
 
-Now it looks like maybe a best bet at an elbow in explaining variance at about k = 4 clusters.
+Now it looks like maybe a best bet for an elbow in explaining variance is about k = 4 clusters.
 
-So rerunning the pairs plot with 4 clusters on the scaled 3 variables:
+So rerunning the pairs plot with 4 clusters on the scaled variables:
 ```r
 set.seed(1001) # so cluster assignments stay the same
 scaled_3_vars %>% 
@@ -376,7 +376,7 @@ $ Ht          <dbl> 73, 73, 75, 76, 74, 74, 74, 78, 78, 75, 74, 78, 73, 74, 73, 
 ```
 These last 13 columns are all career stats. They all have a double underscore, __ because they have duplicate names of other fields. They make veteran Henrik Lundqvist look the best if included in this year's numbers. Honestly, didn't even see this until trying to figure out why he looked the best in these numbers but not in any 2017-2018 stats posted at nhl.com. 
 
-We could leave them in for some questions, but since ours is limited to 2017-2018 regular season performance, results are more interpretable if we take these 13 columns out.
+We could leave them in for some questions, but since ours are limited to 2017-2018 regular season performance, results are more interpretable if we take these 13 columns out.
 ```r
 goalies_stats[ , c((108-12):108)]
 ## A tibble: 95 x 13
@@ -540,7 +540,7 @@ plot(sapply(scaled_all_vars, var))
 ```
 ![goalies12](/images/goalies12.png)
 
-Can see here scaling has made all variances 1 for all variables, so ready to do unitless clustering. 
+Can see here scaling has made all variances 1 for all variables, so ready to do scaled clustering. 
 ```r
 scaled_all_vars %>% 
   wssplot(nstart = 1000)
@@ -585,7 +585,7 @@ sort(pc$rotation[ ,1], decreasing = TRUE)
 #         SCA         HDCA         HDCF        HighS         StGA           GA        GA__1 
 # 0.141419406  0.141419406  0.141086612  0.140628788  0.140348953  0.140170882  0.140170882 
 ```
-These are factors like Shots Against, Saves, Faced Shot Attempts, Minutes, GP, and all the variations on those like even strength shots against. Basically there is less variation among goalies in these statistics than the number of variables might suggest at first glance. This implies our intuition of what separates these goalies at finer distinctions may be found in higher principal components. That also suggests exploring hierarchical clustering, which we will do later. 
+These are factors like Shots Against, Saves, Faced Shot Attempts, Minutes, GP, and all the variations on those like even strength shots against. Basically there is less variation among goalies in these statistics than the number of variables might suggest at first glance. This implies our intuition of what separates these goalies at finer distinctions may be found in higher principal components. That also suggests exploring hierarchical clustering analysis. 
 
 We can get to 85% variation explained reducing these 90 variables to 10 principal components so we'll use 10.
 
@@ -611,7 +611,7 @@ plot(comp, col=k$clust, pch=16)
 ```
 ![goalies16](/images/goalies16.png)
 
-Trying to look at all 10 PCs at once, can see some good separation at the top-left scatter plots, and much more mixing as we move towards the bottom and right. This plot has four clustered colors as a comparison we have built some intuition for to try to make sense of this more complex situation. Let's say we have four groups, who are the prototypes?
+Trying to look at all 10 PCs at once, can see some good separation at the top-left scatter plots, and much more mixing as we move towards the bottom and right. Since we have built some intuition for k = 4 clusters, this plot has four clustered colors as a comparison to make sense of this more complex situation. Let's say we have four groups, who are the prototypes?
 
 ```r
 goalies$pca_cluster_4 <- factor(k$cluster)
