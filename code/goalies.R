@@ -446,7 +446,7 @@ pm
 # outliers?
 #lowest PC1
 goalies %>% 
-  arrange(desc(PC1)) %>% 
+  arrange(PC1) %>% 
   select(PC1, 'First Name', 'Last Name', 'Team(s)')
 
 # Does that make Frederik Andersen the favorite for the Vezina?

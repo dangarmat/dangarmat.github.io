@@ -57,7 +57,7 @@ At 95 x 132 this has fewer players than variables! Can see the first column is j
 goalies <- goalies[ , -1]
 
 ggplot(goalies, aes(x = GP)) + 
-  geom_histogram()
+  geom_histogram(bins = 10)
 ```
 ![goalies_03](/images/goalies_03.png)
 
@@ -216,7 +216,7 @@ goalies[is.na(goalies$Ht), 'Ht'] <- 6 * 12
 # try again
 clusters_HGS <- goalies %>% 
   select(Ht, GP, `SV%`) %>% 
-  kmeans(centers = 2, nstart = 100)
+  kmeans(centers = 2, nstart = 1000)
 
 goalies$cluster_2 <- factor(clusters_HGS$cluster)
 
@@ -257,7 +257,7 @@ wssplot <- function(df, nc = 15, seed = 1234, nstart = 1){
 
 goalies %>% 
   select(Ht, GP, `SV%`) %>% 
-  wssplot(nstart = 100)
+  wssplot(nstart = 1000)
 ```
 ![goalies06](/images/goalies06.png)
 
@@ -269,7 +269,7 @@ goalies %>%
   select(Ht, GP, `SV%`) %>% 
   scale() %>% 
   tibble_out('scaled_3_vars') %>% 
-  wssplot(nstart = 100)
+  wssplot(nstart = 1000)
 ```
 ![goalies07](/images/goalies07.png)
 
@@ -301,7 +301,7 @@ goalies %>%
 #  <chr>        <chr>       <dbl> <dbl> <dbl> <fct>          <dbl> <dbl>
 #1 Dylan        Ferguson        1    73   0.5 3                  2  9.23
 ```
-[Dylan Ferguson](https://www.nhl.com/goldenknights/news/a-chat-with-dylan-ferguson/c-293023078) apparently had 2 shots against (SA) in 554 minutes, either amazing defense, or it's seconds. Wikipedia verifies he played a little over 9 minutes, or 554 / 60. Will let hockeyabstract know! Let's fix it, anyway.
+[Dylan Ferguson](https://www.nhl.com/goldenknights/news/a-chat-with-dylan-ferguson/c-293023078) apparently had 2 shots against (SA) in 554 minutes. Either amazing defense, or units are actually in seconds not minutes. Wikipedia verifies he played a little over 9 minutes, or 554 / 60. Will let hockeyabstract know! Let's fix it, anyway.
 
 ```r
 goalies <- mutate(goalies, MIN = MIN / 60)
@@ -320,19 +320,22 @@ distances <- map(1:4, ~ rowSums(abs(scaled_3_vars[ , vars] -
 prototype_player_nums <- map(1:4, ~ which.min(distances[[.x]]))
 
 # for each prototype, who is it?
-prototypes <- map_df(1:4, ~ goalies[prototype_player_nums[[.x]], c('cluster_scaled', 'First Name', 'Last Name', vars, 'Team(s)')])
+prototypes <- map_df(1:4, ~ goalies[prototype_player_nums[[.x]], 
+  c('cluster_scaled', 'First Name', 'Last Name', vars, 'Team(s)')])
 
 
-# and now plot them on the ggplairs to understand
+# and now plot them on the ggpairs to understand
 pm <- goalies %>% 
   select(Ht, GP, `SV%`, cluster_scaled) %>% 
   ggpairs(aes(color = cluster_scaled, alpha = 0.4), 
           columns = vars)
 
-# so which plots need adjusting from default to add prototypes?
 # which plots to add points?
 sps <- list(pm[2,1], pm[3,1], pm[3,2])
-sps2 <- map(1:length(sps), ~ sps[[.x]] + geom_point(data = prototypes, size = 3, color = 1, alpha = .5) + geom_text(data = prototypes, aes(label = paste0(`First Name`, " ", `Last Name`)), color = 1, vjust = -0.5, size = 3, alpha = .5))
+sps2 <- map(1:length(sps), ~ sps[[.x]] + geom_point(data = prototypes, size = 3, 
+  color = 1, alpha = .5) + geom_text(data = prototypes, aes(label = 
+  paste0(`First Name`, " ", `Last Name`)), color = 1, vjust = -0.5, size = 3, 
+  alpha = .5))
 pm[2,1] <- sps2[[1]]
 pm[3,1] <- sps2[[2]]
 pm[3,2] <- sps2[[3]]
@@ -368,7 +371,7 @@ $ Ht          <dbl> 73, 73, 75, 76, 74, 74, 74, 78, 78, 75, 74, 78, 73, 74, 73, 
 #$ RBS__1      <dbl> 0, 41, 12, 22, 5, 45, 46, 13, 8, 72, 22, 16, 5, 78, 13, 27, 13, 7, 26...
 #$ GPS__1      <dbl> -0.1, 50.7, 14.3, 20.5, 10.8, 68.2, 77.7, 17.9, 1.1, 143.4, 17.4, 15....
 ```
-These last 13 columns are all career stats. They all have a double underscore __ because they are duplicates of other fields. They make Henrik Lundqvist look the best if included in this year's numbers. Honestly, didn't even see this until trying to figure out why he looked the best in these numbers but not in any obvious stats posted at nhl.com. 
+These last 13 columns are all career stats. They all have a double underscore __ because they have duplicate names of other fields. They make veteran Henrik Lundqvist look the best if included in this year's numbers. Honestly, didn't even see this until trying to figure out why he looked the best in these numbers but not in any obvious stats posted at nhl.com. 
 
 We could leave them in for some questions, but since ours is limited to 2017-2018 regular season performance, results are more interpritable if we take these 13 columns out.
 ```r
@@ -395,7 +398,7 @@ This leaves 95 numeric columns. Can we answer how many clusters are there in the
 goalies_stats %>% 
   scale() %>% 
   tibble_out('scaled_all_vars') %>% 
-  wssplot(nstart = 100)
+  wssplot(nstart = 1000)
 # Error in do_one(nmeth) : NA/NaN/Inf in foreign function call (arg 1) 
 ```
 We have more `NA`s. Let's take a look at missingness.
@@ -415,7 +418,7 @@ sort(unlist(lapply(goalies_stats, function(x) sum(is.na(x)))))
 #        5         5         5         5        21        21        21        44        44 
 > 
 ```
-Looks like CHIP (Cap Hit of Injured Player) and Ginj (Games Injured), as well as some Draft variables. Are those players who haven't had an injury or been drafted?
+Looks like CHIP (Cap Hit of Injured Player) and Ginj (Games Injured), as well as three Draft variables. Are those players who haven't had an injury or been drafted?
 
 ```r
 table(goalies_stats$Ginj)
@@ -501,7 +504,7 @@ sum(is.na(goalies_stats))
 goalies_stats %>% 
   scale() %>% 
   tibble_out('scaled_all_vars') %>% 
-  wssplot(nstart = 100)
+  wssplot(nstart = 1000)
 # Error in do_one(nmeth) : NA/NaN/Inf in foreign function call (arg 1) 
 
 sum(is.na(scaled_all_vars)) # more NAs!
@@ -555,11 +558,11 @@ pc <- princomp(scaled_all_vars)
 set.seed(1001)
 pc <- prcomp(scaled_all_vars)
 
-plot(pc, type='l')
+plot(pc)
 ```
 ![goalies13](/images/goalies13.png)
 
-A slightly different scree plot, as marginal rather than cumulative tells us suprisingly most of the variation in these fields is in the first principal component. Visualizing the two biggest variance explainers, 
+Suprisingly most of the variation in these fields is in the first principal component, as greater than 50% on the y-axis. Visualizing PC1 and PC2, the two biggest variance explainers, 
 ```r
 autoplot(prcomp(scaled_all_vars), data = scaled_all_vars,
          loadings = TRUE, loadings.colour = 'blue',
@@ -567,34 +570,36 @@ autoplot(prcomp(scaled_all_vars), data = scaled_all_vars,
 ```
 ![goalies14](/images/goalies14.png)
  
-It's obvious from the concentration of red to the mid-left, a ton of really highly correllated variables are driving PC1. Investigating the top variables in PC1 using rotation shows it makes sense they're correllated:
+It's obvious from the concentration of red to the mid-right, a ton of really highly correllated variables are driving PC1. Investigating the top variables in PC1 using rotation shows it makes sense they're correllated:
 ```r
-sort(pc$rotation[ ,1])
-#           SV            SA         SA__1            FA            CA          StSV 
-#-0.1333212014 -0.1332894550 -0.1332883575 -0.1331752091 -0.1331230573 -0.1330910681 
-#          MIN          EVSA            GP            GS         StMin           NZS 
-#-0.1330764843 -0.1330567787 -0.1330433880 -0.1329948485 -0.1329059764 -0.1328682726 
-#         LowS            SF           DZS           xGA            FF            CF 
-#-0.1327199053 -0.1326864076 -0.1326642460 -0.1326458089 -0.1325894382 -0.1323928423 
-#         MedS           OZS           SCA          HDCA           SCF          HDCF 
-#-0.1321767984 -0.1320149835 -0.1318439718 -0.1318439718 -0.1317324552 -0.1316340730 
-#        HighS          StGA         PP SA         QS__1            GA         GA__1 
-#-0.1313239811 -0.1307060961 -0.1306665694 -0.1305825693 -0.1305314242 -0.1305314242 
+sort(pc$rotation[ ,1], decreasing = TRUE)
+#       SA__1           SA           SV           FA           CA          MIN           GP 
+# 0.142728794  0.142728788  0.142726126  0.142714667  0.142702020  0.142672217  0.142547040 
+#        EVSA           GS         StSV        StMin          NZS          DZS           SF 
+# 0.142513313  0.142511016  0.142508544  0.142470665  0.142383971  0.142200082  0.142139325 
+#          FF          xGA           CF         MedS         LowS          OZS          SCF 
+# 0.142106928  0.142056602  0.141968951  0.141909153  0.141793721  0.141634706  0.141467662 
+#         SCA         HDCA         HDCF        HighS         StGA           GA        GA__1 
+# 0.141419406  0.141419406  0.141086612  0.140628788  0.140348953  0.140170882  0.140170882 
 ```
-These are factors like Saves, Shots Against, Faced Shot Attempts, Minutes, and all the variations on those like even strength shots against. Basically there is less variation among goalies in these statisitics than the number of variables might suggest at first glance. This implies our intuition of what separates these goalies at finer distinctions may be found in higher principal components. That also suggests exploring heirarchical clustering, which we will do later. 
+These are factors like Shots Against, Saves, Faced Shot Attempts, Minutes, GP, and all the variations on those like even strength shots against. Basically there is less variation among goalies in these statisitics than the number of variables might suggest at first glance. This implies our intuition of what separates these goalies at finer distinctions may be found in higher principal components. That also suggests exploring heirarchical clustering, which we will do later. 
 
-We can get to 85% variation explained reducing these 95 variables to 9 principal components so we'll use 9.
+We can get to 85% variation explained reducing these 90 variables to 10 principal components so we'll use 10.
 
 ```r
 summary(pc)
 
 #Importance of components:
 #                          PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8     PC9
-#Standard deviation     7.3873 2.90496 2.64554 2.32238 1.90636 1.78026 1.50032 1.43359 1.33277
-#Proportion of Variance 0.5298 0.08193 0.06795 0.05236 0.03528 0.03077 0.02185 0.01995 0.01725
-#Cumulative Proportion  0.5298 0.61175 0.67970 0.73207 0.76735 0.79812 0.81998 0.83993 0.85717
+#Standard deviation     6.9832 2.63913 2.32673 1.90361 1.77209 1.56917 1.50376 1.41169 1.33081
+#Proportion of Variance 0.5418 0.07739 0.06015 0.04026 0.03489 0.02736 0.02513 0.02214 0.01968
+#Cumulative Proportion  0.5418 0.61922 0.67937 0.71964 0.75453 0.78189 0.80702 0.82916 0.84884
+#                          PC10    PC11    PC12    PC13    PC14    PC15    PC16    PC17
+#Standard deviation     1.20347 1.16535 1.12200 1.05477 0.93345 0.88962 0.80952 0.76194
+#Proportion of Variance 0.01609 0.01509 0.01399 0.01236 0.00968 0.00879 0.00728 0.00645
+#Cumulative Proportion  0.86493 0.88002 0.89401 0.90637 0.91605 0.92484 0.93212 0.93857
 
-comp <- data.frame(pc$x[,1:9])
+comp <- data.frame(pc$x[,1:10])
 set.seed(1001)
 k <- comp %>% 
   kmeans(4, nstart = 10000, iter.max = 1000)
@@ -621,14 +626,14 @@ prototype_player_nums <- map(1:4, ~ which.min(distances[[.x]]))
 prototypes <- map_df(1:4, ~ goalies[prototype_player_nums[[.x]], c('pca_cluster_4', 'First Name', 'Last Name', 'Team(s)', vars)])
 
 prototypes 
-# A tibble: 4 x 13
-  pca_cluster_4 `First Name` `Last Name` `Team(s)`     PC1    PC2     PC3       PC4     PC5
-  <fct>         <chr>        <chr>       <chr>       <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
-#1 1             Alexandar    Georgiev    NYR         6.75   1.12    1.65    0.00543   1.20 
-#2 2             Dylan        Ferguson    VGK        11.4    1.96  -10.0    10.0     -11.3  
-#3 3             Darcy        Kuemper     LAK, ARI    0.397  0.763   1.34   -1.31     -1.25 
-#4 4             Tuukka       Rask        BOS        -9.05  -1.16    0.661   1.21     -0.540
-## ... with 4 more variables: PC6 <dbl>, PC7 <dbl>, PC8 <dbl>, PC9 <dbl>
+## A tibble: 4 x 14
+#  pca_cluster_4 `First Name` `Last Name` `Team(s)`     PC1     PC2    PC3     PC4     PC5
+#  <fct>         <chr>        <chr>       <chr>       <dbl>   <dbl>  <dbl>   <dbl>   <dbl>
+#1 1             Alexandar    Georgiev    NYR        -6.05   -1.36  -0.303   0.973 -0.132 
+#2 2             Tuukka       Rask        BOS         8.09   -0.768 -1.05   -0.449  0.698 
+#3 3             Dylan        Ferguson    VGK       -11.0    10.7   -9.70  -10.8    0.0825
+#4 4             Anton        Forsberg    CHI         0.653   0.324  1.33   -0.611 -0.201 
+## ... with 5 more variables: PC6 <dbl>, PC7 <dbl>, PC8 <dbl>, PC9 <dbl>, PC10 <dbl>
 ```
 Only Tuukka Rask is still in this list from earlier prototyping with fewer variables. Let's plot just 4 of the 9 PCs to be a bit more digestable.
 
@@ -651,21 +656,288 @@ pm
 ![goalies17](/images/goalies17.png)
 
 So what's it picking up?
-1. (red) Alexandar Georgiev, at 10 games and .918 SV% is a strong backup, but didn't play much
-2. (green) Dylan Ferguson we know from before as the 9:14 min, 2 shots one goal. 
-3. (blue) Darcy Kuemper, also played 10 games, but at .899 Sb% doesn't look as strong as  a backup as Geogiev.
-4. (purple) Tuuka Rask this year was a starting goalie with a good save percentage at .917.
+1. (red) Alexandar Georgiev, at 10 games and .918 SV% is a strong backup, but didn't play much. 
+2. (green) Tuuka Rask this year was a starting goalie with a good save percentage at .917.
+3. (blue) Dylan Ferguson we know from before as the 9:14 min, 2 shots one goal. 
+4. (purple) Anton Forsberg,  at 35 games is borderline starter, basically sharing duties.  His save percentage is a bit lower at .908.
  
-This tells us something about the 90 numeric variables in our dataset. It tells us most of the variation is around a ton of highly correllated variables. This makes sense - the better you play, the more games you play, more shots you face, more saves, more 5v5 shots, more faceoffs, etc. 
+This begins to tell a story about about the 90 numeric variables in our dataset. It tells us most of the variation is around a ton of highly correllated variables. This makes sense - in general, the better you play, the more games you play, more shots you face, more saves, more 5v5 shots, more faceoffs, etc. 
 
 Basically these clusterings are telling us something about the limitation of 
  questons these data can answer without
  further feature engineering and
- additional variables.
+ additional variables. Most variation is around games played and a bit around success of performance for those games played. Everyone is tall, and granularity is only at the inch level, so it seems height isn't the biggest area of variation.
  
-One of those questions is who stands out in their group?
+One particularly relevant question is who stands out in their group?
  
 ## 4. Outliers
-One thing we can do is look for outliers from their cluster.
+One thing we can do to build on this analysis is look for outliers.
 
-### 4.1. Lowest PC1
+### 4.1. Highest PC1
+As higher PC1s tend to represent higher performing goalies in 2017-2018 regular season, who has the highest PC1?
+
+```r
+goalies %>% 
+  arrange(desc(PC1)) %>% 
+  select(PC1, 'First Name', 'Last Name', 'Team(s)')
+```
+
+Does that make Frederik Andersen the favorite for the Vezina?
+His stats don't seem that outstanding but he did play a lot of games. 
+Would be good to see why he has the best PC1.
+
+```r
+which(goalies$`Last Name` == 'Andersen')
+vars <- names(pc$rotation[ , 1])
+Andersen_PC1 <- pc$rotation[vars, 1] * scaled_all_vars[55, vars] %>% 
+  t()
+sum(Andersen_PC1) # matches
+#[1] 13.53428
+
+data_frame("Variable" = rownames(Andersen_PC1),
+           "Value" = Andersen_PC1[,1]) %>% 
+  arrange(desc(abs(Value)))
+## A tibble: 90 x 2
+#   Variable Value
+#   <chr>    <dbl>
+# 1 SCF      0.335
+# 2 HDGF     0.333
+# 3 HDCF     0.331
+# 4 xGA      0.314
+# 5 HighG    0.310
+# 6 EVSA     0.310
+# 7 HighS    0.310
+# 8 DZS      0.308
+# 9 GVA      0.306
+#10 StSV     0.304
+## ... with 80 more rows
+```
+
+1. SCF = Toronto's scoring chanes
+2. HDGF = Toronto goals
+3. HDCF = Toronto goals
+4. xGA = Expected Goals Against (?)
+5. HighG = Goals allowed
+
+Actually these are neutral or negative even. Toronto had a lot of shots against, yet still made the playoffs. But I wouldn't say Andersen's the front runner for the Vezina.  If we want to know that, it may make more sense to fit a predictive model on previous winners or nominees. But something very different was happening in his case. It's not quite clear what, but he's an outlier. 
+
+The Leafs had a record year for the franchise, on some stats so could be picking that up. On nhl.com, I can see [he did face the most shots this season and most saves](http://www.nhl.com/stats/player?report=goaliesummary&reportType=season&seasonFrom=20172018&seasonTo=20172018&gameType=2&filter=gamesPlayed,gte,1&sort=saves). Perhaps if he was on a better team, he would be the frontrunner for the Vezina?
+
+### 4.2. Unusual PC1s by Group
+
+Who doesn't quite belong in their group?
+```r
+goalies %>%
+  group_by(pca_cluster_4) %>% 
+  top_n(2, GP) %>% 
+  arrange(desc(PC1)) %>% 
+  select('pca_cluster_4', 'First Name', 'Last Name', 'Team(s)', 'GP', 'SV%', PC1, DOB) %>% 
+  tibble_out('up_and_up')
+## A tibble: 8 x 8
+## Groups:   pca_cluster_4 [4]
+#  pca_cluster_4 `First Name` `Last Name` `Team(s)`    GP `SV%`    PC1 DOB                
+#  <fct>         <chr>        <chr>       <chr>     <dbl> <dbl>  <dbl> <dttm>             
+#1 2             Connor       Hellebuyck  WPG          67 0.924  12.0  1993-05-19 00:00:00
+#2 2             Cam          Talbot      EDM          67 0.908  12.0  1987-07-05 00:00:00
+#3 4             Keith        Kinkaid     NJD          41 0.913   3.57 1989-07-04 00:00:00
+#4 4             Scott        Darling     CAR          43 0.888   3.47 1988-12-22 00:00:00
+#5 1             David        Rittich     CGY          21 0.904  -3.20 1992-08-19 00:00:00
+#6 1             Joonas       Korpisalo   CBJ          18 0.897  -3.57 1994-04-28 00:00:00
+#7 3             Brandon      Halverson   NYR           1 0.833 -10.4  1996-03-29 00:00:00
+#8 3             Dylan        Ferguson    VGK           1 0.5   -11.0  1998-09-20 00:00:00
+## I think this means these are goalies we might see more of
+
+goalies %>%
+  group_by(pca_cluster_4) %>% 
+  top_n(2, desc(GP)) %>% 
+  arrange(desc(PC1)) %>% 
+  select('pca_cluster_4', 'First Name', 'Last Name', 'Team(s)', 'GP', 'SV%', PC1, DOB) %>% 
+  filter(pca_cluster_4 != 1)%>% 
+  tibble_out('down_and_down')
+## A tibble: 8 x 8
+## Groups:   pca_cluster_4 [3]
+#  pca_cluster_4 `First Name` `Last Name` `Team(s)`    GP `SV%`    PC1 DOB                
+#  <fct>         <chr>        <chr>       <chr>     <dbl> <dbl>  <dbl> <dttm>             
+#1 2             Brian        Elliott     PHI          43 0.909   4.56 1985-04-09 00:00:00
+#2 2             Cam          Ward        CAR          43 0.906   4.38 1984-02-29 00:00:00
+#3 2             Cory         Schneider   NJD          40 0.907   4.00 1986-03-18 00:00:00
+#4 4             Louis        Domingue    ARI, TBL     19 0.894  -3.08 1992-03-06 00:00:00
+#5 4             Curtis       McElhinney  TOR          18 0.934  -3.19 1983-05-23 00:00:00
+#6 4             Ondrej       Pavelec     NYR          19 0.910  -3.29 1987-08-31 00:00:00
+#7 3             Brandon      Halverson   NYR           1 0.833 -10.4  1996-03-29 00:00:00
+#8 3             Dylan        Ferguson    VGK           1 0.5   -11.0  1998-09-20 00:00:00
+# I think this means these are goalies we might see less of
+
+goalies %>% 
+  ggplot(aes(x = `GP`, y = `SV%`, color = pca_cluster_4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(0.85, 0.95)) +
+  scale_x_continuous(limits = c(0, 68)) +
+  geom_text(data = up_and_up, aes(label = paste0(`First Name`, " ", `Last Name`)), color = 'darkgreen', vjust = -0.5, size = 3, alpha = .5) +
+  geom_text(data = down_and_down, aes(label = paste0(`First Name`, " ", `Last Name`)), color = 'darkred', vjust = -0.5, size = 3, alpha = .5)
+```
+![goalies18](/images/goalies18.png)
+
+Netminders low in temrs of PC1 for their cluster are colored red - perhaps we will see less of them. On the other hand, those on the upper end of their cluster in terms of PC1 are colored green. Plotting GP on the x-axis shows just how much games played explains most of the variation in these numerical data.
+
+I think I really want to do some heirarchical clustering on this. And see what's going on at the deeper level.
+
+### 4.3. HCA
+Let's use some of the previous work to add names of goalies we saw before.
+This will help get an intuition of the clustering going on.
+```r
+key_goalies <- goalies[85 ,] %>% 
+  bind_rows(prototypes) %>% 
+  bind_rows(up_and_up) %>% 
+  bind_rows(down_and_down) %>% 
+  group_by(`First Name`, `Last Name`) %>% 
+  count() %>% 
+  ungroup %>% 
+  mutate(goalie = paste0(`First Name`, " ", `Last Name`)) %>%
+  select(goalie) %>% 
+  bind_rows()
+  
+# take the list and if the player's name is in this list
+# return their name, otherwise return their rownumber
+
+goalies$name <- paste0(goalies$`First Name`, " ", goalies$`Last Name`)
+goalies$playernumber <- 1:nrow(goalies)
+
+rownames(scaled_all_vars) <- ifelse(goalies$name %in% key_goalies$goalie,
+                                    goalies$`Last Name`,
+                                    goalies$playernumber)
+  
+dist_matrix <- dist(scaled_all_vars) 
+#colnames(dist_matrix) <- goalies$`Last Name`
+hc_goalies_sc_avg <- hclust(dist_matrix, method="average")
+
+# loop on this
+linkages_to_example <- c("average", "single", "complete",  
+                         "ward.D2", "median", "centroid")
+
+
+create_dend <- function(linkage = "ward.D2", dist_matrix){
+  dist_matrix %>% 
+    hclust(method = linkage) %>% 
+    as.dendrogram() 
+}
+
+plot_dend <- function(linkage = "ward.D2", dist_matrix){
+  dist_matrix %>% 
+    hclust(method = linkage) %>% 
+    as.dendrogram() %>% 
+    highlight_branches_col() %>% 
+    plot(main = paste0(linkage, " linkage"))
+}
+
+dends <- map(linkages_to_example, create_dend, dist_matrix = dist_matrix)
+
+par(mfrow = c(2, 3));
+walk(.x = linkages_to_example, plot_dend, dist_matrix = dist_matrix);
+par(mfrow = c(1, 1))
+```
+![goalies19](/images/goalies19.png)
+
+Ward's method, ward.D2, is the most similar HCA to k-means. Let's zoom in on it.
+
+```r
+col_vec <- ifelse(labels(dends[[4]]) %in% prototypes$`Last Name`,
+       "black",
+       ifelse(labels(dends[[4]]) %in% up_and_up$`Last Name`,
+              "darkgreen",
+              ifelse(labels(dends[[4]]) %in% down_and_down$`Last Name`,
+                     "darkred",
+                     "grey")
+       )
+)
+
+col_vec <- ifelse(labels(dends[[4]]) %in% prototypes$`Last Name`,
+       "black",
+       ifelse(labels(dends[[4]]) %in% up_and_up$`Last Name`,
+              "darkgreen",
+              ifelse(labels(dends[[4]]) %in% down_and_down$`Last Name`,
+                     "darkred",
+                     "grey")
+       )
+)
+```
+![goalies20](/images/goalies20.png)
+
+The dendrogram for Ward's method shows a bit of why k-means with a large nstart may have picked up the 2-3 clusters it did. You have the starters and backups, then you have backups with several games, the full time backups, vs. part time backups up from the minors.
+
+Starters are the most interesting. Let's just look at the starters and see how they cluster out.
+
+```r
+clusters <- cutree(dends[[4]], k = 3, order_clusters_as_data = FALSE)
+clusters <- clusters[clusters %in% c(1,2)]
+
+
+scaled_all_vars2 <- scaled_all_vars
+rownames(scaled_all_vars2) <- paste0(substr(goalies$`First Name`, 1,1), ". " ,goalies$`Last Name`)
+
+starters <- scaled_all_vars2 %>% 
+  dist() %>% 
+  hclust(method = "ward.D2") 
+
+clusters <- cutree(starters, k = 3, order_clusters_as_data = FALSE)
+clusters <- clusters[clusters %in% c(1,2)]
+
+starters %>%  
+  as.dendrogram() %>% 
+  prune(names(clusters)) %>% 
+  #set("labels_col", col_vec) %>% 
+  set("branches_k_color", k = 3) %>%
+  #hang.dendrogram %>%
+  plot(main = "ward.D2 linkage")
+```
+![goalies21](/images/goalies21.png)
+
+These are your three premier NHL goalie groups, I think. I feel like group 1 (red) has all the Vezina-possible goalies this year. It'd be good to take this group and see what they look like in PCs.
+```r
+clusters <- cutree(starters, h = 13, order_clusters_as_data = FALSE)
+clusters <- clusters[clusters %in% c(10:12)]
+
+starters_to_examine <- goalies[paste0(substr(goalies$`First Name`, 1,1), ". " ,goalies$`Last Name`) %in% names(clusters), ]
+
+starters_to_examine %>% 
+  mutate(name_short = paste0(substr(`First Name`, 1,1), ". " ,`Last Name`),
+         name_team = paste0(`Last Name`, " ", `Team(s)`)) %>% 
+  left_join(tibble(clusters, name_short = names(clusters))) %>% 
+  select(GP, `SV%`, clusters, name_short, name_team) %>% 
+  ggplot(aes(x = GP, y = `SV%`, color = factor(clusters))) +
+  geom_point() +
+  geom_text(aes(label = name_team, vjust = -0.5, size = 3, alpha = .8)) +
+  scale_alpha(guide = FALSE) +
+  scale_size(guide = FALSE) +
+  ggtitle("Three Clusters of NHL Starting Goalies Regular Season 2017-2018")
+```
+![goalies22](/images/goalies22.png)
+
+Of course there are other ways to cluster starters. Here a tanglegram compares Ward's method, we've been discussing with complete linkage.
+
+```r
+dend4 <- dends[[4]] %>%  
+  set("branches_k_color", k = 4) %>%
+  #hang.dendrogram %>%
+  plot(main = paste0(linkages_to_example[4], " linkage"))
+
+dend6 <- dends[[6]] %>%  
+  set("branches_k_color", k = 4) %>%
+  #hang.dendrogram %>%
+  plot(main = paste0(linkages_to_example[6], " linkage"))
+
+
+tanglegram(dends[[4]], dends[[3]], faster = TRUE) %>% 
+  plot(main = paste("ward.D2 vs. complete linkage,  entanglement =", round(entanglement(.), 2)))
+```
+![goalies23](/images/goalies23.png)
+
+
+```r
+tanglegram(dends[[4]], dends[[6]], faster = TRUE) %>% 
+  plot(main = paste("ward.D2 vs. centroid linkage,  entanglement =", round(entanglement(.), 2)))
+```
+![goalies24](/images/goalies24.png)
+The least entanglement is with dend 6, centroid linkage.
+
+
