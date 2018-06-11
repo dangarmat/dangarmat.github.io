@@ -967,4 +967,8 @@ tanglegram(dends[[4]], dends[[6]], faster = TRUE) %>%
 
 The least entanglement is with dend 6, centroid linkage.
 
+Clusters and outliers arguably don't matter as much as which goalie has the last win of the season. In this season, that goes to Holtbeast.
+![goalies25](/images/6940543382_df67c7caf8_z.jpg)
+
+Picture by [clyde](https://www.flickr.com/photos/clydeorama/6940543382/)
 
