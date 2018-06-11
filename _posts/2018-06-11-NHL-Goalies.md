@@ -6,7 +6,7 @@ tags: [clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
 excerpt_separator: <!--more-->
 ---
 
-As a former goalie myself, watching the NHL playoffs, my curiosity grew towards: Who are these goalies who are so much better than me they beat me to being in the NHL? Who's a hero, and who's maybe not a keeper? 
+This has been a great Stanley Cup playoffs for Washington Capitals fans such as myself. With so much breath holding, I've pain more attention this year than recent year. As a former goalie myself, my curiosity grew towards: Who are these goalies who are so much better than me they beat me to being in the NHL? Who's a hero, and who's maybe not a keeper? 
 
 What better way to understand how they shake out than clustering their regular season statistics? This is an opportunity to work with [tibbleColumns](https://github.com/nhemerson/tibbleColumns) by Hoyt Emerson, a new package that adds some intriguing functionality to dplyr, and [dendextend](https://cran.r-project.org/package=dendextend) by Tal Gallili, which adds options to hierarchical clustering diagrams. Best data found came from Rob Vollman at [http://www.hockeyabstract.com/testimonials](http://www.hockeyabstract.com/testimonials).
 
@@ -677,7 +677,7 @@ One particularly relevant question is who stands out in their group?
 So one thing we can do to build on this work is look for outliers.
 
 ### 4.1. Highest PC1
-As higher PC1s tend to represent higher performing goalies in 2017-2018 regular season, who has the highest PC1?
+As higher PC1s tend to represent higher performing goalies in this clustering of 2017-2018's regular season, who has the highest PC1?
 
 ```r
 goalies %>% 
@@ -705,6 +705,8 @@ Would be good to see why he has the best PC1.
 
 ```r
 which(goalies$`Last Name` == 'Andersen')
+#[1] 55
+
 vars <- names(pc$rotation[ , 1])
 Andersen_PC1 <- pc$rotation[vars, 1] * scaled_all_vars[55, vars] %>% 
   t()
@@ -797,7 +799,7 @@ goalies %>%
 ```
 ![goalies18](/images/goalies18.png)
 
-Netminders low in terms of PC1 for their cluster are colored red - perhaps we will see less of them. On the other hand, those on the upper end of their cluster in terms of PC1 are colored green. Plotting GP on the x-axis shows just how much games played explains most of the variation in these numerical data.
+Names of netminders low in terms of PC1 for their cluster are colored red - perhaps we will see less of them. On the other hand, names of those on the upper end of their cluster in terms of PC1 are colored green. Plotting GP on the x-axis shows just how much games played explains most of the variation in these numerical data.
 
 I think I really want to do some hierarchical clustering analysis (HCA) on this. And see what's going on at the deeper level.
 
@@ -860,7 +862,7 @@ par(mfrow = c(1, 1))
 ```
 ![goalies19](/images/goalies19.png)
 
-Ward's method, ward.D2, is the most similar HCA to k-means. Let's zoom in on it.
+Ward's method, ward.D2, is the most similar HCA linkage to k-means. Let's zoom in on it.
 
 ```r
 col_vec <- ifelse(labels(dends[[4]]) %in% prototypes$`Last Name`,
@@ -885,7 +887,7 @@ col_vec <- ifelse(labels(dends[[4]]) %in% prototypes$`Last Name`,
 ```
 ![goalies20](/images/goalies20.png)
 
-The dendrogram for Ward's method shows a bit of why k-means with a large nstart may have picked up the 2-3 clusters it did. You have the starters and backups, then you have backups with several games vs. part time backups up from the minors.
+The dendrogram for Ward's method shows a bit of why k-means with a large nstart may have picked up the 2-3 clusters it did. You have the starters (blue), regular backups with several games (green) and part time backups up from the minors (red).
 
 ### 5.2. Starters
 
