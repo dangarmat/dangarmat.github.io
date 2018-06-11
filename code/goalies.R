@@ -152,6 +152,7 @@ goalies %>%
 
 #clusters_HGS_scaled <- 
 
+set.seed(1001)
 scaled_3_vars %>% 
   do(clusters_HGS_scaled = kmeans(., centers = 4, nstart = 1000)) %>% 
   tbl_module((.$clusters_HGS_scaled[[1]]$centers), 'scaled_centers') %>% 
@@ -167,7 +168,7 @@ scaled_3_vars %>%
 # had 50% SV%. Who's that?
 
 goalies %>% 
-  filter(cluster_scaled == 1) %>% 
+  filter(cluster_scaled == 3) %>% 
   select(`First Name`, `Last Name`, GP, Ht, `SV%`, cluster_scaled, SA, MIN)
 # https://www.nhl.com/goldenknights/news/a-chat-with-dylan-ferguson/c-293023078
 # it says 554 minutes but I think it's 554 seconds, little over 9 minutes
@@ -288,7 +289,7 @@ goalies_stats$Pull[is.na(goalies_stats$Pull)] <- 0
 goalies_stats %>% 
   filter(is.na(RBS)) %>% 
   select(GP)
-goalies_stats$Pull[is.na(goalies_stats$RBS)] <- 0
+goalies_stats$RBS[is.na(goalies_stats$RBS)] <- 0
 
 goalies_stats %>% 
   filter(is.na(QS__1)) %>% 
@@ -336,6 +337,7 @@ plot(sapply(scaled_all_vars, var))
 
 pc <- princomp(scaled_all_vars)
 # oh darn, there is one that can do it
+set.seed(1001)
 pc <- prcomp(scaled_all_vars)
 
 plot(pc)
@@ -364,7 +366,7 @@ scaled_all_vars %>%
 # I'd say the big elbow is 2 clusters, but we more
 # we have too many highly correllated variables to follow the normal rules
 
-comp <- data.frame(pc$x[,1:10])
+comp <- data.frame(pc$x[,1:9])
 comp %>%
   wssplot(nstart = 1000)
 # looks quite similar
