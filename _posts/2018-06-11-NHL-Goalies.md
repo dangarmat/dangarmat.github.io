@@ -6,7 +6,7 @@ tags: [clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
 excerpt_separator: <!--more-->
 ---
 
-This has been a great Stanley Cup playoffs for Washington Capitals fans such as myself. With so much breath holding, I've paid more attention this year than recent years. As a former goalie myself, my curiosity grew towards: Who are these goalies who are so much better than me they beat me to being in the NHL? Who's a hero, and who's maybe not a keeper? 
+This has been a great Stanley Cup playoffs for Washington Capitals fans such as myself. With so much breath holding, I've paid more attention this year than recent years. As a former goalie myself, my curiosity grew towards: Who are these goalies so much better than me they beat me to being in the NHL? Who's a hero, and who's maybe not a keeper? 
 
 What better way to understand how they shake out than clustering their regular season statistics? This is an opportunity to work with [tibbleColumns](https://github.com/nhemerson/tibbleColumns) by Hoyt Emerson, a new package that adds some intriguing functionality to dplyr, and [dendextend](https://cran.r-project.org/package=dendextend) by Tal Gallili, which adds options to hierarchical clustering diagrams. Best data found came from Rob Vollman at [http://www.hockeyabstract.com/testimonials](http://www.hockeyabstract.com/testimonials).
 
@@ -939,7 +939,9 @@ starters_to_examine %>%
 ```
 ![goalies22](/images/goalies22.png)
 
-Of course there are other ways to cluster starters. Here a tanglegram compares Ward's method, we've been discussing, with the most entangled complete linkage and least entangled centroid linkage.
+### 5.3. Comparing Linkages
+
+Of course there are other ways to group sub-clusters. Here a tanglegram compares Ward's method, we've been discussing, with the most entangled complete linkage and least entangled centroid linkage.
 
 ```r
 dend4 <- dends[[4]] %>%  
@@ -966,6 +968,8 @@ tanglegram(dends[[4]], dends[[6]], faster = TRUE) %>%
 ![goalies24](/images/goalies24.png)
 
 The least entanglement is with dend 6, centroid linkage.
+
+## The Winner Is
 
 Clusters and outliers arguably don't matter as much as which goalie has the last win of the season. In this season, that goes to Holtbeast.
 ![goalies25](/images/6940543382_df67c7caf8_z.jpg)
