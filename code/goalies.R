@@ -62,6 +62,7 @@ starters %>%
 goalies %>% 
   group_by(`Last Name`, `First Name`) %>% 
   count() %>% 
+  filter(n > 1) %>% 
   arrange(desc(n))
 # no dupes 
 # I see teams can hold more than one team in the datum
@@ -371,6 +372,7 @@ comp %>%
   wssplot(nstart = 1000)
 # looks quite similar
 
+set.seed(1001)
 k <- comp %>% 
   kmeans(4, nstart = 10000, iter.max = 1000)
 palette(alpha(brewer.pal(9,'Set1'), 0.5))
