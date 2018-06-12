@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Unsupervised Learning About NHL Goalies
-category: [clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
-tags: [clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
+category: [r, clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
+tags: [r, clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
 excerpt_separator: <!--more-->
 ---
 
