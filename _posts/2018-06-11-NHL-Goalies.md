@@ -8,7 +8,7 @@ excerpt_separator: <!--more-->
 
 This has been a great Stanley Cup playoffs for Washington Capitals fans such as myself. With so much breath holding, I've paid more attention this year than recent years. As a former goalie myself, my curiosity grew towards: Who are these goalies so much better than me they beat me to being in the NHL? Who's a hero, and who's maybe not a keeper? 
 
-What better way to understand how they shake out than clustering their regular season statistics? This is an opportunity to work with [tibbleColumns](https://github.com/nhemerson/tibbleColumns) by Hoyt Emerson, a new package that adds some intriguing functionality to dplyr, and [dendextend](https://cran.r-project.org/package=dendextend) by Tal Gallili, which adds options to hierarchical clustering diagrams. Best data found came from Rob Vollman at [http://www.hockeyabstract.com/testimonials](http://www.hockeyabstract.com/testimonials).
+What better way to understand how they shake out than clustering their regular season statistics? This is an opportunity to work with [tibbleColumns](https://github.com/nhemerson/tibbleColumns) by Hoyt Emerson, a new package that adds some intriguing functionality to dplyr, and [dendextend](https://cran.r-project.org/package=dendextend) by Tal Galili, which adds options to hierarchical clustering diagrams. Best data found came from Rob Vollman at [http://www.hockeyabstract.com/testimonials](http://www.hockeyabstract.com/testimonials).
 
 Bottom line up front: unsupervised learning here taught more about my data set, and less about the world it represents. Where it did teach about the world of NHL goalies, it showed this guy, is standing out:
 
