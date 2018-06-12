@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Unsupervised Learning: Clustering NHL Goalies
+title: Clustering NHL Goalies
 category: [R, clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
 tags: [R, clustering, unsupervised learning, tibbleColumns, hockey, dendExtend]
 excerpt_separator: <!--more-->
