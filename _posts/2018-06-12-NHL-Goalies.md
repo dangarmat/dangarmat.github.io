@@ -228,7 +228,7 @@ goalies %>%
 ```
 ![goalies05](/images/goalies05.png)
 
-Looking along the diagonal, this clustering split almost entirely along Games Played. This suggests distinction between backup and starter may be the strongest distinction in these three fields of data. Out of curiosity, what value of GP does that split suggest as a good cutoff for a starter? 
+Looking along the diagonal, this clustering splits almost entirely along Games Played. This suggests distinction between backup and starter may be the strongest distinction in these three fields of data. Out of curiosity, what value of GP does that split suggest as a good cutoff for a starter? 
 ```r
 goalies %>% 
   group_by(cluster_2) %>% 
@@ -292,7 +292,7 @@ scaled_3_vars %>%
 ```
 ![goalies08](/images/goalies08.png)
 
-Ht vs GP shows some good separation. Save Percentage (SV%) doesn't do much except to separate out one "really bad" showing, a goalie who had 50% SV%. I'm not saying, as a sub- 5'11'' individual I could do better, but who is that?
+Ht vs GP shows some good separation. Save Percentage (SV%) doesn't do much except to separate out one "really bad" showing in green, a goalie who had 50% SV%. I'm not saying, as a sub- 5'11'' individual I could do better, but who is that?
 
 ```r
 goalies %>% 
@@ -301,7 +301,7 @@ goalies %>%
 ## A tibble: 1 x 8
 #  `First Name` `Last Name`    GP    Ht `SV%` cluster_scaled    SA   MIN
 #  <chr>        <chr>       <dbl> <dbl> <dbl> <fct>          <dbl> <dbl>
-#1 Dylan        Ferguson        1    73   0.5 3                  2  9.23
+#1 Dylan        Ferguson        1    73   0.5 3                  2   554
 ```
 [Dylan Ferguson](https://www.nhl.com/goldenknights/news/a-chat-with-dylan-ferguson/c-293023078) apparently had 2 shots against (SA) in 554 minutes. Either amazing defense, or units are actually in seconds not minutes. Wikipedia verifies he played a little over 9 minutes, or 554 / 60. Will let hockeyabstract know! Let's fix it, anyway.
 
@@ -496,7 +496,7 @@ goalies %>%
 
 goalies_stats$Wt[is.na(goalies_stats$Wt)] <- 185
 ```
-His weight is also on Wikipedia. (May be the only accountant whose weight is on Wikipedia.)
+Scott Foster's weight is also on Wikipedia. (May be the only accountant whose weight is on Wikipedia.)
 
 All the remaining `NA`s correspond to one-game-players, so setting them as 0s then hopefully ready to retry the screeplot.
 ```
@@ -740,7 +740,7 @@ data_frame("Variable" = rownames(Andersen_PC1),
 4. xGA = Expected Goals Against (?)
 5. HighG = Goals allowed
 
-Actually these are neutral or negative even. Toronto had a lot of shots against, yet still made the playoffs. But I wouldn't say Andersen's the front runner for the Vezina.  If we want to know that, it may make more sense to fit a predictive model on previous winners or nominees. But something very different was happening in his case. It's not quite clear what, but he's an outlier. 
+Actually these are neutral or negative even. Toronto had a lot of shots against, yet still made the playoffs. But I wouldn't say Andersen's the front runner for the Vezina.  If we want to know that, it may make more sense to fit a predictive model on previous winners or nominees. But something very different was happening in his case. It's not quite clear what, but he's an extreme case. 
 
 The Leafs had a record year for the franchise on some stats, so could be picking that up. On nhl.com, I can see [he did face the most shots this season and made the most saves](http://www.nhl.com/stats/player?report=goaliesummary&reportType=season&seasonFrom=20172018&seasonTo=20172018&gameType=2&filter=gamesPlayed,gte,1&sort=saves). Perhaps this means if he was on a better team, he would be the front runner for the Vezina?
 
