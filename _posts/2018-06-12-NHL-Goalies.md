@@ -744,7 +744,7 @@ Actually these are neutral or negative even. Toronto had a lot of shots against,
 
 The Leafs had a record year for the franchise on some stats, so could be picking that up. On nhl.com, I can see [he did face the most shots this season and made the most saves](http://www.nhl.com/stats/player?report=goaliesummary&reportType=season&seasonFrom=20172018&seasonTo=20172018&gameType=2&filter=gamesPlayed,gte,1&sort=saves). Perhaps this means if he was on a better team, he would be the front runner for the Vezina?
 
-### 4.2. Unusual PC1s by Group
+### 4.2. Unusual GPs by Group
 
 Who doesn't quite belong in their group?
 ```r
@@ -801,7 +801,7 @@ goalies %>%
 ```
 ![goalies18](/images/goalies18.png)
 
-Names of netminders low in terms of PC1 for their cluster are colored red - perhaps we will see less of them. On the other hand, names of those on the upper end of their cluster in terms of PC1 are colored green. Plotting GP on the x-axis shows just how much games played explains most of the variation in these numerical data.
+Names of netminders low in terms of GP for their cluster are colored red - perhaps we will see less of them. On the other hand, names of those on the upper end of their cluster in terms of GP are colored green. Plotting GP on the x-axis shows just how much games played explains most of the variation in these numerical data.
 
 I think I really want to do some hierarchical clustering analysis (HCA) on this. And see what's going on at the deeper level.
 
