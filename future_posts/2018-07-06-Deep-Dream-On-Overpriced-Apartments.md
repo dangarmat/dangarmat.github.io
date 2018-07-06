@@ -31,7 +31,7 @@ Deep Dream InceptionV3 algorithm here is trained on ImageNet, then makes changes
 
 Apparently the Attack on Titan seals make this a desirable part of town.
 
-Perhaps those seals are why walkability only makes it to an 86. If you survive the seals on your walk, there are titan polar bears who walk through walls:
+Perhaps those seals are why walkability only makes it to an 86. If you survive the seals on your stroll, there are titan polar bears who can walk through walls:
 
 ![franklin02](https://dgarmat.github.io/images/deep%20dream%20apartments/dream/00u0u_kPRRhgh84yU_1200x900_dream4.png "franklin02")
 
