@@ -6,7 +6,7 @@ tags: [R, deep learning, keras, interpretability, intuition, deepdream]
 excerpt_separator: <!--more-->
 ---
 
-Apartment hunting in an expensive city is leading me to curses and exclamations. Followingare some outstanding examples of insanely priced apartments in Portland, OR, ran through Google Deep Dream in hopes of understanding why people pay so much for a small box. These listings will be gone in no time (I'm sure) so including some captions for posterity.
+Apartment hunting in an expensive city is leading me to curses and exclamations. Following are some outstanding examples of insanely priced apartments in Portland, OR, ran through Google Deep Dream in hopes of understanding why people pay so much for a small box. These listings will be gone in no time (I'm sure) so including some captions for posterity.
 
 Let's start with this one. Indeed, it appears $1899 for 1 bedroom grants access to this clubhouse haunted by some floating apparition:
 
