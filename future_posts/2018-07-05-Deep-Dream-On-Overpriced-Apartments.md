@@ -38,11 +38,11 @@ Perhaps those seals are why walkability only makes it to an 86. If you survive t
 "Breathtaking views of the city and the Willamette River, located in the elegant Atwater. This condo has two bedrooms, living room, dining room, gourmet kitchen, gas fireplace, small office, two balconies, utility room and underground parking. Includes concierge desk, card-accessed security."
 
 
-Something tells me this view of the Wilammette River would be complete if a cocker spaniel was staring at me...
+Something tells me this view of the Wilammette River would be complete if a cocker spaniel is staring at me...
 ![atwater01](/images/deep dream apartments/dream/00A0A_5YGDBoyOPgr_1200x900_dream2.png)
 
 But this view is what you really pay for: look at all the suckers in the two identical buildings who massively overpaid for -- how the heck did those get up here?!
-![atwater02](/images/deep dream apartments/dream/00A0A_5YGDBoyOPgr_1200x900_dream4.png)
+![atwater02](/images/deep dream apartments/dream/00101_1x6lw7IBiyc_1200x900_dream1.png)
 
 ##  $3900 / 2br - 1004ft2 - Portland's most well-appointed two bedroom apartments now available
 [suprised this didn't make front page of Portland Tribune!]
