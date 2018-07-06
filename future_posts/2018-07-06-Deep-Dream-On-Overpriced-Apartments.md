@@ -62,9 +62,9 @@ I work on NW 21st, that's almost the cost of parking alone. People walk by on Or
 
 Whoa! Is that a pig in the sky? Far out!
 
-At least their new $3.88/sq ft/month kitchens aren't yet haunted -- oh, god! Is that a monkey starting to appear on the fridge?!
+At least their new $3.88/sqft/month kitchens aren't yet haunted -- oh, god! Are those giant psychedelic worms!
 
-![well-appointed02](https://dgarmat.github.io/images/deep%20dream%20apartments/dream/01717_8141Kt1477r_1200x900_dream2.png "well-appointed01")
+![well-appointed02](https://dgarmat.github.io/images/deep%20dream%20apartments/dream/01717_8141Kt1477r_1200x900_dream0.png "well-appointed01")
 
 
 ## Code:
