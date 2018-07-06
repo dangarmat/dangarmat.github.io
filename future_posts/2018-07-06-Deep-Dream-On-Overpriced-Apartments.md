@@ -8,22 +8,22 @@ excerpt_separator: <!--more-->
 
 Apartment hunting in an expensive city is leading me to curses and exclamations. Following, some outstanding examples of insanely priced apartments in Portland, OR, ran through Google Deep Dream in hopes of understanding why people pay so much for a small box. These listings will be gone in no time (I'm sure) so including some captions for posterity.
 
-Let's start with this one. Indeed, it appears $1899 for 1 bedroom grants access to this clubhouse haunted by some floating apparition.
+Let's start with this one. Indeed, it appears $1899 for 1 bedroom grants access to this clubhouse haunted by some floating apparition:
 
 ![clubhousedd](https://dgarmat.github.io/images/deep%20dream%20apartments/dream/00m0m_dKJEQpvJY87_1200x900_dream4.png "clubhousedd")
 
 <!--more-->
 
-Deep Dream InceptionV3 algorithm here is trained on ImageNet, then makes changes that increase confidence in the predicted category. Looped several times with the num_octave hyperparameter, it starts to look a good bit trippy and helps give some intuition what a neural network "sees" as prototypical examples of a predicted class. Apparently there is no "view of apartment" class as it keeps seeing ghastly animals. Perhaps it is no coincidence even before running InceptionV3 this clubhouse already looks like it could work in The Shining.
+Deep Dream InceptionV3 algorithm here is trained on ImageNet, then makes changes that increase confidence in the predicted category. Looped several times with the num_octave hyperparameter, it starts to look a good bit trippy and helps give some intuition what a neural network "sees" as prototypical examples of a predicted class. Apparently there is no "view of apartment" class as it keeps seeing ghastly animals. Perhaps it is no coincidence even before running InceptionV3 this clubhouse already looks like it could work in The Shining:
 
 ![clubhouseorig](https://dgarmat.github.io/images/deep%20dream%20apartments/orig/00m0m_dKJEQpvJY87_1200x900.jpg "clubhouseorig")
 
 
 
 
-### $1850 / 1br - 697ft2 - BRAND NEW! Enjoy Luxury Uban [Urban?] Living at The Franklin Flats!
+### <I>$1850 / 1br - 697ft2 - BRAND NEW! Enjoy Luxury Uban [Urban?] Living at The Franklin Flats!</I>
 
-<I>"NEW ON THE MARKET!
+<I>"NEW ON THE MARKET!</I>
 
 <I>"The Franklin Flats is the newest addition to this desirable part of town! Built with the urban adventurer in mind, our small community offers luxury appeal with a neighborhood feel. Boasting a walkability score of 86 out of 100, you can't beat the location! [unless an 87+?] Our close proximity to Mt. Tabor, food carts, [because you won't have anything left over for restaurants] shopping and eateries gives you the classic Northwest experience you crave. Email or call to schedule a personal tour today!"</I>
 
@@ -31,12 +31,12 @@ Deep Dream InceptionV3 algorithm here is trained on ImageNet, then makes changes
 
 Apparently the Attack on Titan seals make this a desirable part of town.
 
-Perhaps those seals are why walkability only makes it to an 86. If you survive the seals on your walk, there are titan wall-ignoring polar bears.
+Perhaps those seals are why walkability only makes it to an 86. If you survive the seals on your walk, there are titan polar bears who walk through walls:
 
 ![franklin02](https://dgarmat.github.io/images/deep%20dream%20apartments/dream/00u0u_kPRRhgh84yU_1200x900_dream4.png "franklin02")
 
 
-### $4250 / 2br - 1900ft2 - Condo on the Willamette
+### <I>$4250 / 2br - 1900ft2 - Condo on the Willamette</I>
 
 <I>"Breathtaking views of the city and the Willamette River, located in the elegant Atwater. This condo has two bedrooms, living room, dining room, gourmet kitchen, gas fireplace, small office, two balconies, utility room and underground parking. Includes concierge desk, card-accessed security."</I>
 
@@ -49,10 +49,10 @@ But this view is what you really pay for: look at all the suckers in the two ide
 
 ![atwater02](https://dgarmat.github.io/images/deep%20dream%20apartments/dream/00101_1x6lw7IBiyc_1200x900_dream1.png "atwater01")
 
-###  $3900 / 2br - 1004ft2 - Portland's most well-appointed two bedroom apartments now available
-<I>"Portland's premier rental community is now pre-leasing. Find everything you desire in one place: The finest dining, distinguished boutiques, and most-beloved haunts. Experience the perfect merger of luxury and livability with our timeless brick exterior, stunning marble lobby, tiled bathrooms, tall ceilings, ample light, extensive storage, concierge services, and even a dog washing station.
+###  <I>$3900 / 2br - 1004ft2 - Portland's most well-appointed two bedroom apartments now available</I>
+<I>"Portland's premier rental community is now pre-leasing. Find everything you desire in one place: The finest dining, distinguished boutiques, and most-beloved haunts. Experience the perfect merger of luxury and livability with our timeless brick exterior, stunning marble lobby, tiled bathrooms, tall ceilings, ample light, extensive storage, concierge services, and even a dog washing station.</I>
 
-<I>"Proudly situated in Portland's [S]Nob Hill/23rd Ave neighborhood, 21 Astor boasts a "97" walk score and a "96" bike score. [Beat that Franklin Flats!] Life is great in the epicenter of Portland's charm. Pick up your locally-grown produce at City Market. Grab happy hour with the gang at Seratto. Sweat it out at Corepower Yoga.
+<I>"Proudly situated in Portland's [S]Nob Hill/23rd Ave neighborhood, 21 Astor boasts a "97" walk score and a "96" bike score. [Beat that Franklin Flats!] Life is great in the epicenter of Portland's charm. Pick up your locally-grown produce at City Market. Grab happy hour with the gang at Seratto. Sweat it out at Corepower Yoga.</I>
 
 <I>"Our greater than 1:1 parking ratio assures a space for your car in our garage. Imagine never having to find parking on NW 23rd again."</I>
 
@@ -62,7 +62,7 @@ I work on NW 21st, that's almost the cost of parking alone. People walk by on Or
 
 Whoa! Is that a pig in the sky? Far out!
 
-At least their new $3.88/sq ft kitchens aren't yet haunted -- oh, god! Is that a monkey on the fridge?!
+At least their new $3.88/sq ft/month kitchens aren't yet haunted -- oh, god! Is that a monkey starting to appear on the fridge?!
 
 ![well-appointed02](https://dgarmat.github.io/images/deep%20dream%20apartments/dream/01717_8141Kt1477r_1200x900_dream2.png "well-appointed01")
 
