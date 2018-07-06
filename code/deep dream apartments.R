@@ -45,10 +45,38 @@ list_settings <- list(
     hyperparams = list(
       # Playing with these hyperparameters will also allow you to achieve new effects
       step = 0.01,  # Gradient ascent step size
-      num_octave = 3,  # Number of scales at which to run gradient ascent
+      num_octave = 6,  # Number of scales at which to run gradient ascent
       octave_scale = 1.4,  # Size ratio between scales
       iterations = 20,  # Number of ascent steps per scale
       max_loss = 10
+    )
+  ),
+  settings = list(
+    features = list(
+      mixed2 = 0.5,
+      mixed3 = 0.2,
+      mixed4 = 1.1,
+      mixed5 = 1.5),
+    hyperparams = list(
+      step = 0.01,  
+      num_octave = 9, 
+      octave_scale = 1.1,  
+      iterations = 20,  
+      max_loss = 5
+    )
+  ),
+  settings = list(
+    features = list(
+      mixed2 = 0.02,
+      mixed3 = 0.05,
+      mixed4 = 0.01,
+      mixed5 = 0.05),
+    hyperparams = list(
+      step = 0.01,  
+      num_octave = 11, 
+      octave_scale = 1.1,  
+      iterations = 20,  
+      max_loss = 20
     )
   ),
   settings = list(
@@ -59,7 +87,7 @@ list_settings <- list(
       mixed5 = 1.5),
     hyperparams = list(
       step = 0.01,  
-      num_octave = 5, 
+      num_octave = 8, 
       octave_scale = 1.4,  
       iterations = 20,  
       max_loss = 10
@@ -87,10 +115,10 @@ list_settings <- list(
       mixed5 = 2.5),
     hyperparams = list(
       step = 0.01,  
-      num_octave = 3, 
+      num_octave = 8, 
       octave_scale = 1.4,  
       iterations = 20,  
-      max_loss = 7
+      max_loss = 25
     )
   ),
   settings = list(
@@ -101,7 +129,7 @@ list_settings <- list(
       mixed5 = 3.5),
     hyperparams = list(
       step = 0.05,  
-      num_octave = 3, 
+      num_octave = 6, 
       octave_scale = 1.4,  
       iterations = 20,  
       max_loss = 13
@@ -120,58 +148,54 @@ list_settings <- list(
       iterations = 20,  
       max_loss = 13
     )
-  ),
-  settings = list(
-    features = list(
-      mixed2 = 3.2,
-      mixed3 = 6.5,
-      mixed4 = 0.1,
-      mixed5 = 0.5),
-    hyperparams = list(
-      step = 0.01,  
-      num_octave = 2, 
-      octave_scale = 1.8,  
-      iterations = 20,  
-      max_loss = 5
-    )
   )
 )
+
+# Model Definition --------------------------------------------------------
+
+k_set_learning_phase(0)
+
+# Build the InceptionV3 network with our placeholder.
+# The model will be loaded with pre-trained ImageNet weights.
+model <- application_inception_v3(weights = "imagenet", include_top = FALSE)
+
+# This will contain our generated image
+dream <- model$input
+
+# Get the symbolic outputs of each "key" layer (we gave them unique names).
+layer_dict <- model$layers
+names(layer_dict) <- map_chr(layer_dict ,~.x$name)
 
 
 ## just loop on images - bottleneck is training anyway --
 for(image_path in list_images){
   
-  #image <- preprocess_image(image_path)
+  image <- preprocess_image(image_path)
+  
+  #res <- predict(model,image)
+  #reduce(dim(res)[-1], .f = `*`) %>% 
+  #  as.numeric() %>% 
+  #array_reshape(res, c(2, 51200)) %>% 
+  #  imagenet_decode_predictions()
+  ## get model prediction:
+  #x <- image_to_array(image)
+  #x <- array_reshape(image, c(1, dim(image)))
+  #x <- imagenet_preprocess_input(image)
+  #preds = predict(model, x)
+  #imagenet_decode_predictions(preds, top = 3)
+  #predict_classes(model, image)
+  # need to try again later
   
   setting_counter <- 0
   
   ## then nested loop on settings --
   for(settings in list_settings){
     setting_counter <- setting_counter + 1
+    print(paste0('starting ', image_path, ', setting # ',  setting_counter))
     
     # reload image each time
     image <- preprocess_image(image_path)
     
-    # Model Definition --------------------------------------------------------
-    
-    k_set_learning_phase(0)
-    
-    # Build the InceptionV3 network with our placeholder.
-    # The model will be loaded with pre-trained ImageNet weights.
-    model <- application_inception_v3(weights = "imagenet", include_top = FALSE)
-    
-    ## get model prediction:
-    #preds = predict(model, (image))
-    #imagenet_decode_predictions(preds, top = 3)
-    #predict_classes(model, image)
-    # need to try again later
-    
-    # This will contain our generated image
-    dream <- model$input
-    
-    # Get the symbolic outputs of each "key" layer (we gave them unique names).
-    layer_dict <- model$layers
-    names(layer_dict) <- map_chr(layer_dict ,~.x$name)
     
     # Define the loss
     loss <- k_variable(0.0)
@@ -219,7 +243,6 @@ for(image_path in list_images){
         print(paste("Loss value at", i, ':', out$loss_value))
         x <- x + step * out$grad_values
       }
-      if(is.na(out$loss_value)){print('got out of loop')} # for debugging
       x
     }
     
@@ -242,10 +265,10 @@ for(image_path in list_images){
       shpnum <- shpnum + 1 # for debugging
       
       image <- image_array_resize(image, shp[1], shp[2])
-      print(paste0('about to run shape ', shpnum))# for debugging
+      print(paste0('running octave ', shpnum))# for debugging
       image <- gradient_ascent(image, settings$hyperparams$iterations, settings$hyperparams$`step`, 
                                settings$hyperparams$max_loss)
-      print(paste0('got done with shape ', shpnum))# for debugging
+      print(paste0('finished octave ', shpnum))# for debugging
       upscaled_shrunk_original_img <- image_array_resize(shrunk_original_img, shp[1], shp[2])
       same_size_original <- image_array_resize(original_image, shp[1], shp[2])
       lost_detail <- same_size_original - upscaled_shrunk_original_img
