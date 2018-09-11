@@ -15,7 +15,7 @@ A heatmap overlay shows parts of an image most activated in a neural network's l
 Original image source: 
 <a rel="nofollow" class="external text" href="https://www.elephants.com">elephants.com</a> - <a rel="nofollow" class="external text" href="https://elephants-media.s3.amazonaws.com/images/399/original/Flora%20ears%20out%20carrying%20limb_0002AA.jpg">African elephant Flora</a>
 
-What it's saying is "Look! There's an African elephant here!" The learner returns a score of 46%, quite high for a blink of an eye and 1000 objects to choose from, and locates the object in the picture correctly. Impressive.
+What it's saying with a yellow-green splotch is "Look! There's an African elephant here!" The learner returns a score of 46%, quite high for a blink of an eye and 1000 objects to choose from, and locates the object in the picture correctly. Impressive.
 
 ```r
 imagenet_decode_predictions(preds, top = 3)[[1]]
