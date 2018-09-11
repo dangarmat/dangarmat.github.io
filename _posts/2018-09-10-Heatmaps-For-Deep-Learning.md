@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ImageNet needs more Wild Boar Photos - Heatmaps of Convolutional Neural Networks to Diagnose Misclassifications 
+title: ImageNet needs more Wild Boar Photos 
 category: [R, deep learning, keras, interpretability, heatmaps]
 tags: [R, deep learning, keras, interpretability, heatmaps]
 excerpt_separator: <!--more-->
