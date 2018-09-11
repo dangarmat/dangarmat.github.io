@@ -61,7 +61,7 @@ Original image source:
 By <a rel="nofollow" class="external text" href="https://www.komar.de/en/elephant.html">Komar.de</a> - <a rel="nofollow" class="external text" href="https://www.komar.de/en/media/catalog/product/cache/5/image/780x/17f82f742ffe127f42dca9de82fb58b1/x/x/xxl4-529_elephant_ma.jpg">Non-woven photomural Elephant</a>
 
 
-Looks like the top of the head and the back. Surprising it's not the tusks. If we take [a sample of ImageNet tusker training images](http://imagenet.stanford.edu/synset?wnid=n01871265) it quickly becomes obvious most tusker images are of elephants. In the first 100 tusker examples, none look like wild boars.
+Looks like the top of the head and the back. Surprising it's not the tusks. If we take [a sample of ImageNet tusker training images](http://imagenet.stanford.edu/synset?wnid=n01871265) it quickly becomes obvious most tusker images are of elephants. In the first 25 tusker examples shown here, none look like wild boars.
 
 ![tuskers](https://dgarmat.github.io/images/tusker_imagenet.JPG "tuskers")
 
