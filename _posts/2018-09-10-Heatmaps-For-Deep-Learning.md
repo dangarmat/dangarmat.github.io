@@ -77,7 +77,7 @@ imagenet_decode_predictions(preds, top = 3)[[1]]
 #3  n02504458  African_elephant 0.1732897
 ```
 
-## Code
+## R Code
 
 ```r
 library(keras)
