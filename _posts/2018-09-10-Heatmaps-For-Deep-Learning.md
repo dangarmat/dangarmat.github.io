@@ -25,7 +25,7 @@ imagenet_decode_predictions(preds, top = 3)[[1]]
 #3  n01871265            tusker 0.07210348
 ```
 
-Shaded parts of this photo have at least some activation to class African_elephant. This shows its face and nearby foliage help distinguish it from an Indian elephant and other classes like a strawberry or an aircraft carrier. Parts of the photo that have 0 activation on the corresponding heatmap, show up as non-shaded, which can be verified from a visualization of the activation heatmap:
+Shaded parts of this photo have at least some activation to class African_elephant. This shows its face and nearby foliage help distinguish it from an Indian elephant and other classes like a strawberry or an aircraft carrier. Parts of the photo that have 0 activation on the corresponding heatmap show up as non-shaded, which can be verified from a visualization of the activation heatmap:
 
 ![af_el_1_hm](https://dgarmat.github.io/images/African_elephant_1_heatmap.png "af_el_1_hm")
 
@@ -34,26 +34,26 @@ or printing it out as a numeric matrix:
 ```r
 round(heatmap, 2)
 #      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
-# [1,] 0.06 0.00    0 0.00 0.00 0.02 0.13 0.26 0.27  0.23  0.17  0.06  0.06  0.12
-# [2,] 0.02 0.00    0 0.09 0.13 0.18 0.28 0.49 0.64  0.58  0.45  0.36  0.18  0.10
-# [3,] 0.09 0.03    0 0.10 0.25 0.45 0.49 0.36 0.34  0.49  0.47  0.37  0.20  0.13
-# [4,] 0.06 0.02    0 0.07 0.28 0.75 1.00 0.73 0.39  0.37  0.40  0.41  0.31  0.14
-# [5,] 0.06 0.02    0 0.00 0.00 0.58 0.28 0.13 0.17  0.00  0.16  0.25  0.12  0.05
-# [6,] 0.05 0.03    0 0.00 0.00 0.00 0.00 0.00 0.00  0.00  0.00  0.01  0.00  0.05
-# [7,] 0.10 0.04    0 0.00 0.00 0.39 0.04 0.00 0.00  0.00  0.00  0.00  0.00  0.02
-# [8,] 0.21 0.07    0 0.00 0.22 0.46 0.00 0.00 0.00  0.00  0.00  0.00  0.00  0.00
-# [9,] 0.27 0.11    0 0.00 0.14 0.28 0.00 0.00 0.00  0.08  0.00  0.00  0.00  0.00
-#[10,] 0.30 0.10    0 0.00 0.00 0.08 0.15 0.25 0.02  0.00  0.00  0.00  0.00  0.00
-#[11,] 0.22 0.02    0 0.00 0.00 0.00 0.08 0.31 0.25  0.04  0.00  0.00  0.00  0.00
-#[12,] 0.00 0.00    0 0.00 0.00 0.00 0.02 0.42 0.30  0.00  0.00  0.00  0.00  0.00
-#[13,] 0.00 0.00    0 0.00 0.00 0.00 0.00 0.16 0.04  0.00  0.00  0.00  0.00  0.00
-#[14,] 0.00 0.00    0 0.00 0.04 0.04 0.00 0.00 0.06  0.10  0.11  0.10  0.07  0.10
+# [1,] 0.00 0.00 0.02 0.02 0.01 0.00 0.00 0.00 0.00  0.00  0.00  0.00  0.00  0.00
+# [2,] 0.00 0.01 0.00 0.00 0.00 0.00 0.00 0.00 0.00  0.00  0.00  0.00  0.00  0.00
+# [3,] 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00  0.00  0.00  0.00  0.00  0.00
+# [4,] 0.00 0.00 0.05 0.00 0.00 0.00 0.00 0.00 0.00  0.00  0.00  0.00  0.00  0.00
+# [5,] 0.00 0.00 0.09 0.07 0.26 0.00 0.11 0.13 0.07  0.16  0.00  0.00  0.00  0.00
+# [6,] 0.00 0.00 0.01 0.04 0.30 0.24 0.69 0.63 0.41  0.12  0.04  0.00  0.00  0.00
+# [7,] 0.00 0.00 0.01 0.04 0.14 0.14 0.55 0.72 0.92  0.23  0.06  0.00  0.00  0.00
+# [8,] 0.00 0.00 0.00 0.01 0.00 0.03 0.61 0.98 1.00  0.22  0.00  0.00  0.00  0.00
+# [9,] 0.00 0.00 0.02 0.01 0.00 0.00 0.30 0.27 0.31  0.00  0.00  0.00  0.02  0.00
+#[10,] 0.00 0.00 0.04 0.04 0.01 0.00 0.01 0.00 0.02  0.00  0.00  0.02  0.04  0.01
+#[11,] 0.00 0.00 0.10 0.09 0.07 0.06 0.10 0.00 0.00  0.00  0.00  0.03  0.05  0.04
+#[12,] 0.01 0.14 0.13 0.13 0.11 0.11 0.10 0.00 0.00  0.08  0.09  0.12  0.08  0.08
+#[13,] 0.13 0.13 0.15 0.14 0.12 0.10 0.08 0.00 0.03  0.11  0.11  0.15  0.12  0.11
+#[14,] 0.04 0.06 0.06 0.04 0.00 0.00 0.02 0.00 0.00  0.00  0.00  0.00  0.00  0.00
 ```
 
 
 ## Detecting sources of errors
 
-Here is another African elephant, with huge ears above its neck, but this time the learner has misclassified it as a tusker with a score of 55%, as opposed to 17% for African elephant. Tusker isn't terrible. It's a more generic group that includes wild boars but not as accurate as African elephant. What threw it off from making a more precise call? Let's see. 
+Here is another African elephant with huge ears above its neck, but this time the learner has misclassified it as a tusker with a score of 55% as opposed to 17% for African elephant. Tusker isn't a terrible judgment. It's a more generic group that includes wild boars but not as accurate as African elephant. What threw it off from making a more precise call? Let's see. 
 
 ![af_el_2](https://dgarmat.github.io/images/African_elephant_2_overlay.jpg "af_el_2")
 
