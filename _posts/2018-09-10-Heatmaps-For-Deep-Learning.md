@@ -5,7 +5,7 @@ tags: [R, deep learning, keras, interpretability, heatmaps]
 excerpt_separator: <!--more-->
 ---
 
-Is your deep convolutional network misclassifying images? You can find out why with a heatmap of class activation overlaid on your misclassified pictures. 
+Is your deep convolutional network misclassifying images? You can find out why with a heatmap of class activation overlaid on its misclassified pictures. 
 
 A heatmap overlay shows parts of an image most activated in a neural network's last convolutional layer. In this African elephant picture, the top-most convolutional layer of the VGG16 architecture turns the photo into a 14x14 grid highlighting blocks with strongest African_elephant activation:
 
