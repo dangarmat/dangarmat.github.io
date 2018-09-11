@@ -5,9 +5,9 @@ tags: [R, deep learning, keras, interpretability, heatmaps]
 excerpt_separator: <!--more-->
 ---
 
-Is your deep convolutional network misclassifying images? You can find out why it made the classification decision it did with a heatmap of class activation overlaid on your misclassified picture. 
+Is your deep convolutional network misclassifying images? You can find out why it guessed wrong with a heatmap of class activation overlaid on your misclassified picture. 
 
-A heatmap overlay shows the part of the photo most activated in the last convolutional layer leading to a softmax classification decision. In this African elephant picture, the top-most convolutional layer of the VGG16 architecture turns the photo into a 14x14 grid, and which part of this grid most led to the correct African_elephant class is highlighted:
+A heatmap overlay shows parts of an image most activated in a neural network's last convolutional layer. In this African elephant picture, the top-most convolutional layer of the VGG16 architecture turns the photo into a 14x14 grid highlighting blocks with strongest African_elephant activation:
 
 ![af_el_1](https://dgarmat.github.io/images/African_elephant_1_overlay.jpg "af_el_1")
 
@@ -25,7 +25,7 @@ imagenet_decode_predictions(preds, top = 3)[[1]]
 #3  n01871265            tusker 0.07210348
 ```
 
-Shaded parts of this photo have at least some activation to class African_elephant. This shows its face and nearby foliage help distinguish it from an Indian elephant and other classes, like a strawberry or an aircraft carrier. Parts of the photo that have 0 activation on the corresponding heatmap, show up as non-shaded, which can be verified from a visualization of the activation heatmap:
+Shaded parts of this photo have at least some activation to class African_elephant. This shows its face and nearby foliage help distinguish it from an Indian elephant and other classes like a strawberry or an aircraft carrier. Parts of the photo that have 0 activation on the corresponding heatmap, show up as non-shaded, which can be verified from a visualization of the activation heatmap:
 
 ![af_el_1_hm](https://dgarmat.github.io/images/African_elephant_1_heatmap.png "af_el_1_hm")
 
@@ -53,7 +53,7 @@ round(heatmap, 2)
 
 ## Detecting sources of errors
 
-Here is another African elephant, with huge ears above its neck, but this time the learner has misclassified it as a tusker with a score of 55%, as opposed to 17% for African elephant. Tusker isn't terrible. It's a more generic group that includes wild boars, but not as accurate as African elephant. What threw it off from making a more precise call? Let's see. 
+Here is another African elephant, with huge ears above its neck, but this time the learner has misclassified it as a tusker with a score of 55%, as opposed to 17% for African elephant. Tusker isn't terrible. It's a more generic group that includes wild boars but not as accurate as African elephant. What threw it off from making a more precise call? Let's see. 
 
 ![af_el_2](https://dgarmat.github.io/images/African_elephant_2_overlay.jpg "af_el_2")
 
