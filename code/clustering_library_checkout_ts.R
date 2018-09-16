@@ -49,26 +49,21 @@ top_books %>%
   left_join(inventory, by = c("BibNumber" = "BibNum")) %>% 
   select(Title, PublicationYear, Subjects, ItemLocation, ItemCount)
 
-# can see a lot are not in inventory. For the sake of illustration, let's only keep those that are
-checkouts <- 
-  checkouts %>% 
-  inner_join((inventory %>% select(BibNum, Title, Author)), by = c("BibNumber" = "BibNum"))
-
-# redo top_books
-top_books <- 
-  checkouts %>% 
-  group_by(BibNumber) %>% 
-  summarise(NbrItems = n_distinct(ItemBarcode)) %>% 
-  arrange(desc(NbrItems))
 
 
 top_books %>% 
   top_n(n = 1, wt = NbrItems) %>% 
+  inner_join(inventory, by = c("BibNumber" = "BibNum")) %>% 
   select(Title, PublicationYear, Subjects, ItemLocation, ItemCount)
 
 # turns out it's a 3G, 4G, LTE internet connection hotspot you can check out free from the library for 21 days
 # https://www.spl.org/using-the-library/reservations-and-requests/reserve-a-computer/computers-and-equipment/spl-hotspot
 # ncompass-live-circulating-the-internet-how-to-loan-wifi-hotspots-16-638.jpg
+  
+top_books %>% 
+  ggplot(aes(x = NbrItems)) +
+  geom_histogram(binwidth = 5)
+
 
 # does inventory have any duplicates?
 inventory %>% 
@@ -89,6 +84,11 @@ inventory_clean <-
   top_n(n = 1, wt = Author)
 
 rm(inventory)
+
+# can see a lot are not in inventory. For the sake of illustration, let's only keep those that are
+checkouts <- 
+  checkouts %>% 
+  inner_join((inventory_clean %>% select(BibNum, Title, Author)), by = c("BibNumber" = "BibNum"))
 
 top_books %>% 
   ggplot(aes(x = NbrItems)) +
@@ -489,15 +489,7 @@ pc_dtw4@cluster
 pc_dtw4@datalist %>% as.data.frame() %>%
   gather(campaign_id, balance)
 
-print_clusters <- function(clustering){
-  # in each cluster which is the highest and which is the lowest
-  clustering@dots
-  
-  cluster_label <- function(cluster) {
-    paste0(cluster, '\n', clustering@clusinfo[order(clustering@clusinfo$size, decreasing = TRUE), 
-                                              1][as.numeric(cluster)], ' books')
-  }
-  
+print_clusters <- function(clustering, trajectories = balance_traj){
   centroids <- clustering@centroids[order(clustering@clusinfo$size, decreasing = TRUE)] %>% 
     as.data.frame(col.names = 1:nrow(clustering@clusinfo)) %>% 
     mutate(day_of_campaign = row_number()) %>%
@@ -505,7 +497,7 @@ print_clusters <- function(clustering){
     mutate(cluster = parse_number(cluster))
   
   tidy_traj <- 
-    balance_traj %>% 
+    trajectories %>% 
     as.data.frame() %>% 
     rownames_to_column("book_id") %>%
     mutate(
@@ -515,11 +507,28 @@ print_clusters <- function(clustering){
     ) %>%
     gather(day_of_campaign, balance, -book_id, -cluster, convert = TRUE) 
   
-  tidy_traj %>%
+  outlier_books <- 
+    tidy_traj %>%
     filter(day_of_campaign == max(day_of_campaign)) %>% 
     group_by(cluster) %>% 
     filter(balance == max(balance) | balance == min(balance)) %>% 
-    left_join(inventory_clean, by = c("book_id" = "BibNum"))
+    left_join(inventory_clean, by = c("book_id" = "BibNum")) %>% 
+    arrange(balance) %>% 
+    select(book_id, Title, Author) 
+  
+  tidy_traj <- 
+    tidy_traj %>% 
+    left_join(outlier_books, by = "book_id")
+  
+  cluster_label <- function(cluster) {
+    paste0(cluster, '\n', clustering@clusinfo[order(clustering@clusinfo$size, decreasing = TRUE), 
+                                              1][as.numeric(cluster)], 
+           ' books from: ', 
+           (tidy_traj %>% filter(`cluster` == cluster, balance == max(balance)) %>% select(Title)),
+           " to: ",
+           (tidy_traj %>% filter(`cluster` == cluster, balance == min(balance)) %>% select(Title))
+    )
+  }
   
   tidy_traj %>%
     ggplot(aes(day_of_campaign, balance + 1, group=book_id)) + geom_line(alpha = 0.1) +
