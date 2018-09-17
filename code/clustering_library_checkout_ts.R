@@ -1,13 +1,18 @@
 # cluster TS of books
 
 library(tidyverse)
-library(lubridate)
 library(ggthemes)
+library(lubridate)
 library(dtwclust)
 
 
 ### load and explore data ----
+# path to the Seattle Public Library unzipped files
 file_loc <- "D:\\DataDownloads\\seattle-library-checkout-records\\"
+
+# can try direct read from zip file another time
+# this only reads the first one
+# myData <- read_csv("D:/DataDownloads/seattle-library-checkout-records.zip")
 
 # this will load all files. It's 91M observations and 4.3GB in memory
 # if it's too much, can leave three or more consecutive years for the rest of the query to work
@@ -24,7 +29,12 @@ for(file in checkouts_files){
   print(paste0("completed uploading ", file))
 }
 glimpse(checkouts)
+# 92 million rows and 4.3 GB in memory
 
+# this is actually quite slow itself, not sure it's better than the loop
+# save and reload since this takes a while to bring in from CSVs
+# saveRDS(checkouts, paste0(file_loc, "checkouts.rds")) # saves as 2GB file
+# checkouts <- readRDS(paste0(file_loc, "checkouts.rds"))
 
 # which is the unqiue id?
 checkouts %>% 
@@ -47,14 +57,13 @@ glimpse(inventory)
 top_books %>% 
   top_n(n = 1, wt = NbrItems) %>% 
   left_join(inventory, by = c("BibNumber" = "BibNum")) %>% 
-  select(Title, PublicationYear, Subjects, ItemLocation, ItemCount)
-
-
+  select(BibNumber, NbrItems, Title, PublicationYear, Subjects, ItemLocation, ItemCount)
+# have unkowns, item 3 is known, though
 
 top_books %>% 
-  top_n(n = 1, wt = NbrItems) %>% 
+  top_n(n = 3, wt = NbrItems) %>% 
   inner_join(inventory, by = c("BibNumber" = "BibNum")) %>% 
-  select(Title, PublicationYear, Subjects, ItemLocation, ItemCount)
+  select(BibNumber, NbrItems, Title, PublicationYear, Subjects, ItemLocation, ItemCount)
 
 # turns out it's a 3G, 4G, LTE internet connection hotspot you can check out free from the library for 21 days
 # https://www.spl.org/using-the-library/reservations-and-requests/reserve-a-computer/computers-and-equipment/spl-hotspot
@@ -71,12 +80,28 @@ inventory %>%
   distinct() %>% 
   group_by(BibNum) %>% 
   count() %>% 
-  arrange(desc(n))
-# tons
+  arrange(desc(n)) 
+# some
 inventory %>% filter(BibNum == 359785) %>% select(Title, Author)
+# different versions of title
 
 inventory_clean <- 
   inventory %>% 
+  select(BibNum, Title, Author, Publisher) %>% 
+  distinct() %>% 
+  mutate(
+    Title = case_when(
+      is.na(Title) & is.na(Author) & is.na(Publisher) ~ "Unknown",
+      is.na(Title) & is.na(Author) ~ paste0("Unknown Published by ", Publisher),
+      is.na(Title) ~ paste0("Unknown by ", Author),
+      TRUE ~ Title
+      ),
+    Author = case_when(
+      is.na(Title) & is.na(Author) ~ "Unknown",
+      is.na(Author) ~ paste0(Title, "by Unknown"),
+      TRUE ~ Author
+    )
+  ) %>% 
   select(BibNum, Title, Author) %>% 
   distinct() %>% 
   group_by(BibNum) %>% 
@@ -84,11 +109,6 @@ inventory_clean <-
   top_n(n = 1, wt = Author)
 
 rm(inventory)
-
-# can see a lot are not in inventory. For the sake of illustration, let's only keep those that are
-checkouts <- 
-  checkouts %>% 
-  inner_join((inventory_clean %>% select(BibNum, Title, Author)), by = c("BibNumber" = "BibNum"))
 
 top_books %>% 
   ggplot(aes(x = NbrItems)) +
@@ -105,10 +125,6 @@ top_barcodes
 # now some item, 0010086290326, has multiple Bibliographies in 2016 alone, what is that item?
 
 top_barcodes %>% 
-  ggplot(aes(x = NbrBibs)) +
-  geom_histogram(binwidth = 1)
-
-top_barcodes %>% 
   top_n(n = 1, wt = NbrBibs) %>% 
   left_join(checkouts, by = "ItemBarcode") 
 # they're comething called Fast Add, they don't have a CallNumber even
@@ -121,40 +137,41 @@ top_barcodes %>%
   left_join(inventory_clean, by = c("BibNumber" = "BibNum"))
 # these guys are not in the inventory at all. They are maybe temporary Barcodes  
 
+top_barcodes %>% 
+  ggplot(aes(x = NbrBibs)) +
+  geom_histogram(binwidth = 1)
+
 rm(top_barcodes)
 
 ### clean data ----
-#Remove FAST ADDs, and books with less than 1 copy
+# we see a lot are not in inventory. For the sake of illustration, let's only keep those that are
+end_of_time <- max(checkouts$CheckoutDateTime)
+first_days_considered <- 1000
+
 checkouts <- 
   checkouts %>% 
-  filter(CallNumber != "FAST ADD") %>% 
-  group_by(BibNumber) %>% 
-  summarise(checkout_count = n(),
-            copies = n_distinct(ItemBarcode)
-  ) %>% 
-  # select top 7000 books in terms of number of copies ever checked out
-  # later will reduce to 1000 again
-  top_n(n = 7000, wt = copies) %>% 
-  select(BibNumber) %>% 
-  left_join(checkouts, by = "BibNumber") %>% 
+  inner_join((inventory_clean %>% select(BibNum, Title, Author)), by = c("BibNumber" = "BibNum")) %>% 
+  select(-ItemType, -Collection) %>% 
   mutate(CheckoutDateTime = mdy_hms(CheckoutDateTime))
-end_of_time <- max(checkouts$CheckoutDateTime)
 
-checkouts %>% 
-  group_by(ItemBarcode) %>% 
-  summarise(NbrBibs = n_distinct(BibNumber)) %>% 
-  arrange(desc(NbrBibs)) %>% 
-  top_n(n = 1, wt = NbrBibs) %>% 
-  left_join(checkouts, by = "ItemBarcode") 
-# still some dupes but much fewer
 
-# We don't have date accquired - could pull in some kind of pulication date maybe
+# We don't have date accquired - could pull in some kind of publication date maybe
 # as a proxy let's just use the first date the book was Checked Out
 book_start_dates <-
   checkouts %>% 
   group_by(BibNumber) %>% 
   summarise(bib_nbr_start_date = min(CheckoutDateTime)) %>% 
   mutate(days_old = as.numeric(difftime(end_of_time, bib_nbr_start_date, units = "days")))
+
+qplot(book_start_dates$days_old)
+# remove the ones that are too old to be fair comparison
+
+too_old <- max(book_start_dates$days_old) - 31 # add a month for safety
+book_start_dates <- 
+  book_start_dates %>% 
+  # use a filter that with inner join selects books we can compare fairly 
+  filter(days_old < too_old, days_old > first_days_considered)
+
 
 checkouts <- 
   checkouts %>%
@@ -164,23 +181,20 @@ checkouts <-
   ) %>%
   select(-bib_nbr_start_date)
 
-oldest_book <- max(book_start_dates$days_old)
-min(checkouts_aggregate$day_for_book) # hope non-zero
-
-
+#Remove FAST ADDs, and grab top 1000 books with in their first 1000 days
 checkouts <- 
-  book_start_dates %>% 
-  # remove new books and old books so have fair middle group to compare
-  filter(days_old >= 1000,
-         days_old <= oldest_book - 100) %>% 
-  select(BibNumber) %>% 
-  left_join(checkouts, by = "BibNumber") %>% 
-  # take it down to top 2000
+  checkouts %>% 
+  filter(CallNumber != "FAST ADD") %>% 
+  filter(day_for_book <= first_days_considered) %>% 
   group_by(BibNumber) %>% 
-  summarise(copies = n_distinct(ItemBarcode)
+  summarise(checkout_count = n(),
+            copies = n_distinct(ItemBarcode)
   ) %>% 
-  # final reduce to 1000 books
-  top_n(n = 1000, wt = copies) %>% 
+  # I need to filter on top checkouts in first 1000 days
+  # or pick top 100 for each year
+  
+  # select top 1000 books in terms of checkouts
+  top_n(n = 1000, wt = checkout_count) %>% 
   select(BibNumber) %>% 
   left_join(checkouts, by = "BibNumber") %>% 
   group_by(BibNumber) %>% 
@@ -192,7 +206,19 @@ checkouts <-
          checkout_transaction = row_number(),
          total_checkouts = n(),
          checkout_progress = checkout_transaction / total_checkouts
-  )
+  ) %>% 
+  ungroup()
+
+
+checkouts %>% 
+  group_by(ItemBarcode) %>% 
+  summarise(NbrBibs = n_distinct(BibNumber)) %>% 
+  arrange(desc(NbrBibs)) %>% 
+  top_n(n = 1, wt = NbrBibs) %>% 
+  left_join(checkouts, by = "ItemBarcode") 
+# still some dupes but much fewer
+
+min(checkouts$day_for_book) # hope non-zero, given + 1
 
 checkouts
 checkouts %>% 
@@ -206,10 +232,14 @@ checkouts %>%
 # combine and aggregate by book-day and count
 checkouts_aggregate <- 
   checkouts %>% 
-  group_by(BibNumber, day_for_book) %>% 
+  group_by(BibNumber, Title, day_for_book) %>% 
   summarize(copies = n()) %>% 
   arrange(desc(copies))
 checkouts_aggregate
+head(checkouts_aggregate)
+# the most checked out books on a given day
+# surpsiing only 1 is a book
+# also the others aren't on day 1 - wonder if it's after Oscar season or something
 
 # don't need this function anymore but it was so cool for when had too much data, keeping it
 sample_n_groups = function(tbl, size, replace = FALSE, weight = NULL) {
@@ -222,49 +252,51 @@ sample_n_groups = function(tbl, size, replace = FALSE, weight = NULL) {
   tbl %>% right_join(keep, by=grps) %>% group_by_(.dots = grps)
 }
 
-checkouts_aggregate %>% 
-  #sample_n_groups(1000) %>% 
-  ungroup() %>% 
-  ggplot(aes(day_for_book, copies)) +
-  geom_jitter(alpha = 0.1) +
-  scale_y_log10(labels = scales::comma_format()) #+
-  #scale_x_log10()
-# this plot is actually super cool. It shows ineffeciencies in the book ordering process
-
 qplot(checkouts_aggregate$copies) + scale_x_log10(labels = scales::comma_format())
+qplot(checkouts_aggregate$copies) 
 
 qplot(checkouts_aggregate$day_for_book) + scale_x_log10(labels = scales::comma_format())
 # this is surprising really, just keeps going up for years
 qplot(checkouts_aggregate$day_for_book)
 # this is with correct linear axis it makes a ton of sense - drop off after initial interest
+# but drop off could be due to cutoff of 1000 days
+ggplot(checkouts_aggregate, aes( x = day_for_book)) +
+  geom_histogram(binwidth = 31) + 
+  xlim(0, first_days_considered)
 
 quantile(floor(checkouts_aggregate$day_for_book), probs = c(0.01, 0.025, 0.05, 0.95, 0.975, 0.99), na.rm = TRUE)
-# these things seem to take off
+# these things seem to take off, then slow down
 
+checkouts_aggregate %>% 
+  #sample_n_groups(1000) %>% 
+  ungroup() %>% 
+  ggplot(aes(day_for_book, copies)) +
+  geom_jitter(alpha = 0.01) #+
+# scale_y_log10(labels = scales::comma_format()) #+
+# scale_x_log10()
+# this plot is actually super cool. It shows ineffeciencies in the book ordering process
 
 # dist of last days of checkouts
 last_days <- 
   checkouts_aggregate %>%
   group_by(BibNumber) %>%
   summarize(last_day = max(day_for_book)) %>%
-  mutate(day2 = last_day > 1) # this removes cases where books were checked out on the first day only
+  mutate(day2 = last_day > (first_days_considered - 365)) # this checks for books that no one checked out in last year
 last_days %>%
   ggplot(aes(last_day)) + 
   stat_ecdf(geom = "step", pad = FALSE) + 
   geom_vline(xintercept=30)
-qplot(last_days$last_day) + 
-  scale_x_log10()
+qplot(last_days$last_day) 
 last_days %>% 
   filter(!is.na(day2)) %>%
   ggplot(aes(last_day)) + 
   geom_histogram() + 
-  facet_wrap(~ day2) + 
-  scale_x_log10(labels = scales::comma_format())
-# clearly don't need to worry about day one only checkouts here, different mechanism
+  facet_wrap(~ day2) 
+# clearly don't need to worry about these top 1000 new books going out of style
 quantile(round(last_days$last_day), probs = seq(0.05, 0.95, 0.05), na.rm = TRUE)
 
 # half are over in 2384 days? 6.5 years.
-# out of 365, clearly a different pattern
+# this is because of the right-shadow of the data - it misses what happens to the newest books
 
 # seattle library is pretty full
 # what is the value of keeping a book on the shelf one more day?
@@ -280,14 +312,31 @@ balances %>%
   group_by(BibNumber) %>%
   summarize(checkout_count = n()) %>%
   select(checkout_count) %>%
-  qplot() + scale_x_log10(labels = scales::comma_format())
-
-# not so important in this case, as already filtered out
+  ggplot(aes(x = checkout_count)) + geom_histogram()
+  
 balances %>%
   group_by(BibNumber) %>%
   summarize(checkout_count = n()) %>%
-  filter(checkout_count == 1) %>%
-  summarise(`Books with only One Checkout` = n())
+  select(checkout_count) %>%
+  as.vector() %>% 
+  summary()
+# so minimum is 2514 checkouts in this group, max is 18680
+# which is the max?
+
+balances %>%
+  group_by(BibNumber) %>%
+  summarize(checkout_count = n()) %>%
+  filter(checkout_count == max(checkout_count)) %>% 
+  left_join(inventory_clean, by = c("BibNumber" = "BibNum"))
+# people in Seattle loved taking out Into the wild
+# there's probably an advanatge to it coming out earlier in this time period
+
+# not so important in this case
+balances %>%
+  group_by(BibNumber) %>%
+  summarize(checkout_count = n()) %>%
+  filter(checkout_count < 1000) %>%
+  summarise(`Books with less than 1000 Checkouts` = n())
 
 # one copy but multiple checkouts
 balances %>%
@@ -307,7 +356,7 @@ balances %>%
   summarise(`Campaigns with Multiple copies` = n())
 
 book_start_dates %>% 
-  filter(days_old >= 1000) %>% 
+  filter(days_old >= first_days_considered) %>% 
   select(BibNumber) %>%
   left_join(balances) %>%
   group_by(BibNumber, ItemBarcode) %>%
@@ -317,20 +366,22 @@ book_start_dates %>%
   filter(copies > 1) %>%
   summarise(`Campaigns with Multiple copies, age >= 1000 days` = n())
 
+rm(balances)
 
 ### produce achetype grouping checkout patterns to surface typical patterns ----
-# At 30 days what is the distribution of transaction and balance progress?
+# At 1000 days what is the distribution of transaction and balance progress?
 
 checkouts %>%
-  filter(day_for_book <= 1000) %>%
+  filter(day_for_book <= first_days_considered) %>%
   group_by(BibNumber) %>%
   arrange(checkout_transaction) %>%
   summarise(balance_progress = last(balance_progress), checkout_progress = last(checkout_progress)) %>%
   ggplot(aes(checkout_progress)) + geom_histogram()
+# really just a proxy for start date
 
-# after 1000 days, a handful are completely done checking out
+# after 1000 days, none  are completely done checking out
 checkouts %>%
-  filter(day_for_book <= 1000) %>%
+  filter(day_for_book <= first_days_considered) %>%
   group_by(BibNumber) %>%
   arrange(checkout_transaction) %>%
   summarise(balance_progress = last(balance_progress), checkout_progress = last(checkout_progress)) %>%
@@ -340,20 +391,50 @@ checkouts %>%
 ### time series views ----
 checkouts %>%
   #sample_n_groups(1000) %>% 
-  ungroup() %>% 
   ggplot(aes(day_for_book, balance_progress, group = BibNumber)) +
   geom_line(alpha = 0.1)
 
 checkouts %>%
   #sample_n_groups(1000) %>% 
-  ungroup() %>% 
   ggplot(aes(day_for_book, balance_progress, group = BibNumber)) +
   geom_line(alpha = 0.1) + 
-  xlim(0, 365)
+  xlim(0, first_days_considered)
+
+# is timing an issue here?
+checkouts %>%
+  left_join(book_start_dates, by = "BibNumber") %>% 
+  ggplot(aes(day_for_book, balance_progress, group = BibNumber, color = days_old)) +
+  geom_line(alpha = 0.1) + 
+  xlim(0, first_days_considered)
+# it's a serious issue, however, it's OK, because this just shows proprotion of total checkouts, but we'll filter
+# to total checkouts in first 1000 days anyway
+
+# reprocess key stats to reflect first 1000 days only
+checkouts <- 
+  checkouts %>% 
+  filter(day_for_book <= first_days_considered) %>% 
+  group_by(BibNumber) %>% 
+  arrange(CheckoutDateTime) %>% 
+  mutate(checkout = 1,
+         ending_balance = sum(checkout),
+         checkout_balance = cumsum(checkout),
+         balance_progress = sapply(checkout_balance / ending_balance, FUN=function(x) min(max(x, 0), 1)),
+         checkout_transaction = row_number(),
+         total_checkouts = n(),
+         checkout_progress = checkout_transaction / total_checkouts
+  ) %>% 
+  ungroup()
+
+
+checkouts %>%
+  left_join(book_start_dates, by = "BibNumber") %>% 
+  ggplot(aes(day_for_book, balance_progress, group = BibNumber, color = days_old)) +
+  geom_line(alpha = 0.1) 
+# it still looks differentiated, is that the effect of changing marketing, or library patron practices?
 
 daily_series <- 
   checkouts %>%
-  mutate(day_for_book = floor(day_for_book) + 1) %>%
+  mutate(day_for_book = floor(day_for_book)) %>%
   #filter(day_for_book <= 30) %>%
   group_by(BibNumber, day_for_book) %>%
   #arrange(id) %>%
@@ -375,8 +456,8 @@ summary(daily_series)
 daily_series %>%
   ggplot(aes(day_for_book, balance, group = BibNumber)) +
   geom_line(alpha = 0.1) +
-  scale_y_log10(labels = scales::comma_format()) +
-  labs(x = "Day for book", y = element_blank(), title = "Checkouts (log-scale)") +
+  #scale_y_log10(labels = scales::comma_format()) +
+  labs(x = "Day for book", y = element_blank(), title = "Checkouts") +
   theme_tufte()
 
 # balance progress
@@ -397,13 +478,13 @@ daily_series %>%
 daily_series %>%
   ggplot(aes(day_for_book, amount_prop, group = BibNumber)) +
   geom_line(alpha = 0.1)
-# don't see a story
+# don't see a new story, not as much drop off as expected maybe
 
 # Transactions
 daily_series %>%
   ggplot(aes(day_for_book, checkouts, group = BibNumber)) +
-  geom_line(alpha = 0.1) +
-  scale_y_log10(labels = scales::comma_format())
+  geom_line(alpha = 0.1) #+
+  #scale_y_log10(labels = scales::comma_format())
 # looks like same story as before
 
 # Transactions Progress
@@ -419,7 +500,7 @@ daily_series %>%
 
 balance_traj <- 
   daily_series %>% 
-  filter(day_for_book %in% 1:1000) %>%
+  filter(day_for_book %in% 1:first_days_considered) %>%
   select(BibNumber, day_for_book, balance) %>%
   spread(day_for_book, balance) %>%
   mutate(`1` = coalesce(`1`, 0)) %>%
@@ -427,11 +508,11 @@ balance_traj <-
   column_to_rownames("BibNumber") %>%
   apply(1, FUN=zoo::na.locf) %>%
   t()
-save(daily_series, daily_series, balance_traj, file = "balance.RData")
+#save(daily_series, daily_series, balance_traj, file = "balance.RData")
 
 amount_traj <-  
   daily_series %>% 
-  filter(day_for_book %in% 1:1000) %>%
+  filter(day_for_book %in% 1:first_days_considered) %>%
   select(BibNumber, day_for_book, checkouts) %>%
   spread(day_for_book, checkouts, fill = 0) %>%
   remove_rownames() %>%
@@ -446,8 +527,8 @@ balance_traj %>%
   ggplot(aes(day_for_book, balance, group = BibNumber)) +
   geom_line(alpha = 0.1) +
   #scale_x_continuous(breaks = 1:4 * 7) +
-  scale_y_log10(labels = scales::comma_format()) +
-  labs(x = "Day of book", y = element_blank(), title = "Checkouts (log-scale)") +
+  #scale_y_log10(labels = scales::comma_format()) +
+  labs(x = "Day of book", y = element_blank(), title = "Checkouts") +
   theme_tufte()
 # after 2000 days, most exciting new books are no longer
 
@@ -459,7 +540,7 @@ amount_traj %>%
   geom_line(alpha = 0.01) +
   #scale_x_continuous(breaks = 1:4 * 7) +
   #scale_y_log10(labels = scales::comma_format()) +
-  labs(x = "Day of book", y = element_blank(), title = "Checkout Daily Amount (log-scale)") +
+  labs(x = "Day of book", y = element_blank(), title = "Checkout Daily Amount") +
   theme_tufte()
 
 ## DTW
@@ -480,7 +561,7 @@ pc_dtw16 <- tsclust(balance_traj, k = 16L,
                     norm = "L2", window.size = 2L,
                     args = tsclust_args(cent = list(trace = TRUE)))
 
-save(pc_dtw4, pc_dtw9, pc_dtw16, file = "pc_dtw.RData")
+# save(pc_dtw4, pc_dtw9, pc_dtw16, file = "pc_dtw.RData")
 
 plot(pc_dtw4, type = "c")
 
@@ -512,21 +593,57 @@ print_clusters <- function(clustering, trajectories = balance_traj){
     filter(day_of_campaign == max(day_of_campaign)) %>% 
     group_by(cluster) %>% 
     filter(balance == max(balance) | balance == min(balance)) %>% 
+    ungroup() %>% 
     left_join(inventory_clean, by = c("book_id" = "BibNum")) %>% 
-    arrange(balance) %>% 
-    select(book_id, Title, Author) 
+    arrange(cluster, balance) %>% 
+    mutate(title_short = ifelse(nchar(Title) > 20, paste0(substr(Title, 1, 18), "..."), Title)) %>% 
+    select(book_id, title_short, cluster, balance) 
   
-  tidy_traj <- 
-    tidy_traj %>% 
-    left_join(outlier_books, by = "book_id")
+  #tidy_traj <- 
+  #  tidy_traj %>% 
+   # left_join(outlier_books, by = "book_id")
+  
+  tidy_traj %>% 
+    filter(!is.na(Title)) %>% 
+    select(book_id, cluster, Title) %>% 
+    distinct() %>% 
+    mutate(Title = ifelse(nchar(Title) > 20, paste0(substr(Title, 1, 18), "..."), Title)) %>% 
+    glimpse()
   
   cluster_label <- function(cluster) {
-    paste0(cluster, '\n', clustering@clusinfo[order(clustering@clusinfo$size, decreasing = TRUE), 
-                                              1][as.numeric(cluster)], 
-           ' books from: ', 
-           (tidy_traj %>% filter(`cluster` == cluster, balance == max(balance)) %>% select(Title)),
-           " to: ",
-           (tidy_traj %>% filter(`cluster` == cluster, balance == min(balance)) %>% select(Title))
+      
+    smallest_book <- 
+      tidy_traj %>% 
+      rename(cluster2 = cluster) %>% 
+      filter(!is.na(Title)) %>% 
+      filter(cluster2 == as.numeric(cluster)) %>% 
+      filter(balance == min(balance)) %>% 
+      select(Title) %>% 
+      top_n(n = 1, wt = row_number()) %>% 
+      mutate(Title = ifelse(nchar(Title) > 20, paste0(substr(Title, 1, 18), "..."), Title)) %>% 
+      as.vector()
+    
+    smallest_book <- 
+      outlier_books[, `cluster` == as.numeric(cluster)]
+    
+    largest_book <- 
+      tidy_traj %>% 
+      rename(cluster2 = cluster) %>% 
+      filter(!is.na(Title)) %>% 
+      filter(cluster2 == as.numeric(cluster)) %>% 
+      filter(balance == max(balance)) %>% 
+      select(Title)%>% 
+      top_n(n = 1, wt = row_number()) %>% 
+      mutate(Title = ifelse(nchar(Title) > 20, paste0(substr(Title, 1, 18), "..."), Title)) %>% 
+      as.vector()
+      
+    paste0(cluster, ': ', 
+           clustering@clusinfo[order(clustering@clusinfo$size, decreasing = TRUE), 
+                                               1][as.numeric(cluster)], 
+           ' books, \n from: ', 
+           smallest_book,
+           "\n to: ",
+           largest_book
     )
   }
   
@@ -536,7 +653,7 @@ print_clusters <- function(clustering, trajectories = balance_traj){
     facet_wrap(~ cluster, labeller = labeller(cluster = cluster_label)) + 
     # I don't much like this log scale useage here
     #scale_y_log10(labels = scales::comma_format()) +
-    #theme_tufte() + 
+    theme_tufte() + 
     labs(x = "Day for Book", y = element_blank(), title = "Checkouts")
 }
 
@@ -560,7 +677,7 @@ pc_sbd9 <- tsclust(balance_traj, type = "p", k = 9L, seed = 1234,
                    distance = "sbd")
 pc_sbd16 <- tsclust(balance_traj, type = "p", k = 16L, seed = 1234,
                     distance = "sbd")
-save(pc_sbd4, pc_sbd9, pc_sbd16, file = "pc_sbd.RData")
+#save(pc_sbd4, pc_sbd9, pc_sbd16, file = "pc_sbd.RData")
 pc_sbd4
 
 plot(pc_sbd4, type="sc")
