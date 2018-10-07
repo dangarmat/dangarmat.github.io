@@ -7,12 +7,14 @@ tags: [R, text mining, NLP, tidytext, reticulate]
 excerpt_separator: <!--more-->
 ---
 
-How can we use data analytics to increase our self-knowledge? Along with biofeedback from digital devices like FitBit, less structured sources, such as sent emails, can provide insight. Like here it seems my communication took a sudden more positive turn in 2013. Let's see what else shakes out of this corpus.
+How can we use data analytics to increase our self-knowledge? Along with biofeedback from digital devices like FitBit, less structured sources such as sent emails can provide insight. Like here it seems my communication took a sudden more positive turn in 2013. Let's see what else shakes out of my sent mail corpus.
 
 ![monthly_sentiment](https://dgarmat.github.io/images/sent_mail00.png "monthly_sentiment")
 
 <!--more-->
-In [https://www.mango-solutions.com/blog/snakes-in-a-package-combining-python-and-r-with-reticulate](Snakes in a Package: combining Python and R with reticulate) Adnan Fiaz uses a download of gmail from [https://takeout.google.com/](Google Takeout) to extract post counts from subject lines of daily emails from [R-bloggers](http://r-bloggers.com/). To handle gmail's .mbox file format, rather than write a new R package that parses mbox files, he uses reticulate to import a Python package, mailbox. His approach seems a great use case for reticulate - when you want to take advantage of a well-developed Python package in an R workflow.
+In [Snakes in a Package: combining Python and R with reticulate](https://www.mango-solutions.com/blog/snakes-in-a-package-combining-python-and-r-with-reticulate) Adnan Fiaz uses a download of personal gmail from [Google Takeout](https://takeout.google.com/) to extract [http://r-bloggers.com/](R-bloggers) post counts from subject lines. To handle gmail's choice of mbox file format, rather than write a new R package to parse mbox files, he uses [reticulate](https://rstudio.github.io/reticulate/articles/introduction.html) to import a Python package, [mailbox](https://docs.python.org/2/library/mailbox.html). His approach seems a great use case for reticulate - when you want to take advantage of a highly developed Python package in R.
+
+### Loading Email Corpus into R
 
 I wanted to mine my own emails for sentiment and see if I learn anything about myself. Has my sent mail showed signs of mood trends over time? I started by following his example:
 
@@ -43,7 +45,7 @@ Loading in email #11, can see it's about Portland Football Club's schedule. I wa
 # you could try ‘??mailbox’
 ```
 
-Returning `message` prints the whole thing, but with much additional unneeded formatting. So wored around it with nested `sub()` and `gsub()` commands on specific example emails to get down to the text I wrote and sent, only.
+Returning `message` prints the whole thing, but with much additional unneeded formatting. So worked around it with nested `sub()` and `gsub()` commands on specific example emails to get down to the text I wrote and sent, only.
 
 It starts with this already difficult to understand call
 ```r
@@ -61,7 +63,7 @@ parse_sent_message(message)
 # [1] " Hey aren't you planning to go to Seattle the 16th? Trying to figure out my days off schedule    "
 ```
 
-Good to go. I tried using the r mailman wrapper, but ran into issues, so went back to the imported mailbox module. Importing and parsing each email took a few minutes:
+Good to go. I tried using the R [mailman](https://github.com/MangoTheCat/mailman) wrapper, but ran into issues, so went back to the imported mailbox module. Importing and parsing each email took a few minutes:
 
 ```r
 message$get("From") # check this email index 11 if from my email address
