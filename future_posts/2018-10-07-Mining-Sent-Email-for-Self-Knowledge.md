@@ -59,16 +59,16 @@ sub(".*Content-Transfer-Encoding: quoted-printable", "",
   message)))))
 ```
 
-And, after much guess, try, see what's left, and add another `sub()`, ended up with this ugly function that does semi-reasonably for my goal of sentiment analysis:
+And, after much guess-try-see what's left-and add another `sub()`, ended up with this ugly function that does semi-reasonably for my goal of sentiment analysis:
 
 ```r
 parse_sent_message <- function(email){
   substr(
     gsub("-top:|-bottom:|break-word","",
     sub("Content-Type: application/pdf|Mime-Version: 1.0.*","",
-    sub(".*To: Dan Garmat dgarmat@gmail.com","",
     sub(".*charset ISO|charset  UTF-8|charset us-ascii","",
-    sub(".*Content-Transfer-Encoding: 7bit", "", sub("orwarded message.*", "", 
+    sub(".*Content-Transfer-Encoding: 7bit", "", 
+    sub("orwarded message.*", "", 
     gsub("=|\"", " ", 
     gsub("  ", " ", 
     gsub("= ", "", 
@@ -119,7 +119,7 @@ sum(is.na(sent_messages$text)) / number_of_messages
 # [1] 0.6664132
 ```
 
-Removing it and doing some additional processing can see the 11,093 remaining sent emails range from November of 2014 to September of 2018 with a median date of October of 2013, a bit later than the chronological midpoint seemingly implying slightly more emails later, though from the chart above, it's probably more due to missing years of data.
+Removing them and doing some additional processing, can see these 11,093 remaining sent emails range from November of 2014 to September of 2018 with a median date of October of 2013. 
 ```r
 sent_messages <- 
   sent_messages %>%
@@ -148,6 +148,7 @@ sent_messages %>%
 # 3rd Qu.:2015-09-18 19:45:21                      3rd Qu.:2015   3rd Qu.: 9.000  
 # Max.   :2018-09-30 01:35:02                      Max.   :2018   Max.   :12.000    
 ```
+While median date comes a bit later than the chronological midpoint seemingly implies slightly more emails later, from the chart above, it's probably more due to missing years of data.
 
 ## Sentiment Analysis
 
@@ -207,7 +208,7 @@ nchar("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ```
 76 a's in a row come from `<a href=` consolidating from something in the `gsub()`s.
 
-Adding these less useful terms to create and email stop words:
+Adding these less useful terms to create an email stop words:
 
 ```r
 email_stop_words <- 
@@ -267,7 +268,7 @@ tidy_emails %>%
 # # ... with 363 more rows
 ```
 
-Hm, I only partially agree with this list. "Art" is a friend I email frequently. "Feeling" is a slight positive but more neutral than a joy word per se. "Hope" is most common I'd agree with between 2004 and 2018 it seems.
+Hm, I only partially agree with this list. "Art" is a friend I email frequently. "Feeling" is a slight positive, but more neutral than a joy word per se. "Hope" is most common I'd agree with between 2004 and 2018 it seems.
 
 How does sentiment look over time? Grouping by month:
 
@@ -322,7 +323,7 @@ Was it a bad breakup? Digging into my emails, can find a New York Times Magazine
 
 ### Most Common Charged Words
 
-If we take all the emotionally charged words and see what comes out most often, we see both surprises and expected outcomes:
+If taking all the emotionally charged words and seeing what comes out most often, both surprises and expected outcomes show up:
 
 ```
 bing_word_counts <- 
@@ -362,7 +363,7 @@ bing_word_counts %>%
 
 ![top_sentiment_words](https://dgarmat.github.io/images/sent_mail03.png "top_sentiment_words")
 
-Surprised to see how much more positive words show up than negative words - Bing does have more positive words in its dictionary, so could make sense there. "Bad" as top negative word seems like a bad top word. "Issue" is definitely a word I have an issue with using a bad amount of time. But it's cool to see how much I use "cool" (or is it bad? this is causing anxiety). Anyway, I think this is a solid view worth the time to get a nice feeling for top words I love to use in email.
+Surprised to see how much more positive words show up than negative words - Bing does have more positive words in its lexicon, so could make sense there. "Bad" as top negative word seems like a bad top word. "Issue" is definitely a word I have an issue with using a bad amount of time. But it's cool to see how much I use "cool" (or is it bad? this is causing anxiety). Anyway, I think this is a solid view worth the time to get a nice feeling for top words I love to use in email.
 
 
 ### Obligatory Wordcloud
