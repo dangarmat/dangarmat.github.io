@@ -7,18 +7,18 @@ tags: [R, text mining, NLP, tidytext, reticulate]
 excerpt_separator: <!--more-->
 ---
 
-How can we use data analytics to increase our self-knowledge? Along with biofeedback from digital devices like [FitBit](https://dgarmat.github.io/Calories-vs-Sleep/), less structured sources such as sent emails can provide insight. 
+How can we use data analytics to increase our self-knowledge? Along with biofeedback from digital devices like [FitBit](https://dgarmat.github.io/Calories-vs-Sleep/), less structured sources such as sent emails can provide insights. 
 
 E.g. here it seems my communication took a sudden more positive turn in 2013. Let's see what else shakes out of my sent email corpus.
 
 ![monthly_sentiment](https://dgarmat.github.io/images/sent_mail00.png "monthly_sentiment")
 
 <!--more-->
-In [Snakes in a Package: combining Python and R with reticulate](https://www.mango-solutions.com/blog/snakes-in-a-package-combining-python-and-r-with-reticulate) Adnan Fiaz uses a download of personal gmail from [Google Takeout](https://takeout.google.com/) to extract [http://r-bloggers.com/](R-bloggers) post counts from subject lines. To handle gmail's choice of mbox file format, rather than write a new R package to parse mbox files, he uses [reticulate](https://rstudio.github.io/reticulate/articles/introduction.html) to import a Python package, [mailbox](https://docs.python.org/2/library/mailbox.html). His approach seems a great use case for reticulate - when you want to take advantage of a highly developed Python package in R.
+In [Snakes in a Package: combining Python and R with reticulate](https://www.mango-solutions.com/blog/snakes-in-a-package-combining-python-and-r-with-reticulate) Adnan Fiaz uses a download of personal gmail from [Google Takeout](https://takeout.google.com/) to extract [R-bloggers](http://r-bloggers.com/) post counts from subject lines. To handle gmail's choice of mbox file format, rather than write a new R package to parse mbox files, he uses [reticulate](https://rstudio.github.io/reticulate/articles/introduction.html) to import a Python package, [mailbox](https://docs.python.org/2/library/mailbox.html). His approach seems a great use case for reticulate - when you want to take advantage of a highly developed Python package in R.
 
 ### Loading Email Corpus into R
 
-I wanted to mine my own emails for sentiment and see if I learn anything about myself. Has my sent mail showed signs of mood trends over time? I started by following his example:
+I wanted to mine my own emails for sentiment and see if I can learn anything about myself. Has my sent mail showed signs of mood trends over time? I started by following his example:
 
 ```r
 library(tidyverse)
@@ -59,7 +59,7 @@ sub(".*Content-Transfer-Encoding: quoted-printable", "",
   message)))))
 ```
 
-And, after much guess-try-see what's left-and add another `sub()`, ended up with this ugly function that does semi-reasonably for my goal of sentiment analysis:
+And, after much guess-try-see-what's-left-and-add-another-`sub()`, ended up with this ugly function that does semi-reasonably for my goal of sentiment analysis:
 
 ```r
 parse_sent_message <- function(email){
@@ -86,11 +86,10 @@ parse_sent_message(message)
 # [1] " Hey aren't you planning to go to Seattle the 16th? Trying to figure out my days off schedule    "
 ```
 
-Good to go. I tried using the R [mailman](https://github.com/MangoTheCat/mailman) wrapper, but ran into issues, so went back to the imported mailbox module. Importing and parsing each email took a few minutes:
+Good to go. I tried using the R [mailman](https://github.com/MangoTheCat/mailman) wrapper, but ran into issues, so went back to the imported mailbox module. Importing and parsing took a few minutes:
 
 ```r
 message$get("From") # check this email index 11 if from my email address
-
 myemail <- message$get("From") # since it is, save as myemail to check the rest
 
 keys <- sent$keys()
@@ -98,7 +97,6 @@ keys <- sent$keys()
 number_of_messages <- length(keys)
 
 pb <- utils::txtProgressBar(max=number_of_messages)
-
 sent_messages <- data_frame(sent_date = as.character(NA), text = rep(as.character(NA), number_of_messages))
 
 for(i in seq_along(keys)){
@@ -113,12 +111,12 @@ for(i in seq_along(keys)){
 }
 ```
 
-If the message is not from me, it is saved as `NA`. What percent of mail flagged "sent" was not from `myemail`? 67%
+If the message is not from me, it is saved as `NA`. What percent of mail flagged "sent" was not from `myemail`? 
 ```r
 sum(is.na(sent_messages$text)) / number_of_messages
 # [1] 0.6664132
 ```
-
+67%. 
 Removing them and doing some additional processing, can see these 11,093 remaining sent emails range from November of 2014 to September of 2018 with a median date of October of 2013. 
 ```r
 sent_messages <- 
@@ -152,7 +150,7 @@ While median date comes a bit later than the chronological midpoint seemingly im
 
 ## Sentiment Analysis
 
-Julia Silge and David Robinson have put together an excellent online reference on text mining at [https://www.tidytextmining.com/](Text Mining with R) so with some slight work can follow their analyses with email data. Using their `tidytext` package, quickly see a lot of html formatting tags still made it past my `gsub()` gauntlet.
+Julia Silge and David Robinson have put together an excellent online reference on text mining at [Text Mining with R](https://www.tidytextmining.com/) so with some slight work can follow their analyses with email data. Using their `tidytext` package, quickly see a lot of html formatting tags still made it past my `gsub()` gauntlet.
 
 ```r
 tidy_emails <- 
@@ -176,7 +174,7 @@ tidy_emails
 # # ... with 886,860 more rows
 ```
 
-In fact, after common stop words are removed, can see the need to add a few more
+In fact, after common stop words are removed, can see a need to add a few more
 ```r
 data(stop_words)
 
@@ -201,14 +199,14 @@ tidy_emails %>%
 # 10 class                                                                         2451
 # # ... with 129,518 more rows  
 ```
-Some weird ones. Maybe the 
+Maybe the 
 ```r
 nchar("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 # [1] 76
 ```
 76 a's in a row come from `<a href=` consolidating from something in the `gsub()`s.
 
-Adding these less useful terms to create an email stop words:
+Adding these less useful terms to create an email stop words dictonary:
 
 ```r
 email_stop_words <- 
@@ -240,7 +238,7 @@ tidy_emails %>%
 ```
 ![top_words](https://dgarmat.github.io/images/sent_mail01.png "top_words")
 
-Can see some unsurprising name related common terms, as well as "lol" and "hey". But surprisingly "time", "meeting", "week", and "people" also show up a lot. Wonder if those are unusual. (Would need another sent mail corpus to compare.)
+Can see some unsurprising name related common terms as well as "lol" and "hey". But surprisingly "time", "meeting", "week", and "people" also show up a lot. Wonder if those are unusual. (Would need another sent mail corpus to compare.)
 
 What are my top joy words in email?
 
@@ -318,7 +316,7 @@ tidy_emails %>%
 # 10 venom      negative      9
 # # ... with 227 more rows
 ```
-Was it a bad breakup? Digging into my emails, can find a New York Times Magazine article copy and pasted and sent to several people. The article, "Oh, Sting, Where Is Thy Death?" By Richard Conniff, mentions the pain of stinging insects and its relevance to happiness research. Note most of those `n`s are divisible by 3.
+Was it a bad breakup? Digging into my emails, can find a New York Times Magazine article copy-and-pasted and sent to several people. The article, "Oh, Sting, Where Is Thy Death?" By Richard Conniff, mentions the pain of stinging insects and its relevance to happiness research. Note most of those `n`s are divisible by 3.
 
 
 ### Most Common Charged Words
@@ -392,8 +390,4 @@ tidy_emails %>%
 ![top_sentiment_wordcloud](https://dgarmat.github.io/images/sent_mail04.png "top_sentiment_wordcloud")
 
 Hope that was cool :)
-
-Dan
-
-
 
