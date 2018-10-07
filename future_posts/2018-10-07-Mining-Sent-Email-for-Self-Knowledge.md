@@ -27,8 +27,8 @@ library(tidytext)
 library(lubridate)
 library(reticulate)
 mailbox <- import("mailbox")
-sent <- mailbox$mbox("Sent-001.mbox")
 
+sent <- mailbox$mbox("Sent-001.mbox")
 message <- sent$get_message(11L)
 message$get("Date")
 # [1] "Mon, 23 Jul 2018 20:01:33 -0700"
@@ -51,14 +51,35 @@ Returning `message` prints the whole thing, but with much additional unneeded fo
 
 It starts with this already difficult to understand call
 ```r
-sub(".*Content-Transfer-Encoding: quoted-printable", "", gsub("=E2=80=99", "'", gsub(">", "", sub("On [A-Z][a-z]{2}.*", "", gsub("\n|\t", " ", message)))))
+sub(".*Content-Transfer-Encoding: quoted-printable", "", 
+  gsub("=E2=80=99", "'", 
+  gsub(">", "", 
+  sub("On [A-Z][a-z]{2}.*", "", 
+  gsub("\n|\t", " ", 
+  message)))))
 ```
 
 And, after much guess, try, see what's left, and add another `sub()`, ended up with this ugly function that does semi-reasonably for my goal of sentiment analysis:
 
 ```r
 parse_sent_message <- function(email){
-  substr(gsub("-top:|-bottom:|break-word","",sub("Content-Type: application/pdf|Mime-Version: 1.0.*","",sub(".*To: Dan Garmat dgarmat@gmail.com","",sub(".*charset ISO|charset  UTF-8|charset us-ascii","",sub(".*Content-Transfer-Encoding: 7bit", "", sub("orwarded message.*", "", gsub("=|\"", " ", gsub("  ", " ", gsub("= ", "", sub(".*Content-Transfer-Encoding: quoted-printable", "", sub(".*charset=UTF-8", "", gsub("=E2=80=99|&#39;", "'", gsub(">|<", "", sub("On [A-Z][a-z]{2}.*", "",gsub("\n|\t|<div|</div>|<br>", " ", email))))))))))))))), 1, 10000)
+  substr(
+    gsub("-top:|-bottom:|break-word","",
+    sub("Content-Type: application/pdf|Mime-Version: 1.0.*","",
+    sub(".*To: Dan Garmat dgarmat@gmail.com","",
+    sub(".*charset ISO|charset  UTF-8|charset us-ascii","",
+    sub(".*Content-Transfer-Encoding: 7bit", "", sub("orwarded message.*", "", 
+    gsub("=|\"", " ", 
+    gsub("  ", " ", 
+    gsub("= ", "", 
+    sub(".*Content-Transfer-Encoding: quoted-printable", "", 
+    sub(".*charset=UTF-8", "", 
+    gsub("=E2=80=99|&#39;", "'", 
+    gsub(">|<", "", 
+    sub("On [A-Z][a-z]{2}.*", "",
+    gsub("\n|\t|<div|</div>|<br>", " ", 
+    email))))))))))))))), 
+  1, 10000)
 }
 
 parse_sent_message(message)
