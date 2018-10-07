@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mining Sent Email for Self-Knowledge 
-date:   2018-10-07 10:00:53
+date:   2018-10-07 10:42:53
 category: [R, text mining, NLP, tidytext, reticulate]
 tags: [R, text mining, NLP, tidytext, reticulate]
 excerpt_separator: <!--more-->
