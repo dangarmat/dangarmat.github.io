@@ -7,7 +7,9 @@ tags: [R, text mining, NLP, tidytext, reticulate]
 excerpt_separator: <!--more-->
 ---
 
-How can we use data analytics to increase our self-knowledge? Along with biofeedback from digital devices like FitBit, less structured sources such as sent emails can provide insight. Like here it seems my communication took a sudden more positive turn in 2013. Let's see what else shakes out of my sent mail corpus.
+How can we use data analytics to increase our self-knowledge? Along with biofeedback from digital devices like [FitBit](https://dgarmat.github.io/Calories-vs-Sleep/), less structured sources such as sent emails can provide insight. 
+
+E.g. here it seems my communication took a sudden more positive turn in 2013. Let's see what else shakes out of my sent email corpus.
 
 ![monthly_sentiment](https://dgarmat.github.io/images/sent_mail00.png "monthly_sentiment")
 
