@@ -109,3 +109,30 @@ expect_no_nas(c(0, 3, 4, 5))
 expect_no_nas(c(0, 3, NA, 5))
 #> Error: Detected 1 NAs
 ```
+
+Several in one dplyr pipe expression:
+
+``` r
+mtcars %>% 
+  expect_no_nas(return_df = TRUE) %>% 
+  expect_no_duplicates("wt", stop_if_fail = FALSE) %>% 
+  filter(cyl == 4) %>% 
+  expect_zero_rows(show_fails = TRUE)
+#> [1] "Detected 0 NAs...OK"
+#> [1] "top duplicates..."
+#> # A tibble: 2 x 2
+#> # Groups:   wt [2]
+#>      wt     n
+#>   <dbl> <int>
+#> 1  3.44     3
+#> 2  3.57     2
+#> Warning: Duplicates detected in column: wt
+#>    mpg cyl  disp hp drat    wt  qsec vs am gear carb
+#> 1 22.8   4 108.0 93 3.85 2.320 18.61  1  1    4    1
+#> 2 24.4   4 146.7 62 3.69 3.190 20.00  1  0    4    2
+#> 3 22.8   4 140.8 95 3.92 3.150 22.90  1  0    4    2
+#> 4 32.4   4  78.7 66 4.08 2.200 19.47  1  1    4    1
+#> 5 30.4   4  75.7 52 4.93 1.615 18.52  1  1    4    2
+#> 6 33.9   4  71.1 65 4.22 1.835 19.90  1  1    4    1
+#> Error: Different number of rows: 11 vs: 0
+```
