@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Testing data assumptions with expectdata 
+title: Avoiding embarrassment by testing data assumptions with expectdata 
 date:   2019-10-21 10:42:53
 category: [R, expectdata, expect_data, pipeline, data engineering]
 tags: [R, expectdata, expect_data, pipeline, data engineering]
