@@ -11,6 +11,8 @@ excerpt_separator: <!--more-->
 
 ![](https://dgarmat.github.io/images/example_expect_fail_20191021.png)
 
+Note: [assertr](https://github.com/ropensci/assertr) is an ropensci project that aims to have similar functionality. Pros and cons haven't been evaluated yet, but ropensci is a big pro for assertR.
+
 <!--more-->
 
 Check for unexpected duplication
