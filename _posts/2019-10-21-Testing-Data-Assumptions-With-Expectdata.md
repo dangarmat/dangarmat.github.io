@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Checking data against expectations in a data preparation pipeline with expectdata 
+title: Testing data assumptions with expectdata 
 date:   2019-10-21 10:42:53
 category: [R, expectdata, expect_data, pipeline, data engineering]
 tags: [R, expectdata, expect_data, pipeline, data engineering]
