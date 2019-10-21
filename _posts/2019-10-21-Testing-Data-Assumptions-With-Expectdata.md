@@ -7,7 +7,7 @@ tags: [R, expectdata, expect_data, pipeline, data engineering]
 excerpt_separator: <!--more-->
 ---
 
-Expectdata is an R package that makes it easy to check assumptions about a data frame before conducting analyses. Below is a concise tour of some of the data assumptions expectdata can test for you. For example:
+[Expectdata](https://github.com/dgarmat/expectdata) is an R package that makes it easy to test assumptions about a data frame before conducting analyses. Below is a concise tour of some of the data assumptions expectdata can test for you. For example,
 
 ![](https://dgarmat.github.io/images/example_expect_fail_20191021.png)
 
